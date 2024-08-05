@@ -1,4 +1,4 @@
-package com.foliage.flutter_teamplte.myapp
+package com.example.flutter_template
 
 import io.flutter.embedding.android.FlutterActivity
 

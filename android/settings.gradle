@@ -1,4 +1,4 @@
-repluginManagement {
+pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
         file("local.properties").withInputStream { properties.load(it) }
