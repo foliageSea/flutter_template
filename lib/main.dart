@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(const MainApp());
+  Global.init().then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatelessWidget {

@@ -6,8 +6,8 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nodePackages.firebase-tools
-    pkgs.jdk17
     pkgs.unzip
+    pkgs.openjdk17-bootstrap
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -21,7 +21,7 @@
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
         build-flutter = ''
-          cd /home/user/myapp/android
+          cd /home/user/flutter_template/android
 
           ./gradlew \
             --parallel \

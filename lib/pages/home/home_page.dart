@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late HomeController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(HomeController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,13 +25,12 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Test'),
       ),
       body: Center(
-        child: ObxValue(
-          (data) => Switch(
-            value: data.value,
-            onChanged:
-                data, // Rx 有一个 _callable_函数! 你可以使用 (flag) => data.value = flag,
-          ),
-          false.obs,
+        child: Column(
+          children: [
+            Obx(() => Text(controller.version.value)),
+            FilledButton(
+                onPressed: controller.handleChange, child: const Text('修改'))
+          ],
         ),
       ),
     );

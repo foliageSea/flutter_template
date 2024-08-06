@@ -9,14 +9,17 @@
 ## 国际化
 
 ## JSON序列化
-- freezed
+- json_serializable
 
 ## 数据库
-- 
+
 
 ## 持久化
+- get_storage
+
 
 ## 日志
+- talker_flutter
 
 ## 用户提示
 
@@ -31,6 +34,11 @@
 
 ## 应用图标
 
+
+
+### 创建平台代码
+flutter create .
+flutter create --platforms=android .
 
 
 
