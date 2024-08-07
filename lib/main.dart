@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/utils/util.dart';
 import 'package:flutter_template/widgets/loading_render.dart';
 import 'package:get/get.dart';
-
-import 'utils/util.dart';
 
 void main() {
   Global.init().then((value) => runApp(const MainApp()));
@@ -29,14 +27,8 @@ class _MainAppState extends State<MainApp> {
 
     try {
       // TODO MOCK
-
-      var flag = await checkServerConnection('https://google.com');
-
-      if (flag) {
-        talker.info('网络已连接');
-      } else {
-        talker.info('网络未连接');
-      }
+      var res = await checkConnectivity();
+      talker.info(res);
     } catch (e) {
     } finally {
       loading.value = false;

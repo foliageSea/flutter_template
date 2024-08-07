@@ -20,6 +20,7 @@ dependencies:
   flutter_smart_dialog: ^4.9.7+9
   stack_trace: ^1.11.1
   dio: ^5.5.0+1
+  connectivity_plus: ^6.0.4
 
 dev_dependencies:
   flutter_test:
