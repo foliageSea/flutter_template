@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/logs/log.dart';
+import 'package:flutter_template/pages/setting/setting_controller.dart';
+import 'package:get/get.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class SettingPage extends StatefulWidget {
@@ -10,6 +14,14 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  late SettingController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(SettingController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +39,23 @@ class _SettingPageState extends State<SettingPage> {
         ],
       ),
       body: ListView(
-        children: const [
+        children: [
           ListTile(
-            title: Text('版本号'),
-          )
+            title: const Text('版本号'),
+            subtitle: Text(controller.version.value),
+            onTap: () async {
+              // SmartDialog.showToast('test toast')
+              try {
+                SmartDialog.showLoading();
+                await Future.delayed(const Duration(seconds: 2));
+                throw Exception('test error');
+              } catch (e, st) {
+                talker.handle(e, st, '测试');
+              } finally {
+                SmartDialog.dismiss();
+              }
+            },
+          ),
         ],
       ),
     );

@@ -6,22 +6,23 @@
 
 ## UI
 
+
 ## 国际化
+
 
 ## JSON序列化
 - json_serializable
 
 ## 数据库
 
-
 ## 持久化
 - get_storage
-
 
 ## 日志
 - talker_flutter
 
 ## 用户提示
+- flutter_smart_dialog
 
 ## 网络请求
 - dio
@@ -33,12 +34,14 @@
 - flutter_animate
 
 ## 应用图标
-
-
+- flutter_launcher_icons
 
 ### 创建平台代码
 flutter create .
 flutter create --platforms=android .
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/device_info_service.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,10 @@ class Global {
     /// init service
     await Get.putAsync(() => PreferencesStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
+
+    // Theme
+    Get.changeThemeMode(
+        themeModeMap[Get.find<PreferencesStorage>().themeMode.val]!);
 
     if (GetPlatform.isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =

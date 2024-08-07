@@ -11,4 +11,5 @@ class PreferencesStorage extends GetxService {
   }
 
   final version = '1.0.0'.val('version', getBox: getPrefBox);
+  final themeMode = 'system'.val('themeMode', getBox: getPrefBox);
 }

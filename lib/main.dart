@@ -1,14 +1,63 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/global.dart';
+import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/widgets/loading_render.dart';
 import 'package:get/get.dart';
+
+import 'utils/util.dart';
 
 void main() {
   Global.init().then((value) => runApp(const MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  final loading = false.obs;
+
+  Future init() async {
+    loading.value = true;
+    loading.refresh();
+
+    try {
+      // TODO MOCK
+
+      var flag = await checkServerConnection('https://google.com');
+
+      if (flag) {
+        talker.info('网络已连接');
+      } else {
+        talker.info('网络未连接');
+      }
+    } catch (e) {
+    } finally {
+      loading.value = false;
+      loading.refresh();
+    }
+  }
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  Widget _renderLoading(Widget child) {
+    return Obx(
+      () => LoadingRender(
+        loading: loading.value,
+        child: child,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +69,12 @@ class MainApp extends StatelessWidget {
       ),
       initialRoute: AppPages.install,
       getPages: AppPages.routes,
+      navigatorObservers: [FlutterSmartDialog.observer],
+      builder: FlutterSmartDialog.init(
+        builder: (context, widget) {
+          return _renderLoading(widget!);
+        },
+      ),
     );
   }
 }
