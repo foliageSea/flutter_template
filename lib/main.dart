@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/global.dart';
-import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/utils/util.dart';
 import 'package:flutter_template/widgets/loading_render.dart';
@@ -26,9 +25,7 @@ class _MainAppState extends State<MainApp> {
     loading.refresh();
 
     try {
-      // TODO MOCK
-      var res = await checkConnectivity();
-      talker.info(res);
+      await Future.delayed(const Duration(seconds: 2));
     } catch (e) {
     } finally {
       loading.value = false;
@@ -38,8 +35,8 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void initState() {
-    init();
     super.initState();
+    init();
   }
 
   Widget _renderLoading(Widget child) {

@@ -45,6 +45,12 @@ flutter create --platforms=android .
 
 
 
+```dart
+final stopwatch = Stopwatch()..start();
+stopwatch.stop();
+print(
+    'Function execution time: ${stopwatch.elapsedMilliseconds} milliseconds');
+```
 
 
 
