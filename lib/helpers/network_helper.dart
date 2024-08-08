@@ -35,7 +35,8 @@ class NetworkHelper {
     }
   }
 
-  static Future<ConnectivityResult> checkConnectivity() async {
+  /// 获取连接结果
+  static Future<ConnectivityResult> getConnectivityResult() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
 

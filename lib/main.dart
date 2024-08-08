@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
-import 'package:flutter_template/utils/util.dart';
-import 'package:flutter_template/widgets/loading_render.dart';
+import 'package:flutter_template/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 void main() {
-  Global.init().then((value) => runApp(const MainApp()));
+  Global.initApp().then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatefulWidget {
@@ -19,50 +19,60 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final loading = false.obs;
+  final splashScreenController = SplashScreenController();
 
-  Future init() async {
-    loading.value = true;
+  void setLoadingStatus(bool status) {
+    loading.value = status;
     loading.refresh();
-
-    try {
-      await Future.delayed(const Duration(seconds: 2));
-    } catch (e) {
-    } finally {
-      loading.value = false;
-      loading.refresh();
-    }
   }
 
   @override
   void initState() {
     super.initState();
-    init();
+    Global.initService(setLoadingStatus, splashScreenController);
   }
 
   Widget _renderLoading(Widget child) {
     return Obx(
-      () => LoadingRender(
+      () => SplashScreen(
+        controller: splashScreenController,
         loading: loading.value,
         child: child,
       ),
     );
   }
 
+  Widget _builder(BuildContext context, Widget? child) {
+    // 渲染结构: ScreenUtilInit->GetMaterialApp->MediaQuery->FlutterSmartDialog->_renderLoading
+    final c = FlutterSmartDialog.init(
+      builder: (context, child) {
+        return _renderLoading(child!);
+      },
+    )(context, child);
+
+    return MediaQuery(
+      /// 设置文字大小不随系统设置改变
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: c,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Template',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      initialRoute: AppPages.install,
-      getPages: AppPages.routes,
-      navigatorObservers: [FlutterSmartDialog.observer],
-      builder: FlutterSmartDialog.init(
-        builder: (context, widget) {
-          return _renderLoading(widget!);
-        },
+    return ScreenUtilInit(
+      designSize: const Size(1080, 1920),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => GetMaterialApp(
+        title: 'Flutter Template',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+        ),
+        initialRoute: AppPages.install,
+        getPages: AppPages.routes,
+        navigatorObservers: [FlutterSmartDialog.observer],
+        builder: _builder,
       ),
     );
   }

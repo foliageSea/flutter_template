@@ -37,20 +37,20 @@
 - flutter_launcher_icons
 
 ### 创建平台代码
+```bash
 flutter create .
 flutter create --platforms=android .
+```
 
-
-
-
-
-
+### 代码执行计时器
 ```dart
 final stopwatch = Stopwatch()..start();
 stopwatch.stop();
 print(
     'Function execution time: ${stopwatch.elapsedMilliseconds} milliseconds');
 ```
+
+
 
 
 
