@@ -18,25 +18,25 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final loading = false.obs;
+  final splashScreenStatus = false.obs;
   final splashScreenController = SplashScreenController();
 
-  void setLoadingStatus(bool status) {
-    loading.value = status;
-    loading.refresh();
+  void setSplashScreenStatus(bool status) {
+    splashScreenStatus.value = status;
+    splashScreenStatus.refresh();
   }
 
   @override
   void initState() {
     super.initState();
-    Global.initService(setLoadingStatus, splashScreenController);
+    Global.initService(setSplashScreenStatus, splashScreenController);
   }
 
-  Widget _renderLoading(Widget child) {
+  Widget _renderSplashScreen(Widget child) {
     return Obx(
       () => SplashScreen(
         controller: splashScreenController,
-        loading: loading.value,
+        loading: splashScreenStatus.value,
         child: child,
       ),
     );
@@ -46,7 +46,7 @@ class _MainAppState extends State<MainApp> {
     // 渲染结构: ScreenUtilInit->GetMaterialApp->MediaQuery->FlutterSmartDialog->_renderLoading
     final c = FlutterSmartDialog.init(
       builder: (context, child) {
-        return _renderLoading(child!);
+        return _renderSplashScreen(child!);
       },
     )(context, child);
 

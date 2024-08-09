@@ -9,6 +9,9 @@ class SplashScreenController extends ChangeNotifier {
   }
 }
 
+///
+/// SplashScreen 加载屏
+///
 class SplashScreen extends StatefulWidget {
   final SplashScreenController? controller;
   final bool loading;
@@ -28,23 +31,24 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   String text = '加载中';
 
+  void _handleControllerListener() {
+    text = widget.controller!.text!;
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-
-    if (widget.controller != null) {
-      widget.controller!.addListener(() {
-        text = widget.controller!.text!;
-      });
-    }
+    widget.controller?.addListener(_handleControllerListener);
   }
 
   @override
   void dispose() {
     super.dispose();
+    widget.controller?.removeListener(_handleControllerListener);
   }
 
-  Widget _buildLoadingPage(Widget child) {
+  Widget _buildSplashScreen(Widget child) {
     return widget.loading
         ? Scaffold(
             body: Center(
@@ -66,6 +70,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildLoadingPage(widget.child);
+    return _buildSplashScreen(widget.child);
   }
 }

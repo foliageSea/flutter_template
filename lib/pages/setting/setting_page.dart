@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/helpers/submit_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
 import 'package:get/get.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -20,8 +22,6 @@ class _SettingPageState extends State<SettingPage> {
     controller = Get.put(SettingController());
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +41,44 @@ class _SettingPageState extends State<SettingPage> {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: const Text('版本号'),
-            subtitle: Text(controller.version.value),
-            onTap: () async {
-              await SubmitHelper.submit(() async {
-                await Future.delayed(const Duration(seconds: 2));
-              });
-            },
+          // ListTile(
+          //   title: const Text('版本号'),
+          //   subtitle: Text(controller.version.value),
+          //   onTap: () async {
+          //     await SubmitHelper.submit(() async {
+          //       await Future.delayed(const Duration(seconds: 2));
+          //     });
+          //   },
+          // ),
+          TDCellGroup(
+            theme: TDCellGroupTheme.cardTheme,
+            cells: [
+              TDCell(
+                arrow: true,
+                title: '版本号',
+                description: controller.version.value,
+              ),
+              TDCell(
+                arrow: true,
+                title: '主题',
+                onClick: (cell) {
+                  TDPicker.showMultiPicker(
+                    context,
+                    onConfirm: (List<dynamic> selected) {
+                      var item = controller.theme[selected.first];
+                      print(item);
+                    },
+                    data: [controller.theme],
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),
+      // floatingActionButton: const TDFab(
+      //   theme: TDFabTheme.primary,
+      // ),
     );
   }
 }
