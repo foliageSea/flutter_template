@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
+import 'package:flutter_template/widgets/custom_video_player.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -69,6 +70,10 @@ class _SettingPageState extends State<SettingPage> {
               ],
             ),
           ),
+          const CustomVideoPlayer(
+            videoUrl:
+                'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+          )
         ],
       ),
     );

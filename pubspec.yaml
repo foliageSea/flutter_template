@@ -8,7 +8,7 @@ environment:
   sdk: '>=3.4.3 <4.0.0'
   flutter: '>=3.22.2'
 
-isar_version: &isar_version 3.1.0
+# isar_version: &isar_version 3.1.0
 
 dependencies:
   flutter:
@@ -28,10 +28,13 @@ dependencies:
   package_info_plus: ^8.0.1
   tdesign_flutter: ^0.1.6
   font_awesome_flutter: ^10.7.0
-  isar: *isar_version
-  isar_flutter_libs: *isar_version # contains Isar Core
+  isar: ^3.1.0
+  isar_flutter_libs: ^3.1.0 # contains Isar Core
   path: ^1.8.3
   path_provider: ^2.1.0
+  cached_network_image: ^3.3.1
+  fvp: ^0.23.0
+  video_player: ^2.9.1
 
 dev_dependencies:
   flutter_test:
@@ -39,7 +42,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
-  isar_generator: *isar_version
+  isar_generator: ^3.1.0
   flutter_launcher_icons: ^0.13.1
 
 flutter:

@@ -7,6 +7,7 @@ import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/widgets/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:fvp/fvp.dart' as fvp;
 
 import 'storages/preferences_storage.dart';
 
@@ -25,6 +26,9 @@ class Global {
     await Get.putAsync(() => PreferencesStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
     await Get.putAsync(() => DbService().init());
+
+    /// init fvp
+    fvp.registerWith();
 
     // Theme
     Get.changeThemeMode(
