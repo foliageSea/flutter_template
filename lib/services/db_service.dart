@@ -17,7 +17,9 @@ class DbService extends GetxService {
       );
 
       talker.info('数据库初始化成功 路径: $path');
-    } catch (e) {}
+    } catch (e) {
+      talker.handle(e, null, '数据库初始化失败');
+    }
 
     return this;
   }
