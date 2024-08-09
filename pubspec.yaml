@@ -24,6 +24,7 @@ dependencies:
   http: ^1.2.2
   flutter_screenutil: ^5.9.3
   package_info_plus: ^8.0.1
+  tdesign_flutter: ^0.1.6
 
 dev_dependencies:
   flutter_test:
