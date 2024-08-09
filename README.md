@@ -36,6 +36,10 @@
 
 ## 应用图标
 - flutter_launcher_icons
+```bash
+# 生成图标
+flutter pub run flutter_launcher_icons
+```
 
 ### 创建平台代码
 ```bash

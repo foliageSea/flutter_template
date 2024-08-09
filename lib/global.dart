@@ -45,7 +45,7 @@ class Global {
     cb?.call(true);
     try {
       // // TODO 首次联网检测 递归调用
-      controller?.setText('初始化数据库');
+      controller?.setText('加载中');
       await Future.delayed(const Duration(seconds: 2));
     } catch (e) {
     } finally {
