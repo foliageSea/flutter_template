@@ -70,9 +70,18 @@ class _SettingPageState extends State<SettingPage> {
               ],
             ),
           ),
-          const CustomVideoPlayer(
+          const SizedBox(
+            height: 8,
+          ),
+          CustomVideoPlayer(
             videoUrl:
                 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+            onError: (err) {
+              talker.error('视频播放出错 $err');
+            },
+            onPlayOver: () {
+              talker.info('视频播放结束');
+            },
           )
         ],
       ),
