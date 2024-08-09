@@ -14,7 +14,7 @@
 - json_serializable
 
 ## 数据库
-
+- isar
 
 ## 持久化
 - get_storage

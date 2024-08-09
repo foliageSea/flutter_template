@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
+import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
+import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/widgets/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +19,12 @@ class Global {
   static Future initApp() async {
     WidgetsFlutterBinding.ensureInitialized();
 
+    AppDirectory.ensureInitialized();
+
     /// init service
     await Get.putAsync(() => PreferencesStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
+    await Get.putAsync(() => DbService().init());
 
     // Theme
     Get.changeThemeMode(
@@ -40,11 +45,7 @@ class Global {
     cb?.call(true);
     try {
       // // TODO 首次联网检测 递归调用
-      // controller?.setText('检测网络');
-      // await Future.delayed(const Duration(seconds: 2));
-      // controller?.setText('检测版本');
-      // await Future.delayed(const Duration(seconds: 2));
-      controller?.setText('加载配置');
+      controller?.setText('初始化数据库');
       await Future.delayed(const Duration(seconds: 2));
     } catch (e) {
     } finally {

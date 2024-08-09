@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
@@ -40,6 +41,15 @@ class _SettingPageState extends State<SettingPage> {
       ),
       body: ListView(
         children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     const FaIcon(
+          //       FontAwesomeIcons.steam,
+          //       size: 60,
+          //     )
+          //   ],
+          // ),
           Obx(
             () => TDCellGroup(
               theme: TDCellGroupTheme.cardTheme,
