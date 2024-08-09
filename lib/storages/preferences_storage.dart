@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class PreferencesStorage extends GetxService {
-  static GetStorage getPrefBox() => GetStorage('PreferencesStorage');
+  static const container = 'PreferencesStorage';
+
+  static GetStorage getPrefBox() => GetStorage(container);
 
   // Init
   Future<PreferencesStorage> init() async {
-    await GetStorage.init('PreferencesStorage');
+    await GetStorage.init(container);
     return this;
   }
 
