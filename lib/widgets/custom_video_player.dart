@@ -9,11 +9,13 @@ class CustomVideoPlayer extends StatefulWidget {
     required this.videoUrl,
     this.onPlayOver,
     this.onError,
+    this.onClick,
   });
 
   final String videoUrl;
   final Function()? onPlayOver;
   final CustomVideoPlayerOnError? onError;
+  final Function? onClick;
 
   @override
   State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
@@ -91,7 +93,10 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         VideoPlayer(_controller),
-        _ControlsOverlay(controller: _controller),
+        _ControlsOverlay(
+          controller: _controller,
+          onClick: widget.onClick,
+        ),
         VideoProgressIndicator(_controller, allowScrubbing: true),
       ],
     );
@@ -110,9 +115,11 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         } else {
           child = _buildVideo();
         }
-        return AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: child,
+        return Center(
+          child: AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: child,
+          ),
         );
       },
     );
@@ -120,7 +127,9 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 }
 
 class _ControlsOverlay extends StatelessWidget {
-  const _ControlsOverlay({required this.controller});
+  final Function? onClick;
+
+  const _ControlsOverlay({required this.controller, this.onClick});
 
   static const List<Duration> _exampleCaptionOffsets = <Duration>[
     Duration(seconds: -10),
@@ -168,8 +177,11 @@ class _ControlsOverlay extends StatelessWidget {
                 ),
         ),
         GestureDetector(
-          onTap: () {
+          onDoubleTap: () {
             controller.value.isPlaying ? controller.pause() : controller.play();
+          },
+          onTap: () {
+            onClick?.call();
           },
         ),
         // Align(
