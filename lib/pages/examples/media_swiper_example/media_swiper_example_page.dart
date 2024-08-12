@@ -13,90 +13,111 @@ class _MediaSwiperExamplePageState extends State<MediaSwiperExamplePage> {
   List<String> images = <String>[
     'https://photo.tuchong.com/14649482/f/601672690.jpg',
     'https://photo.tuchong.com/14649482/f/601672690.jpg',
-    // 'https://photo.tuchong.com/17325605/f/641585173.jpg',
-    // 'https://photo.tuchong.com/3541468/f/256561232.jpg',
-    // 'https://photo.tuchong.com/16709139/f/278778447.jpg',
-    // 'This is an video',
-    // 'https://photo.tuchong.com/5040418/f/43305517.jpg',
-    // 'https://photo.tuchong.com/3019649/f/302699092.jpg'
   ];
 
-  String url = 'https://photo.tuchong.com/14649482/f/601672690.jpg';
+  late String url;
 
   late ExtendedPageController controller;
 
-  int initialPage = 0;
+  int currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-    initialPage = images.indexOf(url);
+
+    if (images.isEmpty) {
+      return;
+    }
+    url = images.first;
+    currentPage = images.indexOf(url);
     controller = ExtendedPageController(
-      initialPage: initialPage,
+      initialPage: currentPage,
       pageSpacing: 0,
       shouldIgnorePointerWhenScrolling: true,
     );
   }
 
   void next() {
-    initialPage = ++initialPage % images.length;
-    controller.animateToPage(initialPage,
+    if (images.isEmpty) return;
+    currentPage = ++currentPage % images.length;
+    controller.animateToPage(currentPage,
         duration: const Duration(milliseconds: 200), curve: Curves.ease);
   }
 
   void previous() {
-    initialPage = --initialPage % images.length;
-    controller.animateToPage(initialPage,
+    if (images.isEmpty) return;
+    currentPage = --currentPage % images.length;
+    controller.animateToPage(currentPage,
         duration: const Duration(milliseconds: 200), curve: Curves.ease);
   }
 
   @override
   Widget build(BuildContext context) {
+    var pageCount = images.length;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('媒体轮播'),
       ),
-      body: ExtendedImageGesturePageView.builder(
-        controller: controller,
-        itemCount: images.length,
-        onPageChanged: (int page) {},
-        itemBuilder: (BuildContext context, int index) {
-          final String url = images[index];
-          return ExtendedImage.network(
-            url,
-            enableSlideOutPage: false,
-            fit: BoxFit.contain,
-            mode: ExtendedImageMode.gesture,
-            initGestureConfigHandler: (ExtendedImageState state) {
-              return GestureConfig(
-                //you must set inPageView true if you want to use ExtendedImageGesturePageView
-                inPageView: true,
-                initialScale: 1.0,
-                maxScale: 5.0,
-                animationMaxScale: 6.0,
-                initialAlignment: InitialAlignment.center,
+      body: _renderPageView(images.isEmpty),
+      bottomNavigationBar: _buildBottomNavigationBar(pageCount),
+    );
+  }
+
+  Widget _renderPageView(bool empty) {
+    return empty
+        ? const Center(
+            child: Text('暂无'),
+          )
+        : ExtendedImageGesturePageView.builder(
+            controller: controller,
+            itemCount: images.length,
+            onPageChanged: (int page) {
+              currentPage = page;
+              setState(() {});
+            },
+            itemBuilder: (BuildContext context, int index) {
+              final String url = images[index];
+              return ExtendedImage.network(
+                url,
+                enableSlideOutPage: false,
+                fit: BoxFit.contain,
+                mode: ExtendedImageMode.gesture,
+                initGestureConfigHandler: (ExtendedImageState state) {
+                  return GestureConfig(
+                    //you must set inPageView true if you want to use ExtendedImageGesturePageView
+                    inPageView: true,
+                    initialScale: 1.0,
+                    maxScale: 5.0,
+                    animationMaxScale: 6.0,
+                    initialAlignment: InitialAlignment.center,
+                  );
+                },
               );
             },
           );
-        },
-      ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            onPressed: () {
-              previous();
-            },
-            icon: const Icon(Icons.navigate_before_sharp),
-          ),
-          IconButton(
-            onPressed: () {
-              next();
-            },
-            icon: const Icon(Icons.navigate_next_sharp),
-          )
-        ],
-      ),
+  }
+
+  Widget _buildBottomNavigationBar(int pageCount) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        IconButton(
+          onPressed: () {
+            previous();
+          },
+          icon: const Icon(Icons.navigate_before_sharp),
+        ),
+        Text(
+          '${currentPage + 1}/$pageCount',
+        ),
+        IconButton(
+          onPressed: () {
+            next();
+          },
+          icon: const Icon(Icons.navigate_next_sharp),
+        )
+      ],
     );
   }
 }
