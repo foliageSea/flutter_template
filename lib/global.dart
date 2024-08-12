@@ -35,11 +35,11 @@ class Global {
     Get.changeThemeMode(
         themeModeMap[Get.find<PreferencesStorage>().themeMode.val]!);
 
-    if (GetPlatform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle =
-          const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    }
+    // if (GetPlatform.isAndroid) {
+    //   SystemUiOverlayStyle systemUiOverlayStyle =
+    //       const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    // }
 
     talker.info('应用初始化完成');
   }
