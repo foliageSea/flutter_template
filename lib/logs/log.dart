@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class CustomTalkerObserver extends TalkerObserver {
@@ -24,3 +25,12 @@ class CustomTalkerObserver extends TalkerObserver {
 
 final observer = CustomTalkerObserver();
 final talker = Talker(observer: observer);
+
+void toTalkerScreen(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => TalkerScreen(
+      talker: talker,
+      appBarTitle: '日志',
+    ),
+  ));
+}

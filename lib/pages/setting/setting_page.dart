@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
+import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
+import 'package:flutter_template/pages/examples/video_player_example/video_player_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
 import 'package:flutter_template/widgets/custom_video_player.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,61 +31,64 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('设置'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => TalkerScreen(talker: talker),
-              ));
-            },
-            icon: const Icon(Icons.bug_report),
-          )
-        ],
+        actions: [],
       ),
-      body: ListView(
-        children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     const FaIcon(
-          //       FontAwesomeIcons.steam,
-          //       size: 60,
-          //     )
-          //   ],
-          // ),
-          Obx(
-            () => TDCellGroup(
-              theme: TDCellGroupTheme.cardTheme,
-              cells: [
-                TDCell(
-                  title: '版本号',
-                  description: controller.version.value,
-                ),
-                TDCell(
-                  arrow: true,
-                  title: '主题',
-                  description: themeModeTextMap[controller.themeMode.value],
-                  onClick: (cell) {
-                    controller.changeTheme(context, cell);
-                  },
-                ),
-              ],
+      body: Obx(
+        () => TDCellGroup(
+          scrollable: true,
+          theme: TDCellGroupTheme.cardTheme,
+          cells: [
+            TDCell(
+              title: '版本号',
+              description: controller.version.value,
             ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          CustomVideoPlayer(
-            videoUrl:
-                'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-            onError: (err) {
-              talker.error('视频播放出错 $err');
-            },
-            onPlayOver: () {
-              talker.info('视频播放结束');
-            },
-          )
-        ],
+            // TDCell(
+            //   arrow: true,
+            //   title: '主题',
+            //   description: themeModeTextMap[controller.themeMode.value],
+            //   onClick: (cell) {
+            //     controller.changeTheme(context, cell);
+            //   },
+            // ),
+            TDCell(
+              arrow: true,
+              title: '视频播放',
+              onClick: (cell) {
+                Get.to(const VideoPlayerExamplePage());
+              },
+            ),
+            // const TDCell(
+            //   arrow: true,
+            //   title: '数据库',
+            // ),
+            // const TDCell(
+            //   arrow: true,
+            //   title: '数据持久化',
+            // ),
+            // const TDCell(
+            //   arrow: true,
+            //   title: '重启应用',
+            // ),
+            TDCell(
+              arrow: true,
+              title: '日志',
+              onClick: (cell) {
+                toTalkerScreen(context);
+              },
+            ),
+            // const TDCell(
+            //   arrow: true,
+            //   title: '主题配色',
+            // ),
+            TDCell(
+              arrow: true,
+              title: '设备信息',
+              onClick: (cell) {
+                Get.to(const DeviceInfoExamplePage());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

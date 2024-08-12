@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/constants/common.dart';
+import 'package:flutter_template/helpers/network_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
@@ -48,9 +49,16 @@ class Global {
       [ChangeStatusCallBack? cb, SplashScreenController? controller]) async {
     cb?.call(true);
     try {
-      // // TODO 首次联网检测 递归调用
+      /// TODO 首次联网检测 递归调用
       controller?.setText('加载中');
       await Future.delayed(const Duration(seconds: 2));
+
+      var state =
+          await NetworkHelper.checkServerStatus('https://wwww.baidu.com');
+
+      if (!state) {
+        return;
+      }
     } catch (e) {
     } finally {
       cb?.call(false);
