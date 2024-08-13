@@ -35,11 +35,11 @@ class Global {
     Get.changeThemeMode(
         themeModeMap[Get.find<PreferencesStorage>().themeMode.val]!);
 
-    // if (GetPlatform.isAndroid) {
-    //   SystemUiOverlayStyle systemUiOverlayStyle =
-    //       const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    // }
+    if (GetPlatform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
 
     talker.info('应用初始化完成');
   }
@@ -52,13 +52,6 @@ class Global {
       /// TODO 首次联网检测 递归调用
       controller?.setText('加载中');
       await Future.delayed(const Duration(seconds: 2));
-
-      var state =
-          await NetworkHelper.checkServerStatus('https://wwww.baidu.com');
-
-      if (!state) {
-        return;
-      }
     } catch (e) {
     } finally {
       cb?.call(false);
