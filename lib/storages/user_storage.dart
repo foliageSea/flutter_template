@@ -17,4 +17,6 @@ class UserStorage extends GetxService {
   final tenantCode = ''.val('tenantCode', getBox: getPrefBox);
   final account = ''.val('account', getBox: getPrefBox);
   final password = ''.val('password', getBox: getPrefBox);
+
+  bool get isLogin => token.val.isNotEmpty == true;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/submit_helper.dart';
+import 'package:flutter_template/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class LogingController extends GetxController {
@@ -12,6 +13,8 @@ class LogingController extends GetxController {
       print(loginForm.formData);
 
       loginForm.resetFormData();
+
+      Get.toNamed(Routes.home);
     });
   }
 

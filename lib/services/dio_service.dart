@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_template/events/events.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/common.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 class DioService extends GetxService {
@@ -72,9 +70,7 @@ class DioInterceptors extends Interceptor {
     if (data['code'] == 401) {
       tokenRW.val = '';
       refreshTokenRW.val = '';
-      talker.warning("401 未授权, 请重新登录");
-
-      eventBus.fire(LogoutEvent( msg: '401 未授权, 请重新登录'));
+      talker.warning("登录失效，请重新登录");
     }
 
     final accessToken = response.headers['access-token'];
