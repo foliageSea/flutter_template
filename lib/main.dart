@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/themes/color_schemes.dart';
 import 'package:flutter_template/widgets/widgets.dart';
 import 'package:get/get.dart';
 
@@ -66,8 +67,9 @@ class _MainAppState extends State<MainApp> {
       builder: (context, child) => GetMaterialApp(
         title: 'Flutter Template',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
+          colorScheme: ColorSchemes.lightColorScheme,
+          fontFamily: "Microsoft YaHei",
         ),
         initialRoute: AppPages.install,
         getPages: AppPages.routes,
