@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_template/events/events.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/utils/utils.dart';
 import 'package:flutter_template/widgets/widgets.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +32,11 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     Global.initService(setSplashScreenStatus, splashScreenController);
+
+    eventBus.on<LogoutEvent>().listen((event) {
+      showToast(event.msg);
+      // TODO 跳转到登录页
+    });
   }
 
   Widget _renderSplashScreen(Widget child) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_template/events/events.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/common.dart';
@@ -72,6 +73,8 @@ class DioInterceptors extends Interceptor {
       tokenRW.val = '';
       refreshTokenRW.val = '';
       talker.warning("401 未授权, 请重新登录");
+
+      eventBus.fire(LogoutEvent( msg: '401 未授权, 请重新登录'));
     }
 
     final accessToken = response.headers['access-token'];
