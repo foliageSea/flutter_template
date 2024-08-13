@@ -14,7 +14,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<CustomAppBar> createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(kBottomNavigationBarHeight);
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
