@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// 全局统一的 showToast
@@ -12,3 +14,11 @@ Future<String> getSoftwareVersion() async {
   return packageInfo.version;
 }
 
+void showSnackBar(String msg) {
+  ScaffoldMessenger.of(Get.context!).showSnackBar(
+    SnackBar(
+      content: Text(msg),
+      duration: const Duration(seconds: 1),
+    ),
+  );
+}

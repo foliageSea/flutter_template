@@ -36,6 +36,7 @@ dependencies:
   fvp: ^0.23.0
   video_player: ^2.9.1
   extended_image: ^8.2.1
+  talker_dio_logger: ^4.4.1
 
 dev_dependencies:
   flutter_test:

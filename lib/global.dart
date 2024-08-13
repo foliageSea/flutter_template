@@ -5,6 +5,8 @@ import 'package:flutter_template/helpers/network_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
+import 'package:flutter_template/services/dio_service.dart';
+import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/widgets/splash_screen.dart';
 import 'package:get/get.dart';
@@ -25,8 +27,10 @@ class Global {
 
     /// init service
     await Get.putAsync(() => PreferencesStorage().init());
+    await Get.putAsync(() => UserStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
     await Get.putAsync(() => DbService().init());
+    await Get.putAsync(() => DioService().init());
 
     /// init fvp
     fvp.registerWith();
