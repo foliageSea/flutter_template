@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
+import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
 
@@ -22,8 +23,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: Text('首页'),
+      appBar: CustomAppBar(
+        title: const Text('首页'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.setting);
+            },
+            icon: const Icon(Icons.settings),
+          )
+        ],
       ),
       body: Center(
         child: Column(
