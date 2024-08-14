@@ -71,6 +71,17 @@ class DioInterceptors extends Interceptor {
       tokenRW.val = '';
       refreshTokenRW.val = '';
       talker.warning("登录失效，请重新登录");
+      handler.next(response);
+      return;
+    }
+
+    if (data['code'] == 500) {
+      showToast('请求失败');
+      final path = response.requestOptions.path;
+      String? message = data['message'];
+      talker.error('请求失败, 请求路径: $path, 错误信息: $message');
+      handler.next(response);
+      return;
     }
 
     final accessToken = response.headers['access-token'];
