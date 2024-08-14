@@ -13,7 +13,7 @@ class AppPages {
     GetPage(
       name: Routes.home,
       middlewares: [
-        EnsureAuthMiddleware(),
+        // EnsureAuthMiddleware(),
       ],
       page: () => const HomePage(),
     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
+import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,15 +22,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Test'),
+      appBar: const CustomAppBar(
+        title: Text('首页'),
       ),
       body: Center(
         child: Column(
           children: [
             Obx(() => Text(controller.version.value)),
-            FilledButton(
-                onPressed: controller.handleChange, child: const Text('修改'))
           ],
         ),
       ),

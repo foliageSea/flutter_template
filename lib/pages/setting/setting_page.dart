@@ -4,6 +4,7 @@ import 'package:flutter_template/pages/examples/device_info_example/device_info_
 import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
 import 'package:flutter_template/pages/examples/video_player_example/video_player_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
+import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -26,8 +27,8 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('设置'),
+      appBar: const CustomAppBar(
+        title: Text('设置'),
         actions: [],
       ),
       body: Obx(

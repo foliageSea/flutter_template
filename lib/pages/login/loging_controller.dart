@@ -14,7 +14,7 @@ class LogingController extends GetxController {
 
       loginForm.resetFormData();
 
-      Get.toNamed(Routes.home);
+      Get.offAllNamed(Routes.home);
     });
   }
 
