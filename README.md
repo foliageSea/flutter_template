@@ -2,9 +2,6 @@
 > foliage
 
 ## TODO
-- HTTP客户端, 拦截器
-- 路由中间件
-- 主题色
 
 ## 路由&状态管理
 - Get
@@ -70,3 +67,19 @@ print(
 
 
 
+## Rename Project [https://pub.dev/packages/rename]
+```bash
+dart run rename [commands] -t [targets] -v [value]
+
+dart run rename getAppName -t android
+dart run rename getBundleId -t android
+```
+
+### Commands 
+- setAppName
+- setBundleId
+- getAppName
+- getBundleId
+
+### Targets
+- ios,android,macos,windows,linux

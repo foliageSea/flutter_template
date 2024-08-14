@@ -34,7 +34,7 @@ class _SettingPageState extends State<SettingPage> {
       body: Obx(
         () => TDCellGroup(
           scrollable: true,
-          theme: TDCellGroupTheme.cardTheme,
+          theme: TDCellGroupTheme.defaultTheme,
           cells: [
             TDCell(
               title: '版本号',

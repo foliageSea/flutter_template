@@ -28,9 +28,9 @@ class AppPages {
           name: Routes.setting,
           page: () => const SettingPage(),
           transition: Transition.cupertino,
-          middlewares: [
-            EnsureAuthMiddleware(),
-          ],
+          // middlewares: [
+          //   EnsureAuthMiddleware(),
+          // ],
         ),
         GetPage(
           name: Routes.login,
