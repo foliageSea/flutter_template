@@ -39,9 +39,16 @@ class Global {
         themeModeMap[Get.find<PreferencesStorage>().themeMode.val]!);
 
     if (GetPlatform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle =
-          const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      // SystemUiOverlayStyle systemUiOverlayStyle =
+      //     const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      // 沉浸式NavigationBar,statusBar
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+      ));
     }
 
     talker.info('应用初始化完成');
