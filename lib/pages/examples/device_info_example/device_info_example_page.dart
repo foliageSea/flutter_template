@@ -32,30 +32,28 @@ class _DeviceInfoExamplePageState extends State<DeviceInfoExamplePage> {
         title: const Text('设备信息'),
       ),
       body: Obx(
-        () => TDCellGroup(
-          scrollable: true,
-          theme: TDCellGroupTheme.cardTheme,
-          cells: [
-            TDCell(
-              title: '安卓版本',
-              description: deviceInfo.value.version.release,
+        () => ListView(
+          children: [
+            ListTile(
+              title: const Text('安卓版本'),
+              subtitle: Text(deviceInfo.value.version.release),
             ),
-            TDCell(
-              title: 'SDK版本',
-              description: '${deviceInfo.value.version.sdkInt}',
+            ListTile(
+              title: const Text('SDK版本'),
+              subtitle: Text('${deviceInfo.value.version.sdkInt}'),
             ),
-            TDCell(
-              title: '品牌',
-              description: deviceInfo.value.brand,
+            ListTile(
+              title: const Text('品牌'),
+              subtitle: Text(deviceInfo.value.brand),
             ),
-            TDCell(
-              title: '分辨率',
-              description:
-                  '${deviceInfo.value.displayMetrics.widthPx}*${deviceInfo.value.displayMetrics.heightPx}',
+            ListTile(
+              title: const Text('分辨率'),
+              subtitle: Text(
+                  '${deviceInfo.value.displayMetrics.widthPx}*${deviceInfo.value.displayMetrics.heightPx}'),
             ),
-            TDCell(
-              title: '模拟器',
-              description: deviceInfo.value.isPhysicalDevice ? '否' : '是',
+            ListTile(
+              title: const Text('模拟器'),
+              subtitle: Text(deviceInfo.value.isPhysicalDevice ? '否' : '是'),
             ),
           ],
         ),

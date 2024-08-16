@@ -1,8 +1,11 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:flutter_template/themes/color_schemes.dart';
 import 'package:flutter_template/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -21,6 +24,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   final splashScreenStatus = false.obs;
   final splashScreenController = SplashScreenController();
+  final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
   void setSplashScreenStatus(bool status) {
     splashScreenStatus.value = status;
@@ -66,11 +70,20 @@ class _MainAppState extends State<MainApp> {
       splitScreenMode: true,
       builder: (context, child) => GetMaterialApp(
         title: 'Flutter Template',
+        themeMode: themeModeMap[themeMode.value]!,
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorSchemes.lightColorScheme,
           fontFamily: "Microsoft YaHei",
         ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorSchemes.darkColorScheme,
+          fontFamily: "Microsoft YaHei",
+        ),
+        // theme: FlexThemeData.light(scheme: FlexScheme.blueM3),
+        // darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueM3),
+        // Use dark or light theme based on system setting.
         initialRoute: AppPages.install,
         getPages: AppPages.routes,
         navigatorObservers: [FlutterSmartDialog.observer],

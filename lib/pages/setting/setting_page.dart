@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
 import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
@@ -24,6 +25,48 @@ class _SettingPageState extends State<SettingPage> {
     super.initState();
   }
 
+  Widget _build() {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text('版本号'),
+          subtitle: Text(controller.version.value),
+        ),
+        ListTile(
+          title: const Text('主题模式'),
+          subtitle: Text(themeModeTextMap[controller.themeMode.value]!),
+          onTap: () {
+            controller.changeTheme(context);
+          },
+        ),
+        ListTile(
+          title: const Text('视频播放'),
+          onTap: () {
+            Get.to(const VideoPlayerExamplePage());
+          },
+        ),
+        ListTile(
+          title: const Text('日志'),
+          onTap: () {
+            toTalkerScreen(context);
+          },
+        ),
+        ListTile(
+          title: const Text('设备信息'),
+          onTap: () {
+            Get.to(const DeviceInfoExamplePage());
+          },
+        ),
+        ListTile(
+          title: const Text('媒体轮播'),
+          onTap: () {
+            Get.to(const MediaSwiperExamplePage());
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,44 +75,7 @@ class _SettingPageState extends State<SettingPage> {
         actions: [],
       ),
       body: Obx(
-        () => TDCellGroup(
-          scrollable: true,
-          theme: TDCellGroupTheme.defaultTheme,
-          cells: [
-            TDCell(
-              title: '版本号',
-              description: controller.version.value,
-            ),
-            TDCell(
-              arrow: true,
-              title: '视频播放',
-              onClick: (cell) {
-                Get.to(const VideoPlayerExamplePage());
-              },
-            ),
-            TDCell(
-              arrow: true,
-              title: '日志',
-              onClick: (cell) {
-                toTalkerScreen(context);
-              },
-            ),
-            TDCell(
-              arrow: true,
-              title: '设备信息',
-              onClick: (cell) {
-                Get.to(const DeviceInfoExamplePage());
-              },
-            ),
-            TDCell(
-              arrow: true,
-              title: '媒体轮播',
-              onClick: (cell) {
-                Get.to(const MediaSwiperExamplePage());
-              },
-            )
-          ],
-        ),
+        () => _build(),
       ),
     );
   }

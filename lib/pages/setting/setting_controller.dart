@@ -10,7 +10,7 @@ class SettingController extends GetxController {
   final theme = <String>[].obs;
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
-  Future changeTheme(BuildContext context, TDCell cell) async {
+  Future changeTheme(BuildContext context) async {
     final data =
         theme.map<String>((e) => themeModeTextMap[e] as String).toList();
     final initialIndexes = theme.indexOf(themeMode.value);
@@ -26,8 +26,6 @@ class SettingController extends GetxController {
         themeMode.value = item;
         themeMode.refresh();
         Get.find<PreferencesStorage>().themeMode.val = item;
-        // TODO 刷新主题 没有生效!!
-        Get.changeThemeMode(themeModeMap[item]!);
         Navigator.of(context).pop();
       },
       data: [data],
