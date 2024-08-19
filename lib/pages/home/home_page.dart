@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/utils/common.dart';
 import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

@@ -79,7 +79,7 @@ class DioInterceptors extends Interceptor {
       showToast('请求失败');
       final path = response.requestOptions.path;
       String? message = data['message'];
-      talker.error('请求失败, 请求路径: $path, 错误信息: $message');
+      showSnackBar('服务器内部错误', detail: '$path' '\n' '$message');
       handler.next(response);
       return;
     }

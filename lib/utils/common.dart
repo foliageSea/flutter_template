@@ -14,11 +14,43 @@ Future<String> getSoftwareVersion() async {
   return packageInfo.version;
 }
 
-void showSnackBar(String msg) {
-  ScaffoldMessenger.of(Get.context!).showSnackBar(
+void showSnackBar(String msg, {String? detail}) {
+  final context = Get.context!;
+
+  SnackBarAction? action;
+
+  if (detail != null) {
+    final dialog = AlertDialog(
+      title: const Text('详情'),
+      content: Text(detail),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: const Text('关闭'),
+        )
+      ],
+    );
+
+    action = SnackBarAction(
+      label: '详情',
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return dialog;
+          },
+        );
+      },
+    );
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(msg),
       duration: const Duration(seconds: 1),
+      action: action,
     ),
   );
 }
