@@ -11,3 +11,5 @@ const themeModeTextMap = {
   'light': '明亮',
   'dark': '深邃',
 };
+
+const languageMap = {'zh_CN': '简体中文', 'en_US': 'English'};

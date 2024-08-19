@@ -9,6 +9,9 @@ class SettingController extends GetxController {
 
   final theme = <String>[].obs;
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
+  final langs = <String>[].obs;
+
+  final language = Get.find<PreferencesStorage>().language.val.obs;
 
   Future changeTheme(BuildContext context) async {
     final data =
@@ -32,10 +35,36 @@ class SettingController extends GetxController {
     );
   }
 
+  Future changeLanguage(BuildContext context) async {
+    final data = langs.map<String>((e) => languageMap[e] as String).toList();
+    final initialIndexes = theme.indexOf(language.value);
+
+    TDPicker.showMultiPicker(
+      context,
+      initialIndexes: [initialIndexes],
+      onConfirm: (List<dynamic> selected) {
+        if (selected.isEmpty) {
+          return;
+        }
+        var item = langs[selected.first];
+        language.value = item;
+        language.refresh();
+        Get.find<PreferencesStorage>().language.val = item;
+        Navigator.of(context).pop();
+
+        Get.updateLocale(Locale(Get.find<PreferencesStorage>().language.val));
+      },
+      data: [data],
+    );
+  }
+
   @override
   void onInit() {
     super.onInit();
     theme.value = [];
     themeModeTextMap.forEach((k, v) => theme.add(k));
+
+    langs.value = [];
+    languageMap.forEach((k, v) => langs.add(k));
   }
 }

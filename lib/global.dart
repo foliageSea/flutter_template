@@ -35,7 +35,7 @@ class Global {
     /// init fvp
     fvp.registerWith();
 
-    // Theme
+    /// Theme
     Get.changeThemeMode(
         themeModeMap[Get.find<PreferencesStorage>().themeMode.val]!);
 
@@ -51,8 +51,19 @@ class Global {
       [ChangeStatusCallBack? cb, SplashScreenController? controller]) async {
     cb?.call(true);
     try {
+      /// language
+
+      final lan = Get.find<PreferencesStorage>().language.val;
+
+      talker.info('语言: $lan');
+
+      Future.delayed(const Duration(seconds: 1), () {
+        Get.updateLocale(Locale(lan));
+      });
+
       /// TODO 首次联网检测 递归调用
-      controller?.setText('加载中');
+      controller?.setText('加载中'.tr);
+
       await Future.delayed(const Duration(seconds: 2));
     } catch (e) {
     } finally {

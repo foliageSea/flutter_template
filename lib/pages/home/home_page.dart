@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: const Text('首页'),
+        title: Text('测试'.tr),
         actions: [
           IconButton(
             onPressed: () {

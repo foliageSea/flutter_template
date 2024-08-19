@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
+import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:flutter_template/themes/color_schemes.dart';
@@ -88,6 +89,9 @@ class _MainAppState extends State<MainApp> {
         getPages: AppPages.routes,
         navigatorObservers: [FlutterSmartDialog.observer],
         builder: _builder,
+        translations: TranslationService(),
+        locale: TranslationService.locale,
+        fallbackLocale: TranslationService.fallbackLocale,
       ),
     );
   }

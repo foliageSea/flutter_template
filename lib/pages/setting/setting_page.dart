@@ -40,6 +40,13 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
+          title: const Text('语言'),
+          subtitle: Text(languageMap[controller.language.value]!),
+          onTap: () {
+            controller.changeLanguage(context);
+          },
+        ),
+        ListTile(
           title: const Text('视频播放'),
           onTap: () {
             Get.to(const VideoPlayerExamplePage());

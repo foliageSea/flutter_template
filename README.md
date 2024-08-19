@@ -2,6 +2,7 @@
 > foliage
 
 ## TODO
+- 国际化
 
 ## 路由&状态管理
 - Get
