@@ -3,6 +3,7 @@ import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,7 +38,14 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Obx(() => Text(controller.version.value)),
+            FilledButton(
+                onPressed: () {
+                  showCupertinoModalBottomSheet(
+                    context: context,
+                    builder: (context) => Container(),
+                  );
+                },
+                child: const Text('Test'))
           ],
         ),
       ),
