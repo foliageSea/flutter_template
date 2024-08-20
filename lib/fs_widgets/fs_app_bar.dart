@@ -14,7 +14,7 @@ class FsAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<FsAppBar> createState() => _FsAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(kBottomNavigationBarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _FsAppBarState extends State<FsAppBar> {
