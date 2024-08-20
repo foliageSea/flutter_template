@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   dynamic_color
+  flutter_volume_controller
   fvp
   isar_flutter_libs
   share_plus

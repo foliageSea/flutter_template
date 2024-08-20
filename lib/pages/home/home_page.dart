@@ -23,6 +23,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  String? checkVal(String? value) {
+    if (value == null || value.isEmpty) {
+      return '不能为空';
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +52,14 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 // final res = await showTextInputDialog(
                 //   context: context,
-                //   title: '请输入QQ号',
+                //   title: '登录',
                 //   textFields: [
-                //     const DialogTextField(hintText: '请输入QQ号'),
+                //     DialogTextField(
+                //       hintText: '请输入QQ号',
+                //       validator: checkVal,
+                //       keyboardType: TextInputType.number,
+                //     ),
+                //     // const DialogTextField(hintText: '请输入密码'),
                 //   ],
                 //   cancelLabel: '取消',
                 //   okLabel: '确认',

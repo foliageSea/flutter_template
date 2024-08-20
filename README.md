@@ -28,6 +28,7 @@
 ## 用户提示
 - flutter_smart_dialog
 - modal_bottom_sheet
+- adaptive_dialog
 
 ## 网络请求
 - dio

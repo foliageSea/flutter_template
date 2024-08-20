@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/file_helper.dart';
-import './fs_video_player.dart';
+import 'video_player/fs_video_player.dart';
 
 class FsMediaPreview extends StatefulWidget {
   const FsMediaPreview({
