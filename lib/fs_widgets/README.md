@@ -1,9 +1,11 @@
 # FS组件库
-> foliage
+> foliageSea
+
 ## 组件列表
-- FSImage
-- FSVideoPlayer
-- FSMediaPreview
-- FSAppBar
-- FSSplashScreen
-- ...
+- FsImage
+- FsVideoPlayer
+- FsMediaPreview
+- FsAppBar
+- FsSplashScreen
+- FsText
+- FsKeyValueText

@@ -31,13 +31,14 @@ class _SettingPageState extends State<SettingPage> {
           title: const Text('版本号'),
           subtitle: Text(controller.version.value),
         ),
-        ListTile(
-          title: const Text('主题模式'),
-          subtitle: Text(themeModeTextMap[controller.themeMode.value]!),
-          onTap: () {
-            controller.changeTheme(context);
-          },
-        ),
+        // TODO 存在主题模式切换后字体颜色冲突的问题
+        // ListTile(
+        //   title: const Text('主题模式'),
+        //   subtitle: Text(themeModeTextMap[controller.themeMode.value]!),
+        //   onTap: () {
+        //     controller.changeTheme(context);
+        //   },
+        // ),
         ListTile(
           title: const Text('语言'),
           subtitle: Text(languageMap[controller.language.value]!),

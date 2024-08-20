@@ -21,7 +21,7 @@ class _FsAppBarState extends State<FsAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title: widget.title,
       actions: widget.actions,
     );

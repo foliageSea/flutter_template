@@ -13,11 +13,23 @@ class FsKeyValueText extends StatefulWidget {
 class _FsKeyValueTextState extends State<FsKeyValueText> {
   @override
   Widget build(BuildContext context) {
+    const keyTextStyle = TextStyle(fontWeight: FontWeight.bold);
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('${widget.keyText}' ': '),
-        Text(widget.valueText ?? '-'),
+        Text(
+          '${widget.keyText}' ': ',
+          style: keyTextStyle,
+        ),
+        Flexible(
+          child: Text(
+            widget.valueText ?? '-',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }

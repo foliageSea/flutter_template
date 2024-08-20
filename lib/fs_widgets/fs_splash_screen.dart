@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/logs/log.dart';
+import 'package:get/get.dart';
 
-class FsSplashScreenController extends ChangeNotifier {
-  String? text;
+class FsSplashScreenController extends GetxController {
+  RxString text = "加载中".obs;
 
   void setText(String t) {
-    text = t;
-    notifyListeners();
+    text.value = t;
+    text.refresh();
+    talker.warning('文本变更 $t');
   }
 }
 
@@ -29,23 +33,17 @@ class FsSplashScreen extends StatefulWidget {
 }
 
 class _FsSplashScreenState extends State<FsSplashScreen> {
-  String text = '加载中';
-
-  void _handleControllerListener() {
-    text = widget.controller!.text!;
-    setState(() {});
-  }
+  late FsSplashScreenController controller;
 
   @override
   void initState() {
     super.initState();
-    widget.controller?.addListener(_handleControllerListener);
+    controller = Get.put(widget.controller ?? FsSplashScreenController());
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.controller?.removeListener(_handleControllerListener);
   }
 
   Widget _buildSplashScreen(Widget child) {
@@ -55,12 +53,12 @@ class _FsSplashScreenState extends State<FsSplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // CupertinoActivityIndicator(),
-                  const CircularProgressIndicator(),
+                  const CupertinoActivityIndicator(),
+                  // const CircularProgressIndicator(),
                   const SizedBox(
                     height: 8,
                   ),
-                  Text(text),
+                  Obx(() => Text(controller.text.value)),
                 ],
               ),
             ),

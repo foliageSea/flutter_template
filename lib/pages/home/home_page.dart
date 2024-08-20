@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/fs_widgets/fs_widgets.dart';
+import 'package:flutter_template/global.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:flutter_template/routes/app_pages.dart';
-import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -45,6 +46,13 @@ class _HomePageState extends State<HomePage> {
                 size: 14,
               ),
               label: const Text('QQ'),
+            ),
+            FilledButton.icon(
+              onPressed: () {
+                Global.restartApp(context);
+              },
+              icon: const Icon(Icons.restart_alt_rounded),
+              label: const Text('重启应用'),
             )
           ],
         ),

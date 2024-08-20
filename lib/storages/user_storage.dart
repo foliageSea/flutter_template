@@ -19,4 +19,13 @@ class UserStorage extends GetxService {
   final password = ''.val('password', getBox: getPrefBox);
 
   bool get isLogin => token.val.isNotEmpty == true;
+
+  void clearPrefBox() {
+    final prefBox = getPrefBox();
+    prefBox.remove('token');
+    prefBox.remove('refreshToken');
+    prefBox.remove('tenantCode');
+    prefBox.remove('account');
+    prefBox.remove('password');
+  }
 }

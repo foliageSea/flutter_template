@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/constants/common.dart';
@@ -12,7 +13,13 @@ import 'package:get/get.dart';
 import 'fs_widgets/fs_widgets.dart';
 
 void main() {
-  Global.initApp().then((value) => runApp(const MainApp()));
+  Global.initApp().then(
+    (value) => runApp(
+      Phoenix(
+        child: const MainApp(),
+      ),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -24,7 +31,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final splashScreenStatus = false.obs;
-  final splashScreenController = FsSplashScreenController();
+  late FsSplashScreenController splashScreenController;
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
   void setSplashScreenStatus(bool status) {
@@ -35,7 +42,12 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    Global.initService(setSplashScreenStatus, splashScreenController);
+    splashScreenController = FsSplashScreenController();
+    Global.initService(
+      setSplashScreenStatus,
+      splashScreenController,
+      rec: true,
+    );
   }
 
   Widget _renderSplashScreen(Widget child) {
