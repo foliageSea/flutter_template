@@ -16,7 +16,7 @@ class _VideoPlayerExamplePageState extends State<VideoPlayerExamplePage> {
       appBar: AppBar(
         title: const Text('视频播放'),
       ),
-      body: FSVideoPlayer(
+      body: FsVideoPlayer(
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
         onError: (err) {

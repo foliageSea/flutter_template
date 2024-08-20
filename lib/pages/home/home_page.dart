@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FSAppBar(
+      appBar: FsAppBar(
         title: Text('测试'.tr),
         actions: [
           IconButton(

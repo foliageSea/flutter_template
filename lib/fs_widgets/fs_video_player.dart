@@ -3,8 +3,8 @@ import 'package:video_player/video_player.dart';
 
 typedef FSVideoPlayerOnError = void Function(String? error);
 
-class FSVideoPlayer extends StatefulWidget {
-  const FSVideoPlayer({
+class FsVideoPlayer extends StatefulWidget {
+  const FsVideoPlayer({
     super.key,
     required this.videoUrl,
     this.onPlayOver,
@@ -18,10 +18,10 @@ class FSVideoPlayer extends StatefulWidget {
   final Function? onClick;
 
   @override
-  State<FSVideoPlayer> createState() => _FSVideoPlayerState();
+  State<FsVideoPlayer> createState() => _FsVideoPlayerState();
 }
 
-class _FSVideoPlayerState extends State<FSVideoPlayer> {
+class _FsVideoPlayerState extends State<FsVideoPlayer> {
   late VideoPlayerController _controller;
 
   late Future<void> _initializeVideoPlayerFuture;
@@ -131,27 +131,27 @@ class _ControlsOverlay extends StatelessWidget {
 
   const _ControlsOverlay({required this.controller, this.onClick});
 
-  static const List<Duration> _exampleCaptionOffsets = <Duration>[
-    Duration(seconds: -10),
-    Duration(seconds: -3),
-    Duration(seconds: -1, milliseconds: -500),
-    Duration(milliseconds: -250),
-    Duration.zero,
-    Duration(milliseconds: 250),
-    Duration(seconds: 1, milliseconds: 500),
-    Duration(seconds: 3),
-    Duration(seconds: 10),
-  ];
-  static const List<double> _examplePlaybackRates = <double>[
-    0.25,
-    0.5,
-    1.0,
-    1.5,
-    2.0,
-    3.0,
-    5.0,
-    10.0,
-  ];
+  // static const List<Duration> _exampleCaptionOffsets = <Duration>[
+  //   Duration(seconds: -10),
+  //   Duration(seconds: -3),
+  //   Duration(seconds: -1, milliseconds: -500),
+  //   Duration(milliseconds: -250),
+  //   Duration.zero,
+  //   Duration(milliseconds: 250),
+  //   Duration(seconds: 1, milliseconds: 500),
+  //   Duration(seconds: 3),
+  //   Duration(seconds: 10),
+  // ];
+  // static const List<double> _examplePlaybackRates = <double>[
+  //   0.25,
+  //   0.5,
+  //   1.0,
+  //   1.5,
+  //   2.0,
+  //   3.0,
+  //   5.0,
+  //   10.0,
+  // ];
 
   final VideoPlayerController controller;
 

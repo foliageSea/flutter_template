@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FSAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const FSAppBar({
+class FsAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const FsAppBar({
     super.key,
     this.title,
     this.actions,
@@ -11,13 +11,13 @@ class FSAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
 
   @override
-  State<FSAppBar> createState() => _FSAppBarState();
+  State<FsAppBar> createState() => _FsAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kBottomNavigationBarHeight);
 }
 
-class _FSAppBarState extends State<FSAppBar> {
+class _FsAppBarState extends State<FsAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(

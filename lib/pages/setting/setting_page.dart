@@ -76,7 +76,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FSAppBar(
+      appBar: const FsAppBar(
         title: Text('设置'),
         actions: [],
       ),

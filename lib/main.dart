@@ -24,7 +24,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final splashScreenStatus = false.obs;
-  final splashScreenController = FSSplashScreenController();
+  final splashScreenController = FsSplashScreenController();
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
   void setSplashScreenStatus(bool status) {
@@ -40,7 +40,7 @@ class _MainAppState extends State<MainApp> {
 
   Widget _renderSplashScreen(Widget child) {
     return Obx(
-      () => FSSplashScreen(
+      () => FsSplashScreen(
         controller: splashScreenController,
         loading: splashScreenStatus.value,
         child: child,

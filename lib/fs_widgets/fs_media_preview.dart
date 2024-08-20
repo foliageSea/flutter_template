@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/file_helper.dart';
 import './fs_video_player.dart';
 
-class FSMediaPreview extends StatefulWidget {
-  const FSMediaPreview({
+class FsMediaPreview extends StatefulWidget {
+  const FsMediaPreview({
     super.key,
     this.appTitle = '媒体轮播',
     this.interval = 5,
@@ -18,10 +18,10 @@ class FSMediaPreview extends StatefulWidget {
   final int? interval;
 
   @override
-  State<FSMediaPreview> createState() => _FSMediaPreviewState();
+  State<FsMediaPreview> createState() => _FsMediaPreviewState();
 }
 
-class _FSMediaPreviewState extends State<FSMediaPreview> {
+class _FsMediaPreviewState extends State<FsMediaPreview> {
   List<String> mediaUrls = <String>[];
 
   late String url;
@@ -185,7 +185,7 @@ class _FSMediaPreviewState extends State<FSMediaPreview> {
     }
 
     if (ext == FileHelperFileType.video) {
-      return FSVideoPlayer(
+      return FsVideoPlayer(
         videoUrl: url,
         onClick: () {
           fullScreen.value = !fullScreen.value;

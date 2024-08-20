@@ -17,6 +17,6 @@ class _MediaSwiperExamplePageState extends State<MediaSwiperExamplePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FSMediaPreview(mediaUrls: mediaUrls);
+    return FsMediaPreview(mediaUrls: mediaUrls);
   }
 }

@@ -47,7 +47,7 @@ class Global {
 
   /// 服务初始化
   static Future initService(
-      [ChangeStatusCallBack? cb, FSSplashScreenController? controller]) async {
+      [ChangeStatusCallBack? cb, FsSplashScreenController? controller]) async {
     cb?.call(true);
     try {
       /// language
