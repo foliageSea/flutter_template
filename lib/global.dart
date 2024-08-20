@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/helpers/android_helper.dart';
 import 'package:flutter_template/logs/log.dart';

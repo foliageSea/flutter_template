@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/device_info_service.dart';
 import 'package:get/get.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class DeviceInfoExamplePage extends StatefulWidget {
   const DeviceInfoExamplePage({super.key});

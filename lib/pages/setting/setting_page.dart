@@ -7,7 +7,6 @@ import 'package:flutter_template/pages/examples/video_player_example/video_playe
 import 'package:flutter_template/pages/setting/setting_controller.dart';
 import 'package:flutter_template/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
