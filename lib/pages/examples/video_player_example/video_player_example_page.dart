@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/widgets/custom_video_player.dart';
+import 'package:flutter_template/fs_widgets/fs_video_player.dart';
 
 class VideoPlayerExamplePage extends StatefulWidget {
   const VideoPlayerExamplePage({super.key});
@@ -16,7 +16,7 @@ class _VideoPlayerExamplePageState extends State<VideoPlayerExamplePage> {
       appBar: AppBar(
         title: const Text('视频播放'),
       ),
-      body: CustomVideoPlayer(
+      body: FSVideoPlayer(
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
         onError: (err) {

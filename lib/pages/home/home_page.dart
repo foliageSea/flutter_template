@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:flutter_template/routes/app_pages.dart';
-import 'package:flutter_template/widgets/custom_app_bar.dart';
+import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: FSAppBar(
         title: Text('测试'.tr),
         actions: [
           IconButton(

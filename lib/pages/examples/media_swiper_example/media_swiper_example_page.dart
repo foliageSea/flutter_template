@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/widgets/custom_media_player.dart';
+import 'package:flutter_template/fs_widgets/fs_media_preview.dart';
 
 class MediaSwiperExamplePage extends StatefulWidget {
   const MediaSwiperExamplePage({super.key});
@@ -17,6 +17,6 @@ class _MediaSwiperExamplePageState extends State<MediaSwiperExamplePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomMediaPlayer(mediaUrls: mediaUrls);
+    return FSMediaPreview(mediaUrls: mediaUrls);
   }
 }

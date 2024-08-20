@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/login/loging_controller.dart';
-import 'package:flutter_template/widgets/custom_app_bar.dart';
+import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: const FSAppBar(
         title: Text('登录'),
       ),
       body: Padding(

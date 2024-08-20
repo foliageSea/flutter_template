@@ -7,7 +7,7 @@ import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
-import 'package:flutter_template/widgets/splash_screen.dart';
+import 'package:flutter_template/fs_widgets/fs_splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
 
@@ -47,7 +47,7 @@ class Global {
 
   /// 服务初始化
   static Future initService(
-      [ChangeStatusCallBack? cb, SplashScreenController? controller]) async {
+      [ChangeStatusCallBack? cb, FSSplashScreenController? controller]) async {
     cb?.call(true);
     try {
       /// language

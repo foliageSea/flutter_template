@@ -59,11 +59,6 @@ print(
     'Function execution time: ${stopwatch.elapsedMilliseconds} milliseconds');
 ```
 
-### 组件开发计划
-- CustomImage(custom_image.dart)
-- CustomVideoPlayer(custom_video_player.dart)
-- MediaPreview
-
 ### 辅助类开发计划
 - ListViewScrollControllerHelper
 

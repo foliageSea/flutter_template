@@ -7,8 +7,9 @@ import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:flutter_template/themes/color_schemes.dart';
-import 'package:flutter_template/widgets/widgets.dart';
 import 'package:get/get.dart';
+
+import 'fs_widgets/fs_widgets.dart';
 
 void main() {
   Global.initApp().then((value) => runApp(const MainApp()));
@@ -23,7 +24,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final splashScreenStatus = false.obs;
-  final splashScreenController = SplashScreenController();
+  final splashScreenController = FSSplashScreenController();
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
   void setSplashScreenStatus(bool status) {
@@ -39,7 +40,7 @@ class _MainAppState extends State<MainApp> {
 
   Widget _renderSplashScreen(Widget child) {
     return Obx(
-      () => SplashScreen(
+      () => FSSplashScreen(
         controller: splashScreenController,
         loading: splashScreenStatus.value,
         child: child,

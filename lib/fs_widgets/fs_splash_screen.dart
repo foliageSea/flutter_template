@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SplashScreenController extends ChangeNotifier {
+class FSSplashScreenController extends ChangeNotifier {
   String? text;
 
   void setText(String t) {
@@ -12,12 +12,12 @@ class SplashScreenController extends ChangeNotifier {
 ///
 /// SplashScreen 加载屏
 ///
-class SplashScreen extends StatefulWidget {
-  final SplashScreenController? controller;
+class FSSplashScreen extends StatefulWidget {
+  final FSSplashScreenController? controller;
   final bool loading;
   final Widget child;
 
-  const SplashScreen({
+  const FSSplashScreen({
     super.key,
     this.controller,
     required this.loading,
@@ -25,10 +25,10 @@ class SplashScreen extends StatefulWidget {
   });
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<FSSplashScreen> createState() => _FSSplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _FSSplashScreenState extends State<FSSplashScreen> {
   String text = '加载中';
 
   void _handleControllerListener() {

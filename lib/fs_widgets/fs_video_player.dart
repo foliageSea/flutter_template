@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-typedef CustomVideoPlayerOnError = void Function(String? error);
+typedef FSVideoPlayerOnError = void Function(String? error);
 
-class CustomVideoPlayer extends StatefulWidget {
-  const CustomVideoPlayer({
+class FSVideoPlayer extends StatefulWidget {
+  const FSVideoPlayer({
     super.key,
     required this.videoUrl,
     this.onPlayOver,
@@ -14,14 +14,14 @@ class CustomVideoPlayer extends StatefulWidget {
 
   final String videoUrl;
   final Function()? onPlayOver;
-  final CustomVideoPlayerOnError? onError;
+  final FSVideoPlayerOnError? onError;
   final Function? onClick;
 
   @override
-  State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
+  State<FSVideoPlayer> createState() => _FSVideoPlayerState();
 }
 
-class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
+class _FSVideoPlayerState extends State<FSVideoPlayer> {
   late VideoPlayerController _controller;
 
   late Future<void> _initializeVideoPlayerFuture;

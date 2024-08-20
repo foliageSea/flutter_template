@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 /// 基于 cached_network_image 封装
 /// [imageUrl] 图片地址
 /// [fit] 填充方式
-class CustomImage extends StatefulWidget {
-  const CustomImage({super.key, required this.imageUrl, this.fit});
+class FSImage extends StatefulWidget {
+  const FSImage({super.key, required this.imageUrl, this.fit});
 
   final String imageUrl;
   final BoxFit? fit;
 
   @override
-  State<CustomImage> createState() => _CustomImageState();
+  State<FSImage> createState() => _FSImageState();
 }
 
-class _CustomImageState extends State<CustomImage> {
+class _FSImageState extends State<FSImage> {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(

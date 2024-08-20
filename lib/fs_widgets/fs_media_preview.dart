@@ -1,13 +1,12 @@
 import 'dart:async';
-
+import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/file_helper.dart';
-import 'package:flutter_template/widgets/custom_video_player.dart';
-import 'package:get/get.dart';
+import './fs_video_player.dart';
 
-class CustomMediaPlayer extends StatefulWidget {
-  const CustomMediaPlayer({
+class FSMediaPreview extends StatefulWidget {
+  const FSMediaPreview({
     super.key,
     this.appTitle = '媒体轮播',
     this.interval = 5,
@@ -19,10 +18,10 @@ class CustomMediaPlayer extends StatefulWidget {
   final int? interval;
 
   @override
-  State<CustomMediaPlayer> createState() => _CustomMediaPlayerState();
+  State<FSMediaPreview> createState() => _FSMediaPreviewState();
 }
 
-class _CustomMediaPlayerState extends State<CustomMediaPlayer> {
+class _FSMediaPreviewState extends State<FSMediaPreview> {
   List<String> mediaUrls = <String>[];
 
   late String url;
@@ -186,7 +185,7 @@ class _CustomMediaPlayerState extends State<CustomMediaPlayer> {
     }
 
     if (ext == FileHelperFileType.video) {
-      return CustomVideoPlayer(
+      return FSVideoPlayer(
         videoUrl: url,
         onClick: () {
           fullScreen.value = !fullScreen.value;
