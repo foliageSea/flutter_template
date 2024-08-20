@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/fs_widgets/fs_widgets.dart';
 import 'package:flutter_template/global.dart';
@@ -40,7 +41,27 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             FilledButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                // final res = await showTextInputDialog(
+                //   context: context,
+                //   title: '请输入QQ号',
+                //   textFields: [
+                //     const DialogTextField(hintText: '请输入QQ号'),
+                //   ],
+                //   cancelLabel: '取消',
+                //   okLabel: '确认',
+                // );
+
+                // final res = await showOkCancelAlertDialog(
+                //   context: context,
+                //   title: '询问',
+                //   message: '是否继续?',
+                //   okLabel: '确认',
+                //   cancelLabel: '取消',
+                // );
+
+                // print(res);
+              },
               icon: const FaIcon(
                 FontAwesomeIcons.qq,
                 size: 14,
