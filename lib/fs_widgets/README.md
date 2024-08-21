@@ -9,3 +9,4 @@
 - FsSplashScreen
 - FsText
 - FsKeyValueText
+- FsMessagePanel

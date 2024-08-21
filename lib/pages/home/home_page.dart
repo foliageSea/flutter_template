@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/fs_widgets/fs_message_panel.dart';
 import 'package:flutter_template/fs_widgets/fs_widgets.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
@@ -16,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomeController controller;
+
+  FsMessagePanelController panelController = FsMessagePanelController();
 
   @override
   void initState() {
@@ -87,6 +90,21 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(Icons.restart_alt_rounded),
               label: const Text('重启应用'),
+            ),
+            FilledButton(
+                onPressed: () {
+                  panelController.addMessage(FsMessagePanelPassItem(
+                      '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',
+                      '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'));
+                  panelController.addMessage(FsMessagePanelFailItem(
+                      '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',
+                      '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'));
+                },
+                child: const Text('add')),
+            Flexible(
+              child: FsMessagePanel(
+                controller: panelController,
+              ),
             )
           ],
         ),
