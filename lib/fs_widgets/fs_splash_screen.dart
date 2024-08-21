@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/logs/log.dart';
 import 'package:get/get.dart';
 
 class FsSplashScreenController extends GetxController {
@@ -9,7 +8,6 @@ class FsSplashScreenController extends GetxController {
   void setText(String t) {
     text.value = t;
     text.refresh();
-    talker.warning('文本变更 $t');
   }
 }
 

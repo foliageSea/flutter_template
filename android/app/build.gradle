@@ -38,7 +38,7 @@ android {
         applicationId = "com.foliage.flutter_template"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdk = flutter.minSdkVersion
+        minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
@@ -58,12 +58,12 @@ flutter {
 }
 
 // https://github.com/Frezyx/talker/issues/207
-configurations.all {
-    resolutionStrategy {
-        eachDependency {
-            if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
-                useVersion("1.7.10")
-            }
-        }
-    }
-} 
+// configurations.all {
+//     resolutionStrategy {
+//         eachDependency {
+//             if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
+//                 useVersion("1.7.10")
+//             }
+//         }
+//     }
+// } 
