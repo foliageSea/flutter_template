@@ -5,3 +5,5 @@ export './fs_media_preview.dart';
 export './fs_splash_screen.dart';
 export './fs_text.dart';
 export './fs_key_value_text.dart';
+export './fs_message_panel.dart';
+export './fs_qr_code_text_field.dart';

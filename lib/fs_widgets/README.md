@@ -10,3 +10,4 @@
 - FsText
 - FsKeyValueText
 - FsMessagePanel
+- FsQrCodeTextField
