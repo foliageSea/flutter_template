@@ -18,7 +18,7 @@ dependencies:
   get_storage: ^2.0.3
   device_info_plus: ^8.2.2
   json_annotation: ^4.9.0
-  talker_flutter: ^4.4.0
+  talker_flutter: ^4.4.1
   flutter_smart_dialog: ^4.9.7+9
   stack_trace: ^1.11.1
   dio: ^5.5.0+1

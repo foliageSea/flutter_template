@@ -69,6 +69,8 @@ dart run rename [commands] -t [targets] -v [value]
 
 dart run rename getAppName -t android
 dart run rename getBundleId -t android
+dart run rename setAppName -t android -v flutter_template
+dart run rename setBundleId -t android -v com.foliage.flutter_template
 ```
 
 ### Commands 

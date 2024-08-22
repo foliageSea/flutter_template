@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_template/events/events.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// 全局统一的 showToast
-Future<void> showToast(String msg) {
-  return SmartDialog.showToast(msg);
+void showToast(String msg) {
+  eventBus.fire(ShowToastEvent(msg));
 }
 
 /// 获取软件版本号

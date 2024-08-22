@@ -7,3 +7,9 @@ class TtsBroadCastEvent {
 
   TtsBroadCastEvent(this.text);
 }
+
+class ShowToastEvent {
+  String msg;
+
+  ShowToastEvent(this.msg);
+}
