@@ -75,15 +75,6 @@ class DioInterceptors extends Interceptor {
       return;
     }
 
-    if (data['code'] == 500) {
-      showToast('请求失败');
-      final path = response.requestOptions.path;
-      String? message = data['message'];
-      showSnackBar('服务器内部错误', detail: '$path' '\n' '$message');
-      handler.next(response);
-      return;
-    }
-
     final accessToken = response.headers['access-token'];
     final xAccessToken = response.headers['x-access-token'];
     if (accessToken != null &&
@@ -108,13 +99,24 @@ class DioInterceptors extends Interceptor {
     var message = "";
     if (err.type == DioExceptionType.connectionError) {
       message = "连接错误, 请检查网络";
-    }
-    if (err.type == DioExceptionType.connectionTimeout) {
-      message = "连接超时，请检查网络";
+      showSnackBar(message);
+      handler.next(err);
+      return;
     }
 
-    if (message.isNotEmpty) {
+    if (err.type == DioExceptionType.connectionTimeout) {
+      message = "连接超时，请检查网络";
       showSnackBar(message);
+      handler.next(err);
+      return;
+    }
+
+    if (err.type == DioExceptionType.badResponse) {
+      final path = err.requestOptions.path;
+      String? message = err.response?.data['message'];
+      showSnackBar('服务器内部错误', detail: '$path' '\n' '$message');
+      handler.next(err);
+      return;
     }
 
     handler.next(err);
