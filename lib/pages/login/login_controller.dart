@@ -3,7 +3,7 @@ import 'package:flutter_template/helpers/submit_helper.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-class LogingController extends GetxController {
+class LoginController extends GetxController {
   late LoginForm loginForm;
 
   Future handleLogin() async {

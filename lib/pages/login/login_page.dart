@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/pages/login/loging_controller.dart';
+import 'package:flutter_template/pages/login/login_controller.dart';
 import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:get/get.dart';
 
@@ -11,12 +11,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late LogingController controller;
+  late LoginController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = Get.put(LogingController());
+    controller = Get.put(LoginController());
   }
 
   @override

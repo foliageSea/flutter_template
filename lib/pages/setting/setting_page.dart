@@ -1,5 +1,7 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
+import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
 import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
@@ -68,6 +70,18 @@ class _SettingPageState extends State<SettingPage> {
           title: const Text('媒体轮播'),
           onTap: () {
             Get.to(const MediaSwiperExamplePage());
+          },
+        ),
+        ListTile(
+          title: const Text('重启应用'),
+          onTap: () {
+            showOkCancelAlertDialog(
+                    context: context, title: '询问', message: '是否重启应用')
+                .then((result) {
+              if (result == OkCancelResult.ok) {
+                Global.restartApp(context);
+              }
+            });
           },
         ),
       ],
