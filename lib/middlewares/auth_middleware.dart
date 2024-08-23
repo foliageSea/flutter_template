@@ -16,3 +16,15 @@ class EnsureAuthMiddleware extends GetMiddleware {
     return const RouteSettings(name: Routes.login);
   }
 }
+
+
+class EnsureAutoAuthedMiddleware extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    if (!Get.find<UserStorage>().isLogin) {
+      return null;
+    }
+
+    return const RouteSettings(name: Routes.home);
+  }
+}
