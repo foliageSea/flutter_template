@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:flutter_template/themes/color_schemes.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 import 'fs_widgets/fs_widgets.dart';
