@@ -100,7 +100,7 @@
             uses: "marvinpinto/action-automatic-releases@latest"
             with:
               repo_token: "${{ secrets.TOKEN }}"
-              # prerelease: false
-              draft: true
+              prerelease: false
+              # draft: true
               files: |
                 build/unsigned/*.apk
