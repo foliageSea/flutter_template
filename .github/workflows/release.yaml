@@ -20,6 +20,9 @@
         steps:
           - name: Clone repository
             uses: actions/checkout@v4
+          - name: Extract tag name
+            run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+            shell: bash
           - name: Echo build progress
             run: echo "flutter_template_android_${{ env.tag }}.apk build progress"
             shell: bash
@@ -64,13 +67,16 @@
         steps:
           - name: Clone repository
             uses: actions/checkout@v4
+
           - name: Set up JDK 17
             uses: actions/setup-java@v3
             with:
               java-version: '17'
-              distribution: 'temurin'          
+              distribution: 'temurin'
+
           - name: Setup Android SDK
             uses: android-actions/setup-android@v3
+
           - name: Setup Android build tools
             run: sdkmanager "build-tools;34.0.0"
 
@@ -80,14 +86,15 @@
             with:
               name: android_outputs
               path: android_outputs 
+
           - name: List files in android_outputs directory
             run: ls -l android_outputs   
+
           - name: Copy android build file to unsigned floder
             run: | 
               mkdir build
               mkdir build/unsigned
               cp android_outputs/* build/unsigned/flutter_template_android_${{ env.tag }}.apk
-
 
           - name: Create release
             uses: "marvinpinto/action-automatic-releases@latest"
