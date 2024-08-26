@@ -96,11 +96,20 @@
               mkdir build/unsigned
               cp android_outputs/* build/unsigned/flutter_template_android_${{ env.tag }}.apk
 
+          # - name: Create release
+          #   uses: "marvinpinto/action-automatic-releases@latest"
+          #   with:
+          #     repo_token: "${{ secrets.TOKEN }}"
+          #     prerelease: false
+          #     # draft: true
+          #     files: |
+          #       build/unsigned/*.apk
+
           - name: Create release
-            uses: "marvinpinto/action-automatic-releases@latest"
+            uses: softprops/action-gh-release@v1
             with:
-              repo_token: "${{ secrets.TOKEN }}"
-              prerelease: false
-              # draft: true
+              draft: true
               files: |
                 build/unsigned/*.apk
+            env:
+              GITHUB_TOKEN: ${{ secrets.TOKEN }}
