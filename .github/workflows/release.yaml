@@ -57,12 +57,49 @@
               name: android_outputs
               path: flutter_template_android_*.apk
 
-      
+      flutter-build-windows:
+        name: "Release for windows"
+        runs-on: "windows-latest"
+        permissions: write-all
+    
+        steps:
+          - name: Clone repository
+            uses: actions/checkout@v4
+          - run: |
+                  $tag = "${{ github.ref }}".Replace('refs/tags/', '')
+                  echo "tag=$(echo $tag)" >> $env:GITHUB_ENV
+          - run: echo "flutter_template_windows_${env:tag}.zip build progress"
+          - run: choco install yq
+          - name: Enable Git longpaths
+            run: git config --system core.longpaths true
+          - name: Set up Flutter
+            uses: subosito/flutter-action@v2
+            with:
+              channel: stable
+              flutter-version-file: pubspec.yaml
+              # cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:" # optional, change this to force refresh cache
+              # cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
+              # pub-cache-key: "flutter-pub:os:-:channel:-:version:-:arch:-:hash:" # optional, change this to force refresh cache of dart pub get dependencies
+              # pub-cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
+          - name: Set up Java
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'temurin'
+              java-version: '18'
+          - run: flutter pub get
+          - run: flutter build windows   
+          - run: Compress-Archive build/windows/x64/runner/Release/* flutter_template_windows_${env:tag}.zip
+          - name: Upload windows outputs
+            uses: actions/upload-artifact@v4
+            with:
+              name: windows_outputs
+              path: |
+                flutter_template_windows_*.zip
 
       release:
         name: "Release"
         runs-on: "ubuntu-latest"
-        needs: [flutter-build-android] 
+        needs: [flutter-build-android,flutter-build-windows] 
         permissions: write-all
         steps:
           - name: Clone repository
@@ -100,6 +137,17 @@
               mkdir build/unsigned
               cp android_outputs/* build/unsigned/flutter_template_android_${{ env.tag }}.apk
 
+          - name: Download windows build file
+            uses: actions/download-artifact@v4
+            with:
+              name: windows_outputs
+              path: windows_outputs  
+          - name: List files in windows_outputs directory
+            run: ls -l windows_outputs   
+          - name: Copy windows build file to root
+            run: cp windows_outputs/* flutter_template_windows_${{ env.tag }}.zip
+
+
           # - name: Create release
           #   uses: "marvinpinto/action-automatic-releases@latest"
           #   with:
@@ -115,5 +163,6 @@
               draft: true
               files: |
                 build/unsigned/*.apk
+                flutter_template_windows_*.zip
             env:
               GITHUB_TOKEN: ${{ secrets.TOKEN }}
