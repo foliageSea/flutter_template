@@ -88,7 +88,7 @@
               java-version: '18'
           - run: flutter pub get
           - run: flutter build windows   
-          - run: Compress-Archive build/windows/x64/runner/Release/flutter_template_windows_${env:tag}.zip
+          - run: Compress-Archive build/windows/x64/runner/Release/* flutter_template_windows_${env:tag}.zip
           - name: Upload windows outputs
             uses: actions/upload-artifact@v4
             with:
