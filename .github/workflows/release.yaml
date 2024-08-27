@@ -88,7 +88,7 @@
               java-version: '18'
           - run: flutter pub get
           - run: flutter build windows   
-          - run: Compress-Archive build/windows/x64/runner/Release/* flutter_template_windows_${env:tag}.zip
+          - run: Compress-Archive build/windows/x64/runner/Release/flutter_template_windows_${env:tag}.zip
           - name: Upload windows outputs
             uses: actions/upload-artifact@v4
             with:
@@ -109,17 +109,17 @@
             run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
             shell: bash
 
-          - name: Set up JDK 17
-            uses: actions/setup-java@v3
-            with:
-              java-version: '17'
-              distribution: 'temurin'
+          # - name: Set up JDK 17
+          #   uses: actions/setup-java@v3
+          #   with:
+          #     java-version: '17'
+          #     distribution: 'temurin'
 
-          - name: Setup Android SDK
-            uses: android-actions/setup-android@v3
+          # - name: Setup Android SDK
+          #   uses: android-actions/setup-android@v3
 
-          - name: Setup Android build tools
-            run: sdkmanager "build-tools;34.0.0"
+          # - name: Setup Android build tools
+          #   run: sdkmanager "build-tools;34.0.0"
 
           
           - name: Download android build file
