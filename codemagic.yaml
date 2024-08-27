@@ -1,4 +1,0 @@
-workflows:
-    sample-workflow:
-        environment:
-            flutter: 3.22.2
