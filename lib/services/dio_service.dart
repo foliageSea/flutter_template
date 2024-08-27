@@ -113,8 +113,17 @@ class DioInterceptors extends Interceptor {
 
     if (err.type == DioExceptionType.badResponse) {
       final path = err.requestOptions.path;
-      String? message = err.response?.data['message'];
-      showSnackBar('服务器内部错误', detail: '$path' '\n' '$message');
+      final statusCode = err.response?.statusCode;
+      final statusMessage = err.response?.statusMessage;
+
+      showSnackBar(
+        '服务器内部错误',
+        detail: 'path: $path'
+            '\n'
+            'statusCode: $statusCode'
+            '\n'
+            'statusMessage: $statusMessage',
+      );
       handler.next(err);
       return;
     }
