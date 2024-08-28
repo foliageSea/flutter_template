@@ -3,68 +3,11 @@
 
 ## TODO
 
-## 路由&状态管理
-- Get
 
-## UI
-- tdesign_flutter
-
-## 国际化
-- Get
-
-## JSON序列化
-- json_serializable
-
-## 数据库
-- isar
-
-## 持久化
-- get_storage
-
-## 日志
-- talker_flutter
-
-## 用户提示
-- flutter_smart_dialog
-- modal_bottom_sheet
-- adaptive_dialog
-
-## 网络请求
-- dio
-
-## 字体图标
-- font_awesome_flutter (https://fontawesome.com/icons)
-
-## 动画
-- flutter_animate
-
-## 表单
-- form_builder
-
-## Examples
-- FormBuilderExample(form_builder_example)
-- ScaffoldExample(scaffold_example)
-- AdaptiveDialogExample(adaptive_dialog_example)
-
-
-### 创建跨平台代码
-```bash
-flutter create .
-flutter create --platforms=android .
-# [ios (default), android (default), windows (default), linux (default), macos (default), web(default)]
-```
-
-### 代码执行计时器
-```dart
-final stopwatch = Stopwatch()..start();
-stopwatch.stop();
-print(
-    'Function execution time: ${stopwatch.elapsedMilliseconds} milliseconds');
-```
-
-### 辅助类开发计划
-- ListViewScrollControllerHelper
-
+## 开发环境
+> 建议使用 fvm 管理 Flutter SDK 的版本
+- flutter version: 3.22.2
+- dart version: 3.4.3
 
 ## 快速开始
 1. 拉取模板
@@ -105,3 +48,69 @@ flutter pub add dev:<dependency>
 
 flutter pub remove <dependency>
 ```
+## 项目依赖
+
+### 路由&状态管理
+- Get
+
+### UI
+- tdesign_flutter
+
+### 国际化
+- Get
+
+### JSON序列化
+- json_serializable
+
+### 数据库
+- isar
+
+### 持久化
+- get_storage
+
+### 日志
+- talker_flutter
+
+### 用户提示
+- flutter_smart_dialog
+- modal_bottom_sheet
+- adaptive_dialog
+
+### 网络请求
+- dio
+
+### 字体图标
+- font_awesome_flutter (https://fontawesome.com/icons)
+
+### 动画
+- flutter_animate
+
+### 表单
+- form_builder
+
+## 辅助类
+- ListViewScrollControllerHelper
+
+## 示例
+- FormBuilderExample(form_builder_example)
+- ScaffoldExample(scaffold_example)
+- AdaptiveDialogExample(adaptive_dialog_example)
+
+## 代码片段
+
+### 创建跨平台代码
+```bash
+flutter create .
+flutter create --platforms=android .
+# [ios (default), android (default), windows (default), linux (default), macos (default), web(default)]
+```
+
+### 代码执行计时器
+```dart
+final stopwatch = Stopwatch()..start();
+stopwatch.stop();
+print(
+    'Function execution time: ${stopwatch.elapsedMilliseconds} milliseconds');
+```
+
+
