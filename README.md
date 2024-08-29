@@ -23,8 +23,11 @@ flutter pub run package_rename
 ```
 
 3. 修改 Flutter 项目名称
-- 修改 pubspec.yaml 的 name 字段
-- 使用 VSCode 全文本替换 lib 目录的包名
+- 使用 rename.dart 脚本修改项目名称
+```bash
+dart run rename.dart
+```
+
 
 4. 修改应用图标
 - 修改 pubspec.yaml 的 flutter_launcher_icons 字段
