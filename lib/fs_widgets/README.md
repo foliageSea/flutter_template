@@ -11,3 +11,5 @@
 - FsKeyValueText
 - FsMessagePanel
 - FsQrCodeTextField
+- FsCard
+- FsStepper
