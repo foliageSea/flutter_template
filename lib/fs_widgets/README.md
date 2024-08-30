@@ -13,3 +13,5 @@
 - FsQrCodeTextField
 - FsCard
 - FsStepper
+- FsRotatable
+- FsMultipleMediaUpload(fs_multiple_media_upload)

@@ -9,3 +9,5 @@ export 'fs_message_panel.dart';
 export 'fs_qr_code_text_field.dart';
 export 'fs_card.dart';
 export 'fs_stepper.dart';
+export 'fs_rotatable.dart';
+export 'fs_multiple_media_upload.dart';

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -7,12 +9,14 @@ class FsVideoPlayer extends StatefulWidget {
   const FsVideoPlayer({
     super.key,
     required this.videoUrl,
+    this.path,
     this.onPlayOver,
     this.onError,
     this.onClick,
   });
 
   final String videoUrl;
+  final String? path;
   final Function()? onPlayOver;
   final FSVideoPlayerOnError? onError;
   final Function? onClick;
@@ -29,7 +33,13 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+
+    if (widget.path != null) {
+      _controller = VideoPlayerController.file(File(widget.path!));
+    } else {
+      _controller =
+          VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+    }
 
     _controller.addListener(_handleListener);
 

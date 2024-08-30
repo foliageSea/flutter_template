@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_template/fs_widgets/fs_rotatable.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -133,11 +134,28 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
                 title: Text(widget.appTitle!),
               ),
         body: GestureDetector(
-            onTap: () {
-              fullScreen.value = !fullScreen.value;
-              fullScreen.refresh();
-            },
-            child: _renderPageView(mediaUrls.isEmpty)),
+            // onTap: () {
+            //   fullScreen.value = !fullScreen.value;
+            //   fullScreen.refresh();
+            // },
+            child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 300,
+              child: FsRotatable(
+                builder: (context, w, h) {
+                  return Container(
+                    // width: w,
+                    // height: w,
+                    color: Colors.blueAccent,
+                    child: _renderPageView(mediaUrls.isEmpty),
+                  );
+                },
+              ),
+            ),
+          ],
+        )),
         bottomNavigationBar:
             fullScreen.value ? null : _buildBottomNavigationBar(pageCount),
       ),
