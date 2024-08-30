@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/fs_widgets/video_player/fs_video_player.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,13 +30,8 @@ class FsPreviewMediaHelper {
   }) async {
     await navigator.push(
       MaterialPageRoute(
-        builder: (context) => GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: _PreviewImageWidget(
-            input: input,
-          ),
+        builder: (context) => _PreviewImageWidget(
+          input: input,
         ),
       ),
     );
@@ -117,58 +113,92 @@ class FsBytesMediaInput extends FsMediaInput {
   const FsBytesMediaInput(this.bytes);
 }
 
-class _PreviewImageWidget extends StatelessWidget {
+class _PreviewImageWidget extends StatefulWidget {
   final FsMediaInput input;
 
   const _PreviewImageWidget({required this.input});
 
   @override
+  State<_PreviewImageWidget> createState() => _PreviewImageWidgetState();
+}
+
+class _PreviewImageWidgetState extends State<_PreviewImageWidget> {
+  final ctrl = PhotoViewController();
+  int doubleTapCount = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        PhotoView.customChild(
-          initialScale: 1.0,
-          minScale: 1.0,
-          maxScale: 3.0,
-          enablePanAlways: true,
-          child: Container(
-            color: Colors.transparent,
-            child: FsPreviewMediaHelper.createImageWidget(input),
-          ),
-        ),
-        Positioned(
-          left: 0,
-          top: 0,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black45,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "图片预览",
-                style: TextStyle(color: Colors.white),
+    return GestureDetector(
+      onTap: () {
+        doubleTapCount++;
+        if (doubleTapCount % 2 == 1) {
+          ctrl.scale = 1.5;
+        } else {
+          ctrl.scale = 1.0;
+        }
+      },
+      child: Stack(
+        children: [
+          Listener(
+            onPointerSignal: (event) {
+              if (event is PointerScrollEvent) {
+                final delta = event.scrollDelta.dy;
+                final scale = ctrl.scale ?? 1.0;
+                final newScale = scale - delta / 1000;
+                ctrl.scale = newScale.clamp(1.0, 10.0);
+              }
+            },
+            child: PhotoView.customChild(
+              controller: ctrl,
+              initialScale: 1.0,
+              minScale: 1.0,
+              maxScale: 3.0,
+              enablePanAlways: true,
+              child: Container(
+                color: Colors.transparent,
+                child: FsPreviewMediaHelper.createImageWidget(widget.input),
               ),
             ),
           ),
-        ),
-        Positioned(
-          right: 0,
-          top: 0,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black45,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.close,
-                color: Colors.white,
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black45,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "图片预览",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            right: 0,
+            top: 0,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black45,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -189,23 +219,22 @@ class _PreviewVideoWidgetState extends State<_PreviewVideoWidget> {
     var input = widget.input;
 
     if (input is FsUrlMediaInput) {
-      return _buildVideoPlay(input.url, null);
+      return _buildVideoPlay(FsVideoPlayerUrlSrc(input.url));
     } else if (input is FsBytesMediaInput) {
       var dir = await getTemporaryDirectory();
       var path = p.join(dir.path, 'temp_video');
       tempFile = await File(path).create();
       await tempFile!.writeAsBytes(input.bytes);
-      return _buildVideoPlay("", tempFile!.path);
+      return _buildVideoPlay(FsVideoPlayerFileSrc(path));
     }
     return _buildError();
   }
 
-  Widget _buildVideoPlay(String videoUrl, String? path) {
+  Widget _buildVideoPlay(FsVideoPlayerSrc src) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: FsVideoPlayer(
-        videoUrl: videoUrl,
-        path: path,
+        src: src,
       ),
     );
   }
