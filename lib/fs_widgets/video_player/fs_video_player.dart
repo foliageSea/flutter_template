@@ -3,22 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-typedef FSVideoPlayerOnError = void Function(String? error);
+typedef FsVideoPlayerOnError = void Function(String? error);
 
 class FsVideoPlayer extends StatefulWidget {
   const FsVideoPlayer({
     super.key,
-    required this.videoUrl,
-    this.path,
+    required this.src,
     this.onPlayOver,
     this.onError,
     this.onClick,
   });
 
-  final String videoUrl;
-  final String? path;
+  final FsVideoPlayerSrc src;
   final Function()? onPlayOver;
-  final FSVideoPlayerOnError? onError;
+  final FsVideoPlayerOnError? onError;
   final Function? onClick;
 
   @override
@@ -34,11 +32,12 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
   void initState() {
     super.initState();
 
-    if (widget.path != null) {
-      _controller = VideoPlayerController.file(File(widget.path!));
+    if (widget.src is FsVideoPlayerFileSrc) {
+      _controller = VideoPlayerController.file(
+          File((widget.src as FsVideoPlayerFileSrc).path));
     } else {
-      _controller =
-          VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+      _controller = VideoPlayerController.networkUrl(
+          Uri.parse((widget.src as FsVideoPlayerUrlSrc).url));
     }
 
     _controller.addListener(_handleListener);
@@ -255,4 +254,18 @@ class _ControlsOverlay extends StatelessWidget {
       ],
     );
   }
+}
+
+abstract class FsVideoPlayerSrc {
+  FsVideoPlayerSrc();
+}
+
+class FsVideoPlayerUrlSrc implements FsVideoPlayerSrc {
+  final String url;
+  FsVideoPlayerUrlSrc(this.url);
+}
+
+class FsVideoPlayerFileSrc implements FsVideoPlayerSrc {
+  final String path;
+  FsVideoPlayerFileSrc(this.path);
 }

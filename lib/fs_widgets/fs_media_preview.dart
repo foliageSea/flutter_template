@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_template/fs_widgets/fs_rotatable.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -188,7 +187,7 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
 
     if (ext == FileHelperFileType.video) {
       return FsVideoPlayer(
-        videoUrl: url,
+        src: FsVideoPlayerUrlSrc(url),
         onClick: () {
           fullScreen.value = !fullScreen.value;
           fullScreen.refresh();

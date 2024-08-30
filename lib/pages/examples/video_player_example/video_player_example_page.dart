@@ -17,8 +17,8 @@ class _VideoPlayerExamplePageState extends State<VideoPlayerExamplePage> {
         title: const Text('视频播放'),
       ),
       body: FsVideoPlayer(
-        videoUrl:
-            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+        src: FsVideoPlayerUrlSrc(
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
         onError: (err) {
           talker.error('视频播放出错 $err');
         },
