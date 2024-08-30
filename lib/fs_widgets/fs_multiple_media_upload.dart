@@ -1,23 +1,94 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/preview_media_helper.dart';
 import 'package:flutter_template/utils/utils.dart';
+import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 
-typedef FsMultipartFile = MultipartFile;
+typedef FsMultipartFile = dio.MultipartFile;
+
+class FsMultipleMediaUploadController extends GetxController {
+  RxBool previewMode = false.obs;
+  RxList<FsMultipleMediaUploadItem> uploadItems =
+      <FsMultipleMediaUploadItem>[].obs;
+  final ImagePicker picker = ImagePicker();
+
+  void _updatePreviewMode(bool val) {
+    previewMode.value = val;
+    previewMode.refresh();
+  }
+
+  void setUploadItems(List<FsMultipleMediaUploadItem> items) {
+    uploadItems.value = [...items];
+    uploadItems.refresh();
+  }
+
+  void clearMultipleMediaUploadItems() {
+    uploadItems.clear();
+    uploadItems.refresh();
+  }
+
+  void _onClickUploadFile(
+      {required int maxCount, required double maxSize}) async {
+    if (uploadItems.length >= maxCount) {
+      showToast('文件数量已达到最大值');
+      return;
+    }
+
+    final XFile? mediaFile = await picker.pickMedia();
+    if (mediaFile == null) return;
+
+    var fileType = _getFileTypeFromUrl(mediaFile.path);
+    var fileSize = await mediaFile.length() / 1024 / 1024; // MB
+
+    var fileName = p.basename(mediaFile.path);
+
+    if (fileSize > maxSize) {
+      showToast('文件大小不能超过${maxSize}MB');
+      return;
+    }
+
+    if (fileType == FsMultipleMediaUploadFileType.other) {
+      showToast('文件类型不支持');
+      return;
+    }
+
+    var bytes = await mediaFile.readAsBytes();
+    var base64 = base64Encode(bytes);
+
+    uploadItems.add(
+      FsMultipleMediaUploadItem(
+        input: FsBytesMediaInput(bytes),
+        fileType: fileType,
+        fileName: fileName,
+        base64: base64,
+      ),
+    );
+
+    uploadItems.refresh();
+  }
+
+  void _removeUploadItem(int index) {
+    uploadItems.removeAt(index);
+    uploadItems.refresh();
+  }
+}
 
 class FsMultipleMediaUpload extends StatefulWidget {
   const FsMultipleMediaUpload({
     super.key,
+    this.controller,
     this.maxCount = 3,
     this.maxSize = 100.0,
     this.previewMode = false,
     this.title,
   });
+
+  final FsMultipleMediaUploadController? controller;
 
   /// 文件最大上传数量
   final int maxCount;
@@ -36,31 +107,19 @@ class FsMultipleMediaUpload extends StatefulWidget {
 }
 
 class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
-  late bool previewMode;
-  List<MultipleMediaUploadItem> uploadItems = [];
-
-  final ImagePicker picker = ImagePicker();
+  late FsMultipleMediaUploadController controller;
 
   @override
   void initState() {
-    previewMode = widget.previewMode;
-    setState(() {});
+    controller =
+        Get.put(widget.controller ?? FsMultipleMediaUploadController());
+    controller._updatePreviewMode(widget.previewMode);
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  void setUploadItems(List<MultipleMediaUploadItem> items) {
-    uploadItems = [...items];
-    setState(() {});
-  }
-
-  void clearMultipleMediaUploadItems() {
-    uploadItems.clear();
-    setState(() {});
   }
 
   Widget _buildFormLabel(String label) {
@@ -82,79 +141,45 @@ class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
         const SizedBox(
           height: 4,
         ),
-        Row(
-          children: [
-            if (!previewMode)
-              GestureDetector(
-                onTap: () {
-                  _onClickUploadFile();
-                },
-                child: Container(
-                  width: 75,
-                  height: 75,
-                  margin: const EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                    // color: Colors.black26,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1.0, color: Colors.grey),
+        Obx(
+          () => Row(
+            children: [
+              if (!controller.previewMode.value)
+                GestureDetector(
+                  onTap: () {
+                    controller._onClickUploadFile(
+                        maxCount: widget.maxCount, maxSize: widget.maxSize);
+                  },
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      // color: Colors.black26,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(width: 1.0, color: Colors.grey),
+                    ),
+                    child: const Icon(Icons.add),
                   ),
-                  child: const Icon(Icons.add),
                 ),
+              Expanded(
+                child: controller.uploadItems.isNotEmpty
+                    ? _buildFileItems()
+                    : Container(),
               ),
-            Expanded(
-              child: uploadItems.isNotEmpty ? _buildFileItems() : Container(),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
   }
 
-  void _onClickUploadFile() async {
-    if (uploadItems.length >= widget.maxCount) {
-      showToast('文件数量已达到最大值');
-      return;
-    }
-
-    final XFile? mediaFile = await picker.pickMedia();
-    if (mediaFile == null) return;
-
-    var fileType = getFileTypeFromUrl(mediaFile.path);
-    var fileSize = await mediaFile.length() / 1024 / 1024; // MB
-
-    var fileName = p.basename(mediaFile.path);
-
-    if (fileSize > widget.maxSize) {
-      showToast('文件大小不能超过${widget.maxSize}MB');
-      return;
-    }
-
-    if (fileType == MultipleMediaUploadFileType.other) {
-      showToast('文件类型不支持');
-      return;
-    }
-
-    var bytes = await mediaFile.readAsBytes();
-    var base64 = base64Encode(bytes);
-
-    uploadItems.add(
-      MultipleMediaUploadItem(
-        input: FsBytesMediaInput(bytes),
-        fileType: fileType,
-        fileName: fileName,
-        base64: base64,
-      ),
-    );
-
-    setState(() {});
-  }
-
-  _buildFilePreview(MultipleMediaUploadFileType fileType,
+  _buildFilePreview(FsMultipleMediaUploadFileType fileType,
       {required FsMediaInput input}) {
     switch (fileType) {
-      case MultipleMediaUploadFileType.image:
+      case FsMultipleMediaUploadFileType.image:
         return FsPreviewMediaHelper.createImageWidget(input);
-      case MultipleMediaUploadFileType.video:
+      case FsMultipleMediaUploadFileType.video:
         return const Icon(Icons.video_camera_back);
       default:
         return const Icon(Icons.file_copy);
@@ -167,32 +192,32 @@ class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          var item = uploadItems[index];
+          var item = controller.uploadItems[index];
 
-          late MultipleMediaUploadFileType fileType;
+          late FsMultipleMediaUploadFileType fileType;
 
           if (item.input is FsUrlMediaInput) {
-            fileType = getFileTypeFromUrl((item.input as FsUrlMediaInput).url);
+            fileType = _getFileTypeFromUrl((item.input as FsUrlMediaInput).url);
           } else {
-            fileType = item.fileType ?? MultipleMediaUploadFileType.other;
+            fileType = item.fileType ?? FsMultipleMediaUploadFileType.other;
           }
 
           return _buildFileItem(context, fileType, index, input: item.input);
         },
-        itemCount: uploadItems.length,
+        itemCount: controller.uploadItems.length,
       ),
     );
   }
 
   GestureDetector _buildFileItem(
-      BuildContext context, MultipleMediaUploadFileType fileType, int index,
+      BuildContext context, FsMultipleMediaUploadFileType fileType, int index,
       {required FsMediaInput input}) {
     return GestureDetector(
       onTap: () async {
         final navigator = Navigator.of(context);
-        if (fileType == MultipleMediaUploadFileType.image) {
+        if (fileType == FsMultipleMediaUploadFileType.image) {
           FsPreviewMediaHelper.previewImage(navigator, input: input);
-        } else if (fileType == MultipleMediaUploadFileType.video) {
+        } else if (fileType == FsMultipleMediaUploadFileType.video) {
           FsPreviewMediaHelper.previewVideo(navigator, input: input);
         }
       },
@@ -209,7 +234,7 @@ class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
             ),
             child: _buildFilePreview(fileType, input: input),
           ),
-          if (!previewMode)
+          if (!controller.previewMode.value)
             Positioned(
               right: 8,
               top: 0,
@@ -223,9 +248,7 @@ class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
   GestureDetector _buildDeleteButton(int index) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          uploadItems.removeAt(index);
-        });
+        controller._removeUploadItem(index);
       },
       child: Container(
         width: 20,
@@ -244,13 +267,13 @@ class _FsMultipleMediaUploadState extends State<FsMultipleMediaUpload> {
   }
 }
 
-class MultipleMediaUploadItem {
+class FsMultipleMediaUploadItem {
   FsMediaInput input;
-  MultipleMediaUploadFileType? fileType;
+  FsMultipleMediaUploadFileType? fileType;
   String? fileName;
   String? base64;
 
-  MultipleMediaUploadItem({
+  FsMultipleMediaUploadItem({
     required this.input,
     this.fileType,
     this.fileName,
@@ -270,7 +293,7 @@ class MultipleMediaUploadItem {
 }
 
 /// 获取Url的文件类型
-MultipleMediaUploadFileType getFileTypeFromUrl(String url) {
+FsMultipleMediaUploadFileType _getFileTypeFromUrl(String url) {
   var file = url.split('?')[0];
 
   // 获取文件路径中的扩展名
@@ -283,16 +306,16 @@ MultipleMediaUploadFileType getFileTypeFromUrl(String url) {
   List<String> videoExtensions = ['.mp4', '.avi', '.mkv', '.mov'];
 
   if (imageExtensions.contains(extension)) {
-    return MultipleMediaUploadFileType.image;
+    return FsMultipleMediaUploadFileType.image;
   } else if (videoExtensions.contains(extension)) {
-    return MultipleMediaUploadFileType.video;
+    return FsMultipleMediaUploadFileType.video;
   } else {
-    return MultipleMediaUploadFileType.other;
+    return FsMultipleMediaUploadFileType.other;
   }
 }
 
 /// 文件类型
-enum MultipleMediaUploadFileType {
+enum FsMultipleMediaUploadFileType {
   image,
   video,
   other,
