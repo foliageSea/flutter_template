@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   device_info_plus: ^8.2.2
   dio: ^5.5.0+1
+  elegant_notification: ^2.2.2
   event_bus: ^2.0.0
   extended_image: ^8.2.1
   flex_color_scheme: ^7.3.1
@@ -37,6 +38,7 @@ dependencies:
   http: ^1.2.2
   http_parser: ^4.0.2
   image_picker: ^1.1.2
+  infinite_scroll_pagination: ^4.0.0
   intl: any
   isar: ^3.1.0
   isar_flutter_libs: ^3.1.0
@@ -47,6 +49,7 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.1.0
   photo_view: ^0.15.0
+  pluto_grid: ^8.0.0
   pubspec_yaml: ^3.1.0
   regexpattern: ^2.6.0
   stack_trace: ^1.11.1
