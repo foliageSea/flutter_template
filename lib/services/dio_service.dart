@@ -99,14 +99,14 @@ class DioInterceptors extends Interceptor {
     var message = "";
     if (err.type == DioExceptionType.connectionError) {
       message = "连接错误, 请检查网络";
-      showErrorNotification(message);
+      showSnackBar(message);
       handler.next(err);
       return;
     }
 
     if (err.type == DioExceptionType.connectionTimeout) {
       message = "连接超时，请检查网络";
-      showErrorNotification(message);
+      showSnackBar(message);
       handler.next(err);
       return;
     }
@@ -116,7 +116,7 @@ class DioInterceptors extends Interceptor {
       final statusCode = err.response?.statusCode;
       final statusMessage = err.response?.statusMessage;
 
-      showErrorNotification(
+      showSnackBar(
         '服务器内部错误',
         detail: 'path: $path'
             '\n'

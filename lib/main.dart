@@ -9,7 +9,6 @@ import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:flutter_template/themes/color_schemes.dart';
-import 'package:flutter_template/utils/common.dart';
 import 'package:get/get.dart';
 
 import 'fs_widgets/fs_widgets.dart';
@@ -51,11 +50,9 @@ class _MainAppState extends State<MainApp> {
       rec: true,
     );
 
-    eventBus.on<ToastEvent>().listen((event) {
+    eventBus.on<ShowToastEvent>().listen((event) {
       SmartDialog.showToast(event.msg);
     });
-
-    eventBus.on<ErrorNotificationEvent>().listen(errorNotificationEventHandler);
   }
 
   Widget _renderSplashScreen(Widget child) {

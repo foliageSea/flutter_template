@@ -15,8 +15,7 @@ class CustomTalkerObserver extends TalkerObserver {
   @override
   void onException(TalkerException err) {
     /// Send Exception to your error tracking system like Sentry or backend
-    showErrorNotification('客户端内部错误',
-        detail: '${err.exception}\n' '${err.stackTrace}');
+    showSnackBar('客户端内部错误', detail: '${err.exception}\n' '${err.stackTrace}');
     super.onException(err);
   }
 
