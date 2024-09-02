@@ -8,8 +8,15 @@ class TtsBroadCastEvent {
   TtsBroadCastEvent(this.text);
 }
 
-class ShowToastEvent {
+class ToastEvent {
   String msg;
 
-  ShowToastEvent(this.msg);
+  ToastEvent(this.msg);
+}
+
+class ErrorNotificationEvent {
+  String msg;
+  String? detail;
+
+  ErrorNotificationEvent(this.msg, [this.detail]);
 }
