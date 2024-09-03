@@ -137,32 +137,9 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
 
 class _ControlsOverlay extends StatelessWidget {
   final Function? onClick;
+  final VideoPlayerController controller;
 
   const _ControlsOverlay({required this.controller, this.onClick});
-
-  // static const List<Duration> _exampleCaptionOffsets = <Duration>[
-  //   Duration(seconds: -10),
-  //   Duration(seconds: -3),
-  //   Duration(seconds: -1, milliseconds: -500),
-  //   Duration(milliseconds: -250),
-  //   Duration.zero,
-  //   Duration(milliseconds: 250),
-  //   Duration(seconds: 1, milliseconds: 500),
-  //   Duration(seconds: 3),
-  //   Duration(seconds: 10),
-  // ];
-  // static const List<double> _examplePlaybackRates = <double>[
-  //   0.25,
-  //   0.5,
-  //   1.0,
-  //   1.5,
-  //   2.0,
-  //   3.0,
-  //   5.0,
-  //   10.0,
-  // ];
-
-  final VideoPlayerController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -193,64 +170,38 @@ class _ControlsOverlay extends StatelessWidget {
             onClick?.call();
           },
         ),
-        // Align(
-        //   alignment: Alignment.topLeft,
-        //   child: PopupMenuButton<Duration>(
-        //     initialValue: controller.value.captionOffset,
-        //     tooltip: 'Caption Offset',
-        //     onSelected: (Duration delay) {
-        //       controller.setCaptionOffset(delay);
-        //     },
-        //     itemBuilder: (BuildContext context) {
-        //       return <PopupMenuItem<Duration>>[
-        //         for (final Duration offsetDuration in _exampleCaptionOffsets)
-        //           PopupMenuItem<Duration>(
-        //             value: offsetDuration,
-        //             child: Text('${offsetDuration.inMilliseconds}ms'),
-        //           )
-        //       ];
-        //     },
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(
-        //         // Using less vertical padding as the text is also longer
-        //         // horizontally, so it feels like it would need more spacing
-        //         // horizontally (matching the aspect ratio of the video).
-        //         vertical: 12,
-        //         horizontal: 16,
-        //       ),
-        //       child: Text('${controller.value.captionOffset.inMilliseconds}ms'),
-        //     ),
-        //   ),
-        // ),
-        // Align(
-        //   alignment: Alignment.topRight,
-        //   child: PopupMenuButton<double>(
-        //     initialValue: controller.value.playbackSpeed,
-        //     tooltip: 'Playback speed',
-        //     onSelected: (double speed) {
-        //       controller.setPlaybackSpeed(speed);
-        //     },
-        //     itemBuilder: (BuildContext context) {
-        //       return <PopupMenuItem<double>>[
-        //         for (final double speed in _examplePlaybackRates)
-        //           PopupMenuItem<double>(
-        //             value: speed,
-        //             child: Text('${speed}x'),
-        //           )
-        //       ];
-        //     },
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(
-        //         // Using less vertical padding as the text is also longer
-        //         // horizontally, so it feels like it would need more spacing
-        //         // horizontally (matching the aspect ratio of the video).
-        //         vertical: 12,
-        //         horizontal: 16,
-        //       ),
-        //       child: Text('${controller.value.playbackSpeed}x'),
-        //     ),
-        //   ),
-        // ),
+        Positioned(
+          bottom: 16.0,
+          left: 16.0,
+          child: IconButton(
+            onPressed: () {
+              if (controller.value.position.inSeconds > 5) {
+                controller.seekTo(
+                    Duration(seconds: controller.value.position.inSeconds - 5));
+              } else {
+                controller.seekTo(const Duration(seconds: 0));
+              }
+            },
+            icon: const Icon(
+              Icons.replay_5,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 16.0,
+          right: 16.0,
+          child: IconButton(
+            onPressed: () {
+              controller.seekTo(
+                  Duration(seconds: controller.value.position.inSeconds + 5));
+            },
+            icon: const Icon(
+              Icons.forward_5,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ],
     );
   }
