@@ -1,36 +1,12 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Themes {
   // Light
-  static final light = FlexThemeData.light(
-    scheme: FlexScheme.flutterDash,
-    primary: const Color(0xFF7778dc),
-    secondary: const Color(0xFF81aad3),
-    fontFamily: "Microsoft YaHei",
-    useMaterial3: true,
-  ).copyWith(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-    splashFactory: NoSplash.splashFactory,
-  );
+  static final light = FlexThemeData.light(scheme: FlexScheme.mandyRed);
 
   // Dark
-  static final dark = FlexThemeData.dark(
-    scheme: FlexScheme.flutterDash,
-    primary: const Color(0xFF7778dc),
-    secondary: const Color(0xFF81aad3),
-    fontFamily: "Microsoft YaHei",
-    useMaterial3: true,
-  ).copyWith(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-    splashFactory: NoSplash.splashFactory,
-    cupertinoOverrideTheme: const CupertinoThemeData(
-      textTheme: CupertinoTextThemeData(),
-    ),
-  );
+  static final dark = FlexThemeData.dark(scheme: FlexScheme.mandyRed);
 }
 
 class ThemeColor {

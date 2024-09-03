@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_template/themes.dart';
 
 class FsDescriptions extends StatefulWidget {
   const FsDescriptions({
@@ -51,7 +52,10 @@ class _FsDescriptionsState extends State<FsDescriptions> {
             children: [
               Text(
                 item.title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: ThemeColor(context).textColor,
+                ),
               ),
               Flexible(
                 child: Tooltip(
@@ -61,7 +65,9 @@ class _FsDescriptionsState extends State<FsDescriptions> {
                     item.value ?? '-',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: valueTextStyle,
+                    style: valueTextStyle?.copyWith(
+                      color: ThemeColor(context).textColor,
+                    ),
                   ),
                 ),
               ),
