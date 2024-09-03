@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/pages/login/login_controller.dart';
 import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,7 +68,11 @@ class _LoginPageState extends State<LoginPage> {
             },
             child: const Text('登录'),
           ),
-        )
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Bootstrap.github),
+        ),
       ],
     );
   }

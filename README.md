@@ -59,6 +59,10 @@ flutter pub remove <dependency>
 ### UI
 - tdesign_flutter
 
+### 主题
+- flex_color_scheme
+- dynamic_color?
+
 ### 国际化
 - Get
 
@@ -83,13 +87,16 @@ flutter pub remove <dependency>
 - dio
 
 ### 字体图标
-- font_awesome_flutter (https://fontawesome.com/icons)
+- icons_plus
 
 ### 动画
 - flutter_animate
 
 ### 表单
 - form_builder
+
+### 表格
+- pluto_grid
 
 ## 辅助类
 - ListViewScrollControllerHelper
