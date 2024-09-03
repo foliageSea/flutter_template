@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/themes.dart';
 import 'package:get/get.dart';
 
 class FsAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -23,7 +24,7 @@ class _FsAppBarState extends State<FsAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      backgroundColor: ThemeColor(context).primaryColor,
       title: widget.title,
       actions: widget.actions ??
           [

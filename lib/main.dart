@@ -8,10 +8,10 @@ import 'package:flutter_template/global.dart';
 import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
-import 'package:flutter_template/themes/color_schemes.dart';
 import 'package:get/get.dart';
 
 import 'fs_widgets/fs_widgets.dart';
+import 'themes.dart';
 
 void main() {
   Global.initApp().then(
@@ -89,19 +89,8 @@ class _MainAppState extends State<MainApp> {
       builder: (context, child) => GetMaterialApp(
         title: 'Flutter Template',
         themeMode: themeModeMap[themeMode.value]!,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorSchemes.lightColorScheme,
-          fontFamily: "Microsoft YaHei",
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorSchemes.darkColorScheme,
-          fontFamily: "Microsoft YaHei",
-        ),
-        // theme: FlexThemeData.light(scheme: FlexScheme.blueM3),
-        // darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueM3),
-        // Use dark or light theme based on system setting.
+        theme: Themes.light,
+        darkTheme: Themes.dark,
         initialRoute: AppPages.install,
         getPages: AppPages.routes,
         navigatorObservers: [FlutterSmartDialog.observer],
