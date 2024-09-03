@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/fs_widgets/fs_widgets.dart';
 
 class ScaffoldExample extends StatelessWidget {
   const ScaffoldExample({
@@ -13,8 +14,8 @@ class ScaffoldExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
+      appBar: FsAppBar(
+        title: title,
       ),
       body: body,
     );

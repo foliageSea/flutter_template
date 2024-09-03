@@ -10,7 +10,7 @@ class FsAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.actions,
   });
 
-  final Widget? title;
+  final String? title;
   final List<Widget>? actions;
 
   @override
@@ -25,7 +25,9 @@ class _FsAppBarState extends State<FsAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ThemeColor(context).primaryColor,
-      title: widget.title,
+      title: Text(
+        widget.title ?? '',
+      ),
       actions: widget.actions ??
           [
             IconButton(

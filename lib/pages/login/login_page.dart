@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const FsAppBar(
-        title: Text('登录'),
+        title: '登录',
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

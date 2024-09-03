@@ -99,7 +99,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const FsAppBar(
-        title: Text('设置'),
+        title: '设置',
         actions: [],
       ),
       body: Obx(

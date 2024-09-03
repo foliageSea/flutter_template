@@ -9,6 +9,7 @@ class Themes {
     primary: const Color(0xFF7778dc),
     secondary: const Color(0xFF81aad3),
     fontFamily: "Microsoft YaHei",
+    useMaterial3: true,
   ).copyWith(
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
@@ -21,6 +22,7 @@ class Themes {
     primary: const Color(0xFF7778dc),
     secondary: const Color(0xFF81aad3),
     fontFamily: "Microsoft YaHei",
+    useMaterial3: true,
   ).copyWith(
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
@@ -32,16 +34,13 @@ class Themes {
 }
 
 class ThemeColor {
-
   BuildContext context;
 
   ThemeColor(this.context);
 
+  Color get primaryColor => Theme.of(context).colorScheme.primary;
 
+  Color get secondaryColor => Theme.of(context).colorScheme.secondary;
 
-   Color get primaryColor => Theme.of(context).colorScheme.primary;
-
-   Color get secondaryColor => Theme.of(context).colorScheme.secondary;
-
-   Color get textColor => Theme.of(context).colorScheme.scrim;
+  Color get textColor => Theme.of(context).colorScheme.scrim;
 }

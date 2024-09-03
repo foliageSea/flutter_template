@@ -23,11 +23,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: FsAppBar(
-        title: Text('首页'.tr),
+        title: '首页',
       ),
-      body: const Center(
+      body: Center(
         child: Text('首页'),
       ),
     );
