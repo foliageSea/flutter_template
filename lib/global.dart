@@ -102,4 +102,9 @@ class Global {
   static void restartApp(BuildContext context) {
     Phoenix.rebirth(context);
   }
+
+  /// 退出应用
+  static void exitApp() {
+    AndroidHelper.exitApp();
+  }
 }
