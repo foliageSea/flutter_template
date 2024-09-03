@@ -1,6 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class AdaptiveDialogExamplePage extends StatefulWidget {
   const AdaptiveDialogExamplePage({super.key});
@@ -46,8 +46,8 @@ class _AdaptiveDialogExamplePageState extends State<AdaptiveDialogExamplePage> {
           );
           print(res);
         },
-        icon: const FaIcon(
-          FontAwesomeIcons.qq,
+        icon: const Icon(
+          AntDesign.qq_circle_fill,
           size: 14,
         ),
         label: const Text('QQ'),
