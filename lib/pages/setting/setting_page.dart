@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
@@ -52,7 +54,7 @@ class _SettingPageState extends State<SettingPage> {
         ListTile(
           title: const Text('视频播放'),
           onTap: () {
-            Get.to(const VideoPlayerExamplePage());
+            Get.to(()=>const VideoPlayerExamplePage());
           },
         ),
         ListTile(
@@ -64,6 +66,10 @@ class _SettingPageState extends State<SettingPage> {
         ListTile(
           title: const Text('设备信息'),
           onTap: () {
+            if(!Platform.isAndroid) {
+              return;
+            }
+
             Get.to(const DeviceInfoExamplePage());
           },
         ),

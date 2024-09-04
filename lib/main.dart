@@ -100,6 +100,7 @@ class _MainAppState extends State<MainApp> {
         getPages: AppPages.routes,
         navigatorObservers: [FlutterSmartDialog.observer],
         builder: _builder,
+        debugShowCheckedModeBanner: false,
         translations: TranslationService(),
         locale: TranslationService.locale,
         fallbackLocale: TranslationService.fallbackLocale,
