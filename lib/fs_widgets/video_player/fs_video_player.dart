@@ -86,7 +86,6 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
       children: [
         Icon(
           Icons.error_outline,
-          color: Colors.red,
           size: 60,
         ),
         SizedBox(
