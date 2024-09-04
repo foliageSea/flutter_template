@@ -51,6 +51,14 @@ class _FsSplashScreenState extends State<FsSplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Image.asset(
+                    'assets/icon/icon.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   const CupertinoActivityIndicator(),
                   // const CircularProgressIndicator(),
                   const SizedBox(
