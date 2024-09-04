@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/events/events.dart';
+import 'package:flutter_template/events/handlers.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
@@ -50,8 +51,12 @@ class _MainAppState extends State<MainApp> {
       rec: true,
     );
 
-    eventBus.on<ShowToastEvent>().listen((event) {
-      SmartDialog.showToast(event.msg);
+    eventBus.on<ToastEvent>().listen((event) {
+      toastEventHandler(event);
+    });
+
+    eventBus.on<SnackBarEvent>().listen((event) {
+      snackBarEventHandler(event);
     });
   }
 

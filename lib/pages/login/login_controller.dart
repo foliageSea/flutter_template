@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/helpers/submit_helper.dart';
+import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class LoginController extends GetxController {
 
       loginForm.resetFormData();
 
-      Get.offAllNamed(Routes.home);
+      // Get.offAllNamed(Routes.home);
     });
   }
 
