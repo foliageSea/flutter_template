@@ -16,3 +16,4 @@
 - FsRotatable
 - FsMultipleMediaUpload(fs_multiple_media_upload)
 - FsDescriptions(fs_descriptions)
+- FsFutureBuilder(fs_future_builder)
