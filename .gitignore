@@ -44,3 +44,7 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+translations/baidu_translation_api.dart
+
+/translations/out/
