@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_template/fs_widgets/fs_rotatable.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,10 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
 
   RxBool fullScreen = false.obs;
 
+  late FsRotatableController _fsRotatableController;
+
+  Rx<BoxFit> boxFit = BoxFit.contain.obs;
+
   void updateParams() {
     count.value = widget.interval!;
     mediaUrls = widget.mediaUrls;
@@ -48,6 +53,7 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
   @override
   void initState() {
     super.initState();
+    _fsRotatableController = FsRotatableController();
     updateParams();
     if (mediaUrls.isEmpty) {
       return;
@@ -137,7 +143,10 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
             fullScreen.value = !fullScreen.value;
             fullScreen.refresh();
           },
-          child: _renderPageView(mediaUrls.isEmpty),
+          child: FsRotatable(
+            controller: _fsRotatableController,
+            child: _renderPageView(mediaUrls.isEmpty),
+          ),
         ),
         bottomNavigationBar:
             fullScreen.value ? null : _buildBottomNavigationBar(pageCount),
@@ -167,21 +176,23 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
     fileType.value = ext;
 
     if (ext == FileHelperFileType.image) {
-      return ExtendedImage.network(
-        url,
-        enableSlideOutPage: false,
-        fit: BoxFit.contain,
-        mode: ExtendedImageMode.gesture,
-        initGestureConfigHandler: (ExtendedImageState state) {
-          return GestureConfig(
-            //you must set inPageView true if you want to use ExtendedImageGesturePageView
-            inPageView: true,
-            initialScale: 1.0,
-            maxScale: 5.0,
-            animationMaxScale: 6.0,
-            initialAlignment: InitialAlignment.center,
-          );
-        },
+      return Obx(
+        () => ExtendedImage.network(
+          url,
+          enableSlideOutPage: false,
+          fit: boxFit.value,
+          mode: ExtendedImageMode.gesture,
+          initGestureConfigHandler: (ExtendedImageState state) {
+            return GestureConfig(
+              //you must set inPageView true if you want to use ExtendedImageGesturePageView
+              inPageView: true,
+              initialScale: 1.0,
+              maxScale: 5.0,
+              animationMaxScale: 6.0,
+              initialAlignment: InitialAlignment.center,
+            );
+          },
+        ),
       );
     }
 
@@ -240,6 +251,24 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
             next();
           },
           icon: const Icon(Icons.navigate_next_sharp),
+        ),
+        IconButton(
+          onPressed: () {
+            _fsRotatableController.rotate();
+          },
+          icon: const Icon(Icons.rotate_left),
+        ),
+        Obx(
+          () => IconButton(
+            onPressed: () {
+              boxFit.value =
+                  boxFit.value == BoxFit.contain ? BoxFit.fill : BoxFit.contain;
+              boxFit.refresh();
+            },
+            icon: boxFit.value == BoxFit.contain
+                ? const Icon(Icons.fullscreen)
+                : const Icon(Icons.fullscreen_exit),
+          ),
         ),
       ],
     );
