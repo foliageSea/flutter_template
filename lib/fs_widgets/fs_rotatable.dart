@@ -1,64 +1,49 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:get/get.dart';
+
+class FsRotatableController extends GetxController {
+  RxInt quarterTurns = 0.obs;
+
+  void rotate() {
+    quarterTurns.value = (quarterTurns.value + 1) % 4;
+  }
+}
 
 class FsRotatable extends StatefulWidget {
   const FsRotatable({
     super.key,
-    required this.builder,
+    this.controller,
+    required this.child,
   });
 
-  final Widget Function(BuildContext context, double width, double height)
-      builder;
+  final FsRotatableController? controller;
+  final Widget child;
 
   @override
   State<FsRotatable> createState() => _FsRotatableState();
 }
 
 class _FsRotatableState extends State<FsRotatable> {
-  double _angle = 0.0;
-
-  void _rotate() {
-    setState(() {
-      _angle += math.pi / 2;
-      if (_angle >= 2 * math.pi) {
-        _angle = 0.0;
-      }
-    });
-  }
+  late FsRotatableController controller;
 
   @override
   void initState() {
     super.initState();
-  }
-
-  bool landscape(double turns) {
-    if (turns == 0.25 || turns == 0.75) {
-      return true;
-    }
-    return false;
+    controller = Get.put(widget.controller ?? FsRotatableController());
   }
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // 根据约束动态设置宽度和高度
-        var width = constraints.maxWidth;
-        var height = constraints.maxHeight;
-        final turns = _angle / (2 * math.pi);
-        var w = landscape(turns) ? height : width;
-        var h = landscape(turns) ? width : height;
-        print('$w $h');
-        return GestureDetector(
-          onTap: _rotate,
-          child: AnimatedRotation(
-            alignment: Alignment.center,
-            duration: const Duration(milliseconds: 500),
-            turns: turns,
-            child: widget.builder(context, w, h),
+  Widget build(context) {
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 16 / 9, // 默认宽高比
+        child: Obx(
+          () => RotatedBox(
+            quarterTurns: controller.quarterTurns.value,
+            child: widget.child,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
