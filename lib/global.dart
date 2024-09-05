@@ -6,7 +6,6 @@ import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/services/dio_service.dart';
-import 'package:flutter_template/services/tts_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/fs_widgets/fs_splash_screen.dart';
@@ -34,7 +33,7 @@ class Global {
     await Get.putAsync(() => DeviceInfoService().init());
     await Get.putAsync(() => DbService().init());
     await Get.putAsync(() => DioService().init());
-    await Get.putAsync(() => TtsService().init());
+    // await Get.putAsync(() => TtsService().init());
 
     /// init fvp
     fvp.registerWith();
