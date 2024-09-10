@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/fs_widgets/video_player/fs_video_player.dart';
+import 'package:flutter_template/fs_widgets/video_player/fs_video_player_src.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:photo_view/photo_view.dart';
@@ -105,11 +106,13 @@ abstract class FsMediaInput {
 
 class FsUrlMediaInput extends FsMediaInput {
   final String url;
+
   const FsUrlMediaInput(this.url);
 }
 
 class FsBytesMediaInput extends FsMediaInput {
   final Uint8List bytes;
+
   const FsBytesMediaInput(this.bytes);
 }
 

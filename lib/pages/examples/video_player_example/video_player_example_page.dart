@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/fs_widgets/video_player/fs_video_player_src.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/fs_widgets/video_player/fs_video_player.dart';
 
@@ -17,8 +18,7 @@ class _VideoPlayerExamplePageState extends State<VideoPlayerExamplePage> {
         title: const Text('视频播放'),
       ),
       body: FsVideoPlayer(
-        src: FsVideoPlayerUrlSrc(
-            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
+        src: FsVideoPlayerFileAssetsSrc('assets/medias/bee.mp4'),
         onError: (err) {
           talker.error('视频播放出错 $err');
         },

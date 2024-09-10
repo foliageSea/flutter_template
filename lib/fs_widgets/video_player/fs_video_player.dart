@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+import 'fs_video_player_src.dart';
 
 typedef FsVideoPlayerOnError = void Function(String? error);
 
@@ -28,16 +31,19 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
 
   late Future<void> _initializeVideoPlayerFuture;
 
+  bool showPanel = false;
+
   @override
   void initState() {
     super.initState();
 
     if (widget.src is FsVideoPlayerFileSrc) {
-      _controller = VideoPlayerController.file(
-          File((widget.src as FsVideoPlayerFileSrc).path));
+      _controller = VideoPlayerController.file(File(widget.src.getSrc()));
+    } else if (widget.src is FsVideoPlayerUrlSrc) {
+      _controller =
+          VideoPlayerController.networkUrl(Uri.parse(widget.src.getSrc()));
     } else {
-      _controller = VideoPlayerController.networkUrl(
-          Uri.parse((widget.src as FsVideoPlayerUrlSrc).url));
+      _controller = VideoPlayerController.asset(widget.src.getSrc());
     }
 
     _controller.addListener(_handleListener);
@@ -80,18 +86,21 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
   }
 
   Widget _buildError(AsyncSnapshot<void> snapshot) {
-    return const Center(
+    return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.error_outline,
           size: 60,
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
-        Text('视频播放器加载出错了'),
+        Text(
+          '视频播放器加载出错了\n${snapshot.error}',
+          textAlign: TextAlign.center,
+        ),
       ],
     ));
   }
@@ -100,12 +109,18 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        VideoPlayer(_controller),
-        _ControlsOverlay(
-          controller: _controller,
-          onClick: widget.onClick,
-        ),
-        VideoProgressIndicator(_controller, allowScrubbing: true),
+        GestureDetector(
+            onDoubleTap: () {
+              setState(() {
+                showPanel = !showPanel;
+              });
+            },
+            child: VideoPlayer(_controller)),
+        if (showPanel)
+          _ControlsOverlay(
+            controller: _controller,
+            onClick: widget.onClick,
+          ),
       ],
     );
   }
@@ -142,80 +157,93 @@ class _ControlsOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 50),
-          reverseDuration: const Duration(milliseconds: 200),
-          child: controller.value.isPlaying
-              ? const SizedBox.shrink()
-              : Container(
-                  color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
+    const double iconSize = 30;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          width: constraints.maxWidth / 3,
+          height: 95,
+          margin: const EdgeInsets.only(bottom: 16),
+          padding:
+              const EdgeInsets.only(top: 16, bottom: 16, left: 8.0, right: 8.0),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.2),
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Flexible(
+                  child:
+                      VideoProgressIndicator(controller, allowScrubbing: true)),
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      if (controller.value.position.inSeconds > 5) {
+                        controller.seekTo(Duration(
+                            seconds: controller.value.position.inSeconds - 5));
+                      } else {
+                        controller.seekTo(const Duration(seconds: 0));
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.replay_5,
                       color: Colors.white,
-                      size: 100.0,
-                      semanticLabel: 'Play',
+                      size: iconSize,
                     ),
                   ),
-                ),
-        ),
-        GestureDetector(
-          onDoubleTap: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
-          },
-          onTap: () {
-            onClick?.call();
-          },
-        ),
-        Positioned(
-          bottom: 16.0,
-          left: 16.0,
-          child: IconButton(
-            onPressed: () {
-              if (controller.value.position.inSeconds > 5) {
-                controller.seekTo(
-                    Duration(seconds: controller.value.position.inSeconds - 5));
-              } else {
-                controller.seekTo(const Duration(seconds: 0));
-              }
-            },
-            icon: const Icon(
-              Icons.replay_5,
-              color: Colors.white,
-            ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.value.isPlaying
+                          ? controller.pause()
+                          : controller.play();
+                    },
+                    icon: controller.value.isPlaying
+                        ? const Center(
+                            child: Icon(
+                              Icons.pause,
+                              color: Colors.white,
+                              semanticLabel: 'Play',
+                              size: iconSize,
+                            ),
+                          )
+                        : const Center(
+                            child: Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                              semanticLabel: 'Play',
+                              size: iconSize,
+                            ),
+                          ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.seekTo(Duration(
+                          seconds: controller.value.position.inSeconds + 5));
+                    },
+                    icon: const Icon(
+                      Icons.forward_5,
+                      color: Colors.white,
+                      size: iconSize,
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
-        ),
-        Positioned(
-          bottom: 16.0,
-          right: 16.0,
-          child: IconButton(
-            onPressed: () {
-              controller.seekTo(
-                  Duration(seconds: controller.value.position.inSeconds + 5));
-            },
-            icon: const Icon(
-              Icons.forward_5,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
-}
-
-abstract class FsVideoPlayerSrc {
-  FsVideoPlayerSrc();
-}
-
-class FsVideoPlayerUrlSrc implements FsVideoPlayerSrc {
-  final String url;
-  FsVideoPlayerUrlSrc(this.url);
-}
-
-class FsVideoPlayerFileSrc implements FsVideoPlayerSrc {
-  final String path;
-  FsVideoPlayerFileSrc(this.path);
 }

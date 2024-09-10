@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_template/fs_widgets/fs_rotatable.dart';
+import 'package:flutter_template/fs_widgets/video_player/fs_video_player_src.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -177,7 +178,7 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
 
     if (ext == FileHelperFileType.image) {
       return Obx(
-        () => ExtendedImage.network(
+        () => ExtendedImage.asset(
           url,
           enableSlideOutPage: false,
           fit: boxFit.value,
@@ -198,7 +199,7 @@ class _FsMediaPreviewState extends State<FsMediaPreview> {
 
     if (ext == FileHelperFileType.video) {
       return FsVideoPlayer(
-        src: FsVideoPlayerUrlSrc(url),
+        src: FsVideoPlayerFileAssetsSrc(url),
         onClick: () {
           fullScreen.value = !fullScreen.value;
           fullScreen.refresh();

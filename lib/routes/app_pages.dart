@@ -1,4 +1,5 @@
 import 'package:flutter_template/middlewares/auth_middleware.dart';
+import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
 import 'package:flutter_template/pages/home/home_page.dart';
 import 'package:flutter_template/pages/login/login_page.dart';
 import 'package:flutter_template/pages/root/root_page.dart';
@@ -8,7 +9,7 @@ import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const install = Routes.login;
+  static const install = Routes.video;
 
   static final routes = [
     GetPage(
@@ -39,6 +40,11 @@ class AppPages {
           middlewares: [
             EnsureAutoAuthedMiddleware(),
           ],
+        ),
+        GetPage(
+          name: Routes.video,
+          page: () => const MediaSwiperExamplePage(),
+          transition: Transition.cupertino,
         ),
       ],
     )

@@ -10,9 +10,8 @@ class MediaSwiperExamplePage extends StatefulWidget {
 
 class _MediaSwiperExamplePageState extends State<MediaSwiperExamplePage> {
   List<String> mediaUrls = <String>[
-    'https://foliagesea.github.io/blog/assets/image-20240221223245869-J1aPcQmq.png',
-    'https://foliagesea.github.io/blog/assets/image-20240221223245869-J1aPcQmq.png',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'assets/medias/img.png',
+    'assets/medias/bee.mp4',
   ];
 
   @override
