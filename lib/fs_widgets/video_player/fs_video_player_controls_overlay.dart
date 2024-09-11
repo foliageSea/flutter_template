@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/fs_widgets/video_player/fs_video_player_controller.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
 class FsVideoPlayerControlsOverlay extends StatefulWidget {
   final String videoUrl;
-  final Widget playerSurface;
+  final Widget Function(
+    BuildContext context,
+    VideoPlayerController controller,
+    bool showControls,
+  ) builder;
 
   const FsVideoPlayerControlsOverlay({
     super.key,
     required this.videoUrl,
-    required this.playerSurface,
+    required this.builder,
   });
 
   @override
@@ -33,6 +38,8 @@ class _FsVideoPlayerControlsOverlayState
     controller = Get.put(FsVideoPlayerController(
       videoUrl: widget.videoUrl,
     ));
+
+    controller.createVideoController();
   }
 
   @override
@@ -117,7 +124,10 @@ class _FsVideoPlayerControlsOverlayState
                   alignment: Alignment.center,
                   children: [
                     Center(
-                      child: widget.playerSurface,
+                      child: widget.builder(
+                          context,
+                          controller.videoPlayerController,
+                          controller.showControls.value),
                     ),
                     loadingWidget,
                     gestureWidget,

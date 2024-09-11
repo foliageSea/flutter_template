@@ -1,5 +1,5 @@
 import 'package:flutter_template/middlewares/auth_middleware.dart';
-import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
+import 'package:flutter_template/pages/examples/video_player_example/video_player_example_page.dart';
 import 'package:flutter_template/pages/home/home_page.dart';
 import 'package:flutter_template/pages/login/login_page.dart';
 import 'package:flutter_template/pages/root/root_page.dart';
@@ -43,7 +43,7 @@ class AppPages {
         ),
         GetPage(
           name: Routes.video,
-          page: () => const MediaSwiperExamplePage(),
+          page: () => const VideoPlayerExamplePage(),
           transition: Transition.cupertino,
         ),
       ],

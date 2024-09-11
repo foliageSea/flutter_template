@@ -87,11 +87,11 @@ class FsVideoPlayerController extends GetxController {
     seek(currentPosition.value);
   }
 
-  Future<VideoPlayerController> createVideoController() async {
-    final ctrl = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
-    await ctrl.initialize();
+  void createVideoController() {
+    final ctrl = VideoPlayerController.asset(videoUrl);
+    ctrl.initialize().then((_) => {});
     talker.info('CreateVideoController Success: $videoUrl');
-    return ctrl;
+    videoPlayerController = ctrl;
   }
 
   Timer getPlayerTimer() {
@@ -106,19 +106,8 @@ class FsVideoPlayerController extends GetxController {
             : videoPlayerController.value.buffered.first.end;
         duration.value = videoPlayerController.value.duration;
         completed.value = videoPlayerController.value.isCompleted;
-        
 
         update();
-      },
-    );
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    createVideoController().then(
-      (ctrl) {
-        videoPlayerController = ctrl;
       },
     );
   }

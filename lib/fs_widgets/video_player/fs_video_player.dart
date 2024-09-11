@@ -31,7 +31,7 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
 
   late Future<void> _initializeVideoPlayerFuture;
 
-  bool showPanel = false;
+  bool showControls = false;
 
   @override
   void initState() {
@@ -106,22 +106,23 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
   }
 
   Widget _buildVideo() {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        GestureDetector(
-            onDoubleTap: () {
-              setState(() {
-                showPanel = !showPanel;
-              });
-            },
-            child: VideoPlayer(_controller)),
-        if (showPanel)
-          _ControlsOverlay(
-            controller: _controller,
-            onClick: widget.onClick,
-          ),
-      ],
+    return GestureDetector(
+      onDoubleTap: () {
+        setState(() {
+          showControls = !showControls;
+        });
+      },
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          VideoPlayer(_controller),
+          if (showControls)
+            _ControlsOverlay(
+              controller: _controller,
+              onClick: widget.onClick,
+            ),
+        ],
+      ),
     );
   }
 
@@ -162,7 +163,7 @@ class _ControlsOverlay extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          width: constraints.maxWidth / 3,
+          width: constraints.maxWidth * 0.8,
           height: 95,
           margin: const EdgeInsets.only(bottom: 16),
           padding:
