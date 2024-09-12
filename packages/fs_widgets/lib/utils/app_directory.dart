@@ -12,7 +12,7 @@ class AppDirectory {
     try {
       _appDocDir = await getApplicationDocumentsDirectory();
       _cacheDir = await getTemporaryDirectory();
-    } catch (e) {}
+    } catch (_) {}
   }
 
   static String get getDirectory => _appDocDir.path;

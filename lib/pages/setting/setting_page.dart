@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
-import 'package:flutter_template/pages/examples/home_example/home_example_page.dart';
+import 'package:fs_widgets/examples/home_example/home_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
 import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 import 'package:get/get.dart';
@@ -55,16 +52,7 @@ class _SettingPageState extends State<SettingPage> {
             toTalkerScreen(context);
           },
         ),
-        ListTile(
-          title: const Text('设备信息'),
-          onTap: () {
-            if (!Platform.isAndroid) {
-              return;
-            }
 
-            Get.to(const DeviceInfoExamplePage());
-          },
-        ),
         ListTile(
           title: const Text('重启应用'),
           onTap: () {
