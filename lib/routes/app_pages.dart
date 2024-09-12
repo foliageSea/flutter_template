@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const install = Routes.video;
+  static const install = Routes.home;
 
   static final routes = [
     GetPage(
@@ -24,9 +24,9 @@ class AppPages {
           name: Routes.home,
           page: () => const HomePage(),
           transition: Transition.cupertino,
-          middlewares: [
-            EnsureAuthMiddleware(),
-          ],
+          // middlewares: [
+          //   EnsureAuthMiddleware(),
+          // ],
         ),
         GetPage(
           name: Routes.setting,
@@ -40,11 +40,6 @@ class AppPages {
           middlewares: [
             EnsureAutoAuthedMiddleware(),
           ],
-        ),
-        GetPage(
-          name: Routes.video,
-          page: () => const VideoPlayerExamplePage(),
-          transition: Transition.cupertino,
         ),
       ],
     )

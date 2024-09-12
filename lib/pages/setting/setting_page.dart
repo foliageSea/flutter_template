@@ -52,12 +52,6 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
-          title: const Text('视频播放'),
-          onTap: () {
-            Get.to(()=>const VideoPlayerExamplePage());
-          },
-        ),
-        ListTile(
           title: const Text('日志'),
           onTap: () {
             toTalkerScreen(context);
@@ -66,17 +60,11 @@ class _SettingPageState extends State<SettingPage> {
         ListTile(
           title: const Text('设备信息'),
           onTap: () {
-            if(!Platform.isAndroid) {
+            if (!Platform.isAndroid) {
               return;
             }
 
             Get.to(const DeviceInfoExamplePage());
-          },
-        ),
-        ListTile(
-          title: const Text('媒体轮播'),
-          onTap: () {
-            Get.to(const MediaSwiperExamplePage());
           },
         ),
         ListTile(
