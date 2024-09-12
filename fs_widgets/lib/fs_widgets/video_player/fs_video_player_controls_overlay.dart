@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/video_player/fs_video_player_controller.dart';
+import 'fs_video_player_controller.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';

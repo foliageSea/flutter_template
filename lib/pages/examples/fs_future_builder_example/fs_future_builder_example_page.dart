@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/fs_future_builder.dart';
+import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 import 'package:flutter_template/pages/examples/scaffold_example/scaffold_example.dart';
 
 class FsFutureBuilderExamplePage extends StatefulWidget {

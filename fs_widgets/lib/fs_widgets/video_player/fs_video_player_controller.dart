@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/logs/log.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -90,7 +89,7 @@ class FsVideoPlayerController extends GetxController {
   void createVideoController() {
     final ctrl = VideoPlayerController.asset(videoUrl);
     ctrl.initialize().then((_) => {});
-    talker.info('CreateVideoController Success: $videoUrl');
+    debugPrint('CreateVideoController Success: $videoUrl');
     videoPlayerController = ctrl;
   }
 

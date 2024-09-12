@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/fs_media_preview.dart';
+import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 
 class MediaSwiperExamplePage extends StatefulWidget {
   const MediaSwiperExamplePage({super.key});

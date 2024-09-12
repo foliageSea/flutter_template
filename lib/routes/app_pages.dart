@@ -1,5 +1,4 @@
 import 'package:flutter_template/middlewares/auth_middleware.dart';
-import 'package:flutter_template/pages/examples/video_player_example/video_player_example_page.dart';
 import 'package:flutter_template/pages/home/home_page.dart';
 import 'package:flutter_template/pages/login/login_page.dart';
 import 'package:flutter_template/pages/root/root_page.dart';

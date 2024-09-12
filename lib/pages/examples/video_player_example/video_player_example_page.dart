@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/video_player/fs_video_player_src.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/fs_widgets/video_player/fs_video_player.dart';
+import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 
 class VideoPlayerExamplePage extends StatefulWidget {
   const VideoPlayerExamplePage({super.key});

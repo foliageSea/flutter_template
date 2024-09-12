@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/themes.dart';
+import 'package:fs_widgets/themes.dart';
 
 class FsText extends StatefulWidget {
   final String? data;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/routes/app_pages.dart';
-import 'package:flutter_template/themes.dart';
-import 'package:get/get.dart';
+import 'package:fs_widgets/themes.dart';
 
 class FsAppBar extends StatefulWidget implements PreferredSizeWidget {
   const FsAppBar({
@@ -31,9 +29,7 @@ class _FsAppBarState extends State<FsAppBar> {
       actions: widget.actions ??
           [
             IconButton(
-              onPressed: () {
-                Get.toNamed(Routes.setting);
-              },
+              onPressed: () {},
               icon: const Icon(Icons.settings),
             ),
           ],

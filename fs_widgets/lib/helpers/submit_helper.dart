@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:flutter_template/logs/log.dart';
 
 typedef SubmitCallBack = Future Function();
 
@@ -10,7 +10,7 @@ class SubmitHelper {
       await cb();
       return true;
     } catch (e) {
-      talker.handle(e);
+      debugPrint(e.toString());
       return false;
     } finally {
       SmartDialog.dismiss();

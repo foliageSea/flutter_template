@@ -9,9 +9,9 @@ import 'package:flutter_template/global.dart';
 import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
+import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 import 'package:get/get.dart';
 
-import 'fs_widgets/fs_widgets.dart';
 import 'themes.dart';
 
 void main() {

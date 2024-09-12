@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/fs_widgets.dart';
+import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:get/get.dart';
 

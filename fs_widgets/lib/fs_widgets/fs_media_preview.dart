@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:flutter_template/fs_widgets/fs_rotatable.dart';
-import 'package:flutter_template/fs_widgets/video_player/fs_video_player_src.dart';
+import 'fs_rotatable.dart';
+import 'video_player/fs_video_player_src.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/helpers/file_helper.dart';
+import 'package:fs_widgets/helpers/file_helper.dart';
 import 'video_player/fs_video_player.dart';
 
 class FsMediaPreview extends StatefulWidget {
