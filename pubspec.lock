@@ -616,7 +616,7 @@ packages:
   fs_widgets:
     dependency: "direct main"
     description:
-      path: "packages/fs_widgets"
+      path: fs_widgets
       relative: true
     source: path
     version: "1.0.0+1"
