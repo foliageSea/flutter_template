@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fs_widgets/examples/scaffold_example/scaffold_example.dart';
+import 'package:flutter_template/pages/examples/scaffold_example/scaffold_example.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class PlutoGridExamplePage extends StatefulWidget {

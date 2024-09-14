@@ -1,6 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:fs_widgets/examples/scaffold_example/scaffold_example.dart';
+import 'package:flutter_template/pages/examples/scaffold_example/scaffold_example.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class AdaptiveDialogExamplePage extends StatefulWidget {

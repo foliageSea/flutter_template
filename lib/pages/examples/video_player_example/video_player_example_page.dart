@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/logs/log.dart';
 import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
 
 class VideoPlayerExamplePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _VideoPlayerExamplePageState extends State<VideoPlayerExamplePage> {
     return FsVideoPlayer(
       src: FsVideoPlayerFileAssetsSrc('assets/medias/bee.mp4'),
       onPlayOver: () {
-        debugPrint('视频播放结束');
+        talker.info('视频播放结束');
       },
     );
   }
