@@ -166,17 +166,14 @@ class _ControlsOverlay extends StatelessWidget {
           width: constraints.maxWidth * 0.8,
           height: 95,
           margin: const EdgeInsets.only(bottom: 16),
-          padding:
-              const EdgeInsets.only(top: 16, bottom: 16, left: 8.0, right: 8.0),
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withOpacity(0.5),
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
           ),
           child: Column(
             children: <Widget>[
-              Flexible(
-                  child:
-                      VideoProgressIndicator(controller, allowScrubbing: true)),
+              VideoProgressIndicator(controller, allowScrubbing: true),
               const SizedBox(
                 height: 4,
               ),

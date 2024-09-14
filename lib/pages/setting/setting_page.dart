@@ -7,8 +7,6 @@ import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
 import 'package:flutter_template/pages/examples/home_example/home_example_page.dart';
-import 'package:flutter_template/pages/examples/media_swiper_example/media_swiper_example_page.dart';
-import 'package:flutter_template/pages/examples/video_player_example/video_player_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
 import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:get/get.dart';

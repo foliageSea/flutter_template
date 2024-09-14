@@ -46,11 +46,6 @@ class _DeviceInfoExamplePageState extends State<DeviceInfoExamplePage> {
               subtitle: Text(deviceInfo.value.brand),
             ),
             ListTile(
-              title: const Text('分辨率'),
-              subtitle: Text(
-                  '${deviceInfo.value.displayMetrics.widthPx}*${deviceInfo.value.displayMetrics.heightPx}'),
-            ),
-            ListTile(
               title: const Text('模拟器'),
               subtitle: Text(deviceInfo.value.isPhysicalDevice ? '否' : '是'),
             ),
