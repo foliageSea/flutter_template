@@ -1,6 +1,6 @@
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/models/user.dart';
-import 'package:fs_widgets/utils/app_directory.dart';
+import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 

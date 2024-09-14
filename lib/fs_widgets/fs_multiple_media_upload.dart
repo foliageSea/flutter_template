@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
-import 'package:fs_widgets/helpers/preview_media_helper.dart';
+import 'package:flutter_template/helpers/preview_media_helper.dart';
+import 'package:flutter_template/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +35,7 @@ class FsMultipleMediaUploadController extends GetxController {
   void _onClickUploadFile(
       {required int maxCount, required double maxSize}) async {
     if (uploadItems.length >= maxCount) {
-      debugPrint('文件数量已达到最大值');
+      showToast('文件数量已达到最大值');
       return;
     }
 
@@ -47,12 +48,12 @@ class FsMultipleMediaUploadController extends GetxController {
     var fileName = p.basename(mediaFile.path);
 
     if (fileSize > maxSize) {
-      debugPrint('文件大小不能超过${maxSize}MB');
+      showToast('文件大小不能超过${maxSize}MB');
       return;
     }
 
     if (fileType == FsMultipleMediaUploadFileType.other) {
-      debugPrint('文件类型不支持');
+      showToast('文件类型不支持');
       return;
     }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fs_widgets/helpers/submit_helper.dart';
+import 'package:flutter_template/helpers/submit_helper.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {

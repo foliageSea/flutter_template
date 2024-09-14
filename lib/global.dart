@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_template/constants/common.dart';
+import 'package:flutter_template/helpers/android_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
+import 'package:flutter_template/utils/app_directory.dart';
+import 'package:flutter_template/fs_widgets/fs_splash_screen.dart';
 import 'package:flutter_template/utils/utils.dart';
-import 'package:fs_widgets/fs_widgets/fs_widgets.dart';
-import 'package:fs_widgets/helpers/android_helper.dart';
-import 'package:fs_widgets/utils/app_directory.dart';
 import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
 // import 'dart:math' as math;

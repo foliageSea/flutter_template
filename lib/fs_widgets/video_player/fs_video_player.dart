@@ -49,7 +49,6 @@ class _FsVideoPlayerState extends State<FsVideoPlayer> {
     _controller.addListener(_handleListener);
 
     _controller.setLooping(false);
-
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.play();
   }
