@@ -14,7 +14,6 @@ class UserStorage extends GetxService {
 
   final token = ''.val('token', getBox: getPrefBox);
   final refreshToken = ''.val('refreshToken', getBox: getPrefBox);
-  final tenantCode = ''.val('tenantCode', getBox: getPrefBox);
   final account = ''.val('account', getBox: getPrefBox);
   final password = ''.val('password', getBox: getPrefBox);
 
@@ -24,7 +23,6 @@ class UserStorage extends GetxService {
     final prefBox = getPrefBox();
     prefBox.remove('token');
     prefBox.remove('refreshToken');
-    prefBox.remove('tenantCode');
     prefBox.remove('account');
     prefBox.remove('password');
   }

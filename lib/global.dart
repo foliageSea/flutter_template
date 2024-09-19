@@ -53,26 +53,39 @@ class Global {
     talker.info('服务初始化开始');
     try {
       /// 软件版本
-      final version = await getSoftwareVersion();
-      Get.find<PreferencesStorage>().version.val = version;
-      talker.info('软件版本: $version');
+      await _initSoftVersion();
 
       /// language
-      final lan = Get.find<PreferencesStorage>().language.val;
-      talker.info('语言: $lan');
-      Future.delayed(const Duration(seconds: 1), () {
-        Get.updateLocale(Locale(lan));
-      });
+      _initLanguage();
 
       // TODO 测试异常情况
       // if (math.Random().nextInt(2) == 1) {
       //   throw Exception('test error');
       // }
+
+      Get.find<DioService>().onErrorMessage = (message) {
+        showToast(message);
+      };
+
       await Future.delayed(const Duration(seconds: 1));
       talker.info('服务初始化完成');
     } catch (e) {
       talker.error('服务初始化出错', e);
     } finally {}
+  }
+
+  static Future<void> _initSoftVersion() async {
+    final version = await getSoftwareVersion();
+    Get.find<PreferencesStorage>().version.val = version;
+    talker.info('软件版本: $version');
+  }
+
+  static void _initLanguage() {
+    final lan = Get.find<PreferencesStorage>().language.val;
+    talker.info('语言: $lan');
+    Future.delayed(const Duration(seconds: 1), () {
+      Get.updateLocale(Locale(lan));
+    });
   }
 
   /// 重启应用
