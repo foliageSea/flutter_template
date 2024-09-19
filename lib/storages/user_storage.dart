@@ -28,4 +28,10 @@ class UserStorage extends GetxService {
     prefBox.remove('account');
     prefBox.remove('password');
   }
+
+  void clearToken() {
+    final prefBox = getPrefBox();
+    prefBox.remove('token');
+    prefBox.remove('refreshToken');
+  }
 }

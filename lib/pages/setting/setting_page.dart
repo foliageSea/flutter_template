@@ -53,14 +53,6 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
-          title: const Text('设备信息'),
-          onTap: () {
-            if (!Platform.isAndroid) {
-              return;
-            }
-          },
-        ),
-        ListTile(
           title: const Text('重启应用'),
           onTap: () {
             showOkCancelAlertDialog(
@@ -81,7 +73,6 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('设置'),
-        actions: [],
       ),
       body: Obx(
         () => _build(),

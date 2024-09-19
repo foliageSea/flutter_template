@@ -49,15 +49,9 @@ class Global {
   }
 
   /// 服务初始化
-  static Future initService(
-    ChangeStatusCallBack? cb, {
-    bool? rec,
-  }) async {
+  static Future initService() async {
     talker.info('服务初始化开始');
-    cb?.call(true);
     try {
-      /// TODO 首次联网检测 递归调用
-
       /// 软件版本
       final version = await getSoftwareVersion();
       Get.find<PreferencesStorage>().version.val = version;
@@ -75,22 +69,10 @@ class Global {
       //   throw Exception('test error');
       // }
       await Future.delayed(const Duration(seconds: 1));
-      cb?.call(false);
       talker.info('服务初始化完成');
     } catch (e) {
       talker.error('服务初始化出错', e);
-      if (rec == true) {
-        Future.delayed(const Duration(seconds: 5), () async {
-          await initService(cb, rec: true);
-        });
-        return;
-      }
-    } finally {
-      if (rec == null || rec == false) {
-        cb?.call(false);
-        talker.info('服务初始化完成');
-      }
-    }
+    } finally {}
   }
 
   /// 重启应用

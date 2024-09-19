@@ -29,21 +29,12 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final splashScreenStatus = false.obs;
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
-
-  void setSplashScreenStatus(bool status) {
-    splashScreenStatus.value = status;
-    splashScreenStatus.refresh();
-  }
 
   @override
   void initState() {
     super.initState();
-    Global.initService(
-      setSplashScreenStatus,
-      rec: true,
-    );
+    Global.initService().then((_) {});
   }
 
   Widget _renderSplashScreen(Widget child) {
