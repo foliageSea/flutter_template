@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/fs_widgets/fs_widgets.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late HomeController controller;
 
-  FsMessagePanelController panelController = FsMessagePanelController();
-
   @override
   void initState() {
     controller = Get.put(HomeController());
@@ -23,12 +20,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: FsAppBar(
-        title: '首页',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('首页'),
       ),
-      body: Center(
-        child: Text('首页'),
+      body: const Center(
+        child: Text('首页...'),
       ),
     );
   }

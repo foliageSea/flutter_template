@@ -8,7 +8,6 @@ import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
-import 'package:flutter_template/fs_widgets/fs_splash_screen.dart';
 import 'package:flutter_template/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
@@ -51,15 +50,13 @@ class Global {
 
   /// 服务初始化
   static Future initService(
-    ChangeStatusCallBack? cb,
-    FsSplashScreenController? controller, {
+    ChangeStatusCallBack? cb, {
     bool? rec,
   }) async {
     talker.info('服务初始化开始');
     cb?.call(true);
     try {
       /// TODO 首次联网检测 递归调用
-      controller?.setText('加载中'.tr);
 
       /// 软件版本
       final version = await getSoftwareVersion();
@@ -83,9 +80,8 @@ class Global {
     } catch (e) {
       talker.error('服务初始化出错', e);
       if (rec == true) {
-        controller?.setText('出错了, 5秒后重试'.tr);
         Future.delayed(const Duration(seconds: 5), () async {
-          await initService(cb, controller, rec: true);
+          await initService(cb, rec: true);
         });
         return;
       }

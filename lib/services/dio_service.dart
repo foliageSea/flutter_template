@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/storages/user_storage.dart';
-import 'package:flutter_template/utils/common.dart';
 import 'package:get/get.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
@@ -11,6 +10,7 @@ class DioService extends GetxService {
   static DioService get to => Get.find();
 
   final Dio _dio = Dio();
+
   Dio get dio => _dio;
 
   // 连接超时时间
@@ -99,14 +99,12 @@ class DioInterceptors extends Interceptor {
     var message = "";
     if (err.type == DioExceptionType.connectionError) {
       message = "连接错误, 请检查网络";
-      showSnackBar(message);
       handler.next(err);
       return;
     }
 
     if (err.type == DioExceptionType.connectionTimeout) {
       message = "连接超时，请检查网络";
-      showSnackBar(message);
       handler.next(err);
       return;
     }
@@ -116,14 +114,6 @@ class DioInterceptors extends Interceptor {
       final statusCode = err.response?.statusCode;
       final statusMessage = err.response?.statusMessage;
 
-      showSnackBar(
-        '服务器内部错误',
-        detail: 'path: $path'
-            '\n'
-            'statusCode: $statusCode'
-            '\n'
-            'statusMessage: $statusMessage',
-      );
       handler.next(err);
       return;
     }

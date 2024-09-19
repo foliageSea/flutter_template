@@ -3,15 +3,12 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/constants/common.dart';
-import 'package:flutter_template/events/events.dart';
-import 'package:flutter_template/events/handlers.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/langs/translation_service.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:get/get.dart';
 
-import 'fs_widgets/fs_widgets.dart';
 import 'themes.dart';
 
 void main() {
@@ -33,7 +30,6 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final splashScreenStatus = false.obs;
-  late FsSplashScreenController splashScreenController;
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
 
   void setSplashScreenStatus(bool status) {
@@ -44,30 +40,14 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    splashScreenController = FsSplashScreenController();
     Global.initService(
       setSplashScreenStatus,
-      splashScreenController,
       rec: true,
     );
-
-    eventBus.on<ToastEvent>().listen((event) {
-      toastEventHandler(event);
-    });
-
-    eventBus.on<SnackBarEvent>().listen((event) {
-      snackBarEventHandler(event);
-    });
   }
 
   Widget _renderSplashScreen(Widget child) {
-    return Obx(
-      () => FsSplashScreen(
-        controller: splashScreenController,
-        loading: splashScreenStatus.value,
-        child: child,
-      ),
-    );
+    return child;
   }
 
   Widget _builder(BuildContext context, Widget? child) {

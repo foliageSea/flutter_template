@@ -42,9 +42,9 @@ void processDirectory({
       .where((file) => file.path.endsWith('.dart'));
   for (var file in dartFiles) {
     var content = file.readAsStringSync();
-    if (content.contains('package:$currentName')) {
+    if (content.contains('package:$currentName/')) {
       var newContent =
-          content.replaceAll('package:$currentName', 'package:$changeName');
+          content.replaceAll('package:$currentName/', 'package:$changeName/');
       file.writeAsStringSync(newContent);
       print('修改文件: ${file.path}');
     }

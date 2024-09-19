@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
-import 'package:flutter_template/pages/examples/home_example/home_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
-import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
 import 'package:get/get.dart';
 
 class SettingPage extends StatefulWidget {
@@ -61,8 +58,6 @@ class _SettingPageState extends State<SettingPage> {
             if (!Platform.isAndroid) {
               return;
             }
-
-            Get.to(const DeviceInfoExamplePage());
           },
         ),
         ListTile(
@@ -77,12 +72,6 @@ class _SettingPageState extends State<SettingPage> {
             });
           },
         ),
-        ListTile(
-          title: const Text('示例'),
-          onTap: () {
-            Get.to(() => const HomeExamplePage());
-          },
-        ),
       ],
     );
   }
@@ -90,8 +79,8 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FsAppBar(
-        title: '设置',
+      appBar: AppBar(
+        title: const Text('设置'),
         actions: [],
       ),
       body: Obx(
