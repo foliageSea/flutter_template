@@ -30,19 +30,19 @@ mixin StorageMixin {
               ),
             ),
           ),
-          actions: [
-            TextButton(
-                onPressed: () async {
-                  var result = await showOkCancelAlertDialog(
-                      context: context, title: '询问', message: '是否清空?');
-
-                  if (result == OkCancelResult.ok) {
-                    clearPrefBox();
-                    Get.back();
-                  }
-                },
-                child: const Text('清空'))
-          ],
+          // actions: [
+          //   TextButton(
+          //       onPressed: () async {
+          //         var result = await showOkCancelAlertDialog(
+          //             context: context, title: '询问', message: '是否清空?');
+          //
+          //         if (result == OkCancelResult.ok) {
+          //           clearPrefBox();
+          //           Get.back();
+          //         }
+          //       },
+          //       child: const Text('清空'))
+          // ],
         );
       },
     );
