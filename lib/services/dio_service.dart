@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_template/logs/log.dart';

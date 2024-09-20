@@ -37,15 +37,11 @@ class _MainAppState extends State<MainApp> {
     Global.initService().then((_) {});
   }
 
-  Widget _renderSplashScreen(Widget child) {
-    return child;
-  }
-
   Widget _builder(BuildContext context, Widget? child) {
     // 渲染结构: ScreenUtilInit->GetMaterialApp->MediaQuery->FlutterSmartDialog->_renderLoading
     final c = FlutterSmartDialog.init(
       builder: (context, child) {
-        return _renderSplashScreen(child!);
+        return child!;
       },
     )(context, child);
 

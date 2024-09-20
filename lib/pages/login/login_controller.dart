@@ -14,6 +14,10 @@ class LoginController extends GetxController {
         return;
       }
       debugPrint(formKey.currentState?.instantValue.toString());
+      var account = formKey.currentState?.instantValue['account'];
+      var password = formKey.currentState?.instantValue['password'];
+      Get.find<UserStorage>().account.val = account;
+      Get.find<UserStorage>().password.val = password;
       Get.find<UserStorage>().token.val = 'token';
       Get.find<UserStorage>().refreshToken.val = 'refreshToken';
       Get.offAllNamed(Routes.home);
