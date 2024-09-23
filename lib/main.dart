@@ -38,7 +38,7 @@ class _MainAppState extends State<MainApp> {
   }
 
   Widget _builder(BuildContext context, Widget? child) {
-    // 渲染结构: ScreenUtilInit->GetMaterialApp->MediaQuery->FlutterSmartDialog->_renderLoading
+    // 渲染结构: ScreenUtilInit->GetMaterialApp->MediaQuery->FlutterSmartDialog
     final c = FlutterSmartDialog.init(
       builder: (context, child) {
         return child!;
