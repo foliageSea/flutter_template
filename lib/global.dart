@@ -8,7 +8,6 @@ import 'package:flutter_template/services/device_info_service.dart';
 import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
-import 'package:flutter_template/fs_widgets/fs_splash_screen.dart';
 import 'package:flutter_template/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
@@ -50,51 +49,43 @@ class Global {
   }
 
   /// 服务初始化
-  static Future initService(
-    ChangeStatusCallBack? cb,
-    FsSplashScreenController? controller, {
-    bool? rec,
-  }) async {
+  static Future initService() async {
     talker.info('服务初始化开始');
-    cb?.call(true);
     try {
-      /// TODO 首次联网检测 递归调用
-      controller?.setText('加载中'.tr);
-
       /// 软件版本
-      final version = await getSoftwareVersion();
-      Get.find<PreferencesStorage>().version.val = version;
-      talker.info('软件版本: $version');
+      await _initSoftVersion();
 
       /// language
-      final lan = Get.find<PreferencesStorage>().language.val;
-      talker.info('语言: $lan');
-      Future.delayed(const Duration(seconds: 1), () {
-        Get.updateLocale(Locale(lan));
-      });
+      _initLanguage();
 
       // TODO 测试异常情况
       // if (math.Random().nextInt(2) == 1) {
       //   throw Exception('test error');
       // }
+
+      Get.find<DioService>().onErrorMessage = (message) {
+        showToast(message);
+      };
+
       await Future.delayed(const Duration(seconds: 1));
-      cb?.call(false);
       talker.info('服务初始化完成');
     } catch (e) {
       talker.error('服务初始化出错', e);
-      if (rec == true) {
-        controller?.setText('出错了, 5秒后重试'.tr);
-        Future.delayed(const Duration(seconds: 5), () async {
-          await initService(cb, controller, rec: true);
-        });
-        return;
-      }
-    } finally {
-      if (rec == null || rec == false) {
-        cb?.call(false);
-        talker.info('服务初始化完成');
-      }
-    }
+    } finally {}
+  }
+
+  static Future<void> _initSoftVersion() async {
+    final version = await getSoftwareVersion();
+    Get.find<PreferencesStorage>().version.val = version;
+    talker.info('软件版本: $version');
+  }
+
+  static void _initLanguage() {
+    final lan = Get.find<PreferencesStorage>().language.val;
+    talker.info('语言: $lan');
+    Future.delayed(const Duration(seconds: 1), () {
+      Get.updateLocale(Locale(lan));
+    });
   }
 
   /// 重启应用

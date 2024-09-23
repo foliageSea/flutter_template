@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_template/pages/login/login_controller.dart';
-import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,8 +23,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FsAppBar(
-        title: '登录',
+      appBar: AppBar(
+        title: const Text('登录'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -33,42 +34,40 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildForm() {
-    final loginForm = controller.loginForm;
-
-    return Column(
-      children: [
-        TextField(
-          controller: loginForm.accountController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: '请输入用户名',
-            labelText: '用户名',
+    return FormBuilder(
+      key: controller.formKey,
+      child: Column(
+        children: [
+          FormBuilderTextField(
+            name: 'account',
+            decoration: const InputDecoration(labelText: '账号'),
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+            ]),
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextField(
-          controller: loginForm.passwordController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: '请输入密码',
-            labelText: '密码',
+          const SizedBox(height: 8),
+          FormBuilderTextField(
+            name: 'password',
+            decoration: const InputDecoration(labelText: '密码'),
+            obscureText: true,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+            ]),
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            onPressed: () async {
-              await controller.handleLogin();
-            },
-            child: const Text('登录'),
+          const SizedBox(
+            height: 8,
           ),
-        ),
-      ],
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () {
+                controller.login();
+              },
+              child: const Text('登录'),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

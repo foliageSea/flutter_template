@@ -1,60 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_template/helpers/submit_helper.dart';
+import 'package:flutter_template/routes/app_pages.dart';
+import 'package:flutter_template/storages/user_storage.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  late LoginForm loginForm;
+  final formKey = GlobalKey<FormBuilderState>();
 
-  Future handleLogin() async {
+  Future login() async {
     await SubmitHelper.submit(() async {
-      await Future.delayed(const Duration(seconds: 1));
-
-      print(loginForm.formData);
-
-      loginForm.resetFormData();
-
-      // Get.offAllNamed(Routes.home);
+      if (formKey.currentState?.validate() != true) {
+        return;
+      }
+      debugPrint(formKey.currentState?.instantValue.toString());
+      var account = formKey.currentState?.instantValue['account'];
+      var password = formKey.currentState?.instantValue['password'];
+      Get.find<UserStorage>().account.val = account;
+      Get.find<UserStorage>().password.val = password;
+      Get.find<UserStorage>().token.val = 'token';
+      Get.find<UserStorage>().refreshToken.val = 'refreshToken';
+      Get.offAllNamed(Routes.home);
     });
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    loginForm = LoginForm();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-
-    loginForm.dispose();
-  }
-}
-
-class LoginForm {
-  late TextEditingController accountController;
-  late TextEditingController passwordController;
-
-  LoginForm() {
-    accountController = TextEditingController();
-    passwordController = TextEditingController();
-  }
-
-  Map<String, String> get formData {
-    return {
-      'account': accountController.text,
-      'password': passwordController.text,
-    };
-  }
-
-  resetFormData() {
-    accountController.clear();
-    passwordController.clear();
-  }
-
-  void dispose() {
-    accountController.dispose();
-    passwordController.dispose();
   }
 }

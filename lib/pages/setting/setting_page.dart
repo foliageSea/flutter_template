@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/pages/examples/device_info_example/device_info_example_page.dart';
-import 'package:flutter_template/pages/examples/home_example/home_example_page.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
-import 'package:flutter_template/fs_widgets/fs_app_bar.dart';
+import 'package:flutter_template/storages/user_storage.dart';
 import 'package:get/get.dart';
 
 class SettingPage extends StatefulWidget {
@@ -56,16 +52,6 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
-          title: const Text('设备信息'),
-          onTap: () {
-            if (!Platform.isAndroid) {
-              return;
-            }
-
-            Get.to(const DeviceInfoExamplePage());
-          },
-        ),
-        ListTile(
           title: const Text('重启应用'),
           onTap: () {
             showOkCancelAlertDialog(
@@ -78,9 +64,9 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
-          title: const Text('示例'),
+          title: const Text('查看'),
           onTap: () {
-            Get.to(() => const HomeExamplePage());
+            Get.find<UserStorage>().preview(context);
           },
         ),
       ],
@@ -90,9 +76,8 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FsAppBar(
-        title: '设置',
-        actions: [],
+      appBar: AppBar(
+        title: const Text('设置'),
       ),
       body: Obx(
         () => _build(),

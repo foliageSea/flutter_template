@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:developer';
 import 'dart:io';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
@@ -10,7 +9,7 @@ void main() {
 
   // 获取当前的包名
   var currentName = pubspec.name;
-  log('当前包名: $currentName');
+  print('当前包名: $currentName');
 
   // 提示用户输入新的包名
   stdout.write('请输入新的包名: ');
@@ -24,9 +23,11 @@ void main() {
       changeName: changeName,
     );
     changePubspecName(pubspec, changeName);
-    print('修改完成');
+    print('修改完成, 回车后退出');
+    stdin.readLineSync();
   } else {
-    print('lib 目录不存在');
+    print('lib 目录不存在, 回车后退出');
+    stdin.readLineSync();
   }
 }
 
@@ -42,9 +43,9 @@ void processDirectory({
       .where((file) => file.path.endsWith('.dart'));
   for (var file in dartFiles) {
     var content = file.readAsStringSync();
-    if (content.contains('package:$currentName')) {
+    if (content.contains('package:$currentName/')) {
       var newContent =
-          content.replaceAll('package:$currentName', 'package:$changeName');
+          content.replaceAll('package:$currentName/', 'package:$changeName/');
       file.writeAsStringSync(newContent);
       print('修改文件: ${file.path}');
     }
