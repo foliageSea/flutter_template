@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter_template/global.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AppDirectory {
@@ -12,10 +14,10 @@ class AppDirectory {
     try {
       _appDocDir = await getApplicationDocumentsDirectory();
       _cacheDir = await getTemporaryDirectory();
-    } catch (e) {}
+    } catch (_) {}
   }
 
-  static String get getDirectory => _appDocDir.path;
+  static String get getDirectory => join(_appDocDir.path, Global.appName);
 
   static String get getCacheDirectory => _cacheDir.path;
 }

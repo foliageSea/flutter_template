@@ -20,17 +20,19 @@ typedef ChangeStatusCallBack = void Function(bool status);
 class Global {
   Global._();
 
+  static const appName = 'flutter_template';
+
   /// 应用初始化
   static Future initApp() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    AppDirectory.ensureInitialized();
+    await AppDirectory.ensureInitialized();
 
     /// init service
+    await Get.putAsync(() => DbService().init());
     await Get.putAsync(() => PreferencesStorage().init());
     await Get.putAsync(() => UserStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
-    await Get.putAsync(() => DbService().init());
     await Get.putAsync(() => DioService().init());
     // await Get.putAsync(() => TtsService().init());
 

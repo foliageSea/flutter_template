@@ -1,15 +1,17 @@
+import 'package:flutter_template/global.dart';
 import 'package:flutter_template/storages/storage_mixin.dart';
+import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class PreferencesStorage extends GetxService with StorageMixin {
   static const container = 'PreferencesStorage';
 
-  static GetStorage getPrefBox() => GetStorage(container);
+  static GetStorage getPrefBox() =>
+      GetStorage(container, AppDirectory.getDirectory);
 
   // Init
   Future<PreferencesStorage> init() async {
-    await GetStorage.init(container);
     return this;
   }
 
