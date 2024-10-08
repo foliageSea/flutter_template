@@ -1,4 +1,3 @@
-import 'package:flutter_template/global.dart';
 import 'package:flutter_template/storages/storage_mixin.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';

@@ -9,6 +9,7 @@ import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:get/get.dart';
 
+import 'server/server.dart';
 import 'themes.dart';
 
 void main() {
@@ -50,6 +51,12 @@ class _MainAppState extends State<MainApp> {
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: c,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Server.stop();
   }
 
   @override

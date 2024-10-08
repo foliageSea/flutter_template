@@ -11,8 +11,10 @@ import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
+
 // import 'dart:math' as math;
 
+import 'server/server.dart';
 import 'storages/preferences_storage.dart';
 
 typedef ChangeStatusCallBack = void Function(bool status);
@@ -68,6 +70,8 @@ class Global {
       Get.find<DioService>().onErrorMessage = (message) {
         showToast(message);
       };
+
+      Server.run().then((_) {});
 
       await Future.delayed(const Duration(seconds: 1));
       talker.info('服务初始化完成');
