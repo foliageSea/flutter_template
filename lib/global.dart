@@ -9,10 +9,8 @@ import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/utils/utils.dart';
-import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
-
-// import 'dart:math' as math;
+import 'package:get/get.dart';
 
 import 'server/server.dart';
 import 'storages/preferences_storage.dart';
@@ -49,6 +47,8 @@ class Global {
       AndroidHelper.initStatusBar();
     }
 
+    Server.run().then((_) {});
+
     talker.info('应用初始化完成');
   }
 
@@ -70,8 +70,6 @@ class Global {
       Get.find<DioService>().onErrorMessage = (message) {
         showToast(message);
       };
-
-      Server.run().then((_) {});
 
       await Future.delayed(const Duration(seconds: 1));
       talker.info('服务初始化完成');

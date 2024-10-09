@@ -226,7 +226,7 @@ packages:
     source: hosted
     version: "1.1.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -1053,6 +1053,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  network_info_plus:
+    dependency: "direct main"
+    description:
+      name: network_info_plus
+      sha256: "0754302af09e58a60c7cd6800029d00e03c68f289a19fd9df31941ab91da8903"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
+  network_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: network_info_plus_platform_interface
+      sha256: b7f35f4a7baef511159e524499f3c15464a49faa5ec10e92ee0bce265e664906
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   nm:
     dependency: transitive
     description:

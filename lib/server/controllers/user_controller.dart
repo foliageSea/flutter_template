@@ -5,12 +5,13 @@ class UserController implements ServerController {
   static const controller = '/user';
 
   @override
-  void registered(RouterPlus app) {
-    app.get('$controller/get', get);
+  void registered(RouterPlus app, {Middleware? use}) {
+    app.get('$controller/get', get, use: use);
   }
 
   get(Request request) {
     return {
+      'status': 200,
       'ok': true,
       'data': {'name': '张三'}
     };

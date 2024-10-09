@@ -1,6 +1,6 @@
+import 'package:flutter_template/utils/local_ip.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:shelf_plus/shelf_plus.dart';
-import 'package:shelf_router/shelf_router.dart' as r;
 
 import 'controllers/server_controller.dart';
 import 'controllers/user_controller.dart';
@@ -13,17 +13,24 @@ class Server {
   ];
 
   static Future run() async {
-    context = await shelfRun(_init, defaultEnableHotReload: false);
+    var list = await LocalIp.getIp();
+
+    context = await shelfRun(_init,
+        defaultEnableHotReload: false, defaultBindAddress: list.first);
   }
 
   static Handler _init() {
-    var app = r.Router().plus;
+    var app = Router().plus;
 
     for (var e in controllers) {
       e.registered(app);
     }
 
-    return corsHeaders() >> app;
+    return corsHeaders(headers: {
+          ACCESS_CONTROL_ALLOW_ORIGIN: '*',
+          'Content-Type': 'application/json;charset=utf-8'
+        }) >>
+        app.call;
   }
 
   static Future stop() async {

@@ -54,7 +54,6 @@ dependencies:
   pluto_grid: ^8.0.0
   pubspec_yaml: ^3.1.0
   regexpattern: ^2.6.0
-  shelf_cors_headers: ^0.1.5
   shelf_plus: ^1.0.2
   shelf_router: ^1.1.4
   stack_trace: ^1.11.1
@@ -62,6 +61,9 @@ dependencies:
   talker_flutter: ^4.4.1
   tdesign_flutter: ^0.1.6
   video_player: ^2.9.1
+  shelf_cors_headers: ^0.1.2
+  network_info_plus: ^6.0.0
+  collection: ^1.18.0
 
 dev_dependencies:
   build_runner: ^2.4.11
