@@ -1,7 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/helpers/android_helper.dart';
+import 'package:flutter_template/helpers/network_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
@@ -12,8 +14,8 @@ import 'package:flutter_template/utils/utils.dart';
 import 'package:fvp/fvp.dart' as fvp;
 import 'package:get/get.dart';
 
-import 'server/server.dart';
 import 'storages/preferences_storage.dart';
+import 'widgets/splash_screen.dart';
 
 typedef ChangeStatusCallBack = void Function(bool status);
 
@@ -47,34 +49,40 @@ class Global {
       AndroidHelper.initStatusBar();
     }
 
-    Server.run().then((_) {});
-
     talker.info('应用初始化完成');
   }
 
   /// 服务初始化
-  static Future initService() async {
+  static Future initService(
+      {SplashScreenController? controller,
+      required Function(bool) setStatus}) async {
     talker.info('服务初始化开始');
     try {
+      setStatus(true);
+      controller?.setText('等待联网...');
+
       /// 软件版本
       await _initSoftVersion();
 
-      /// language
-      _initLanguage();
-
-      // TODO 测试异常情况
-      // if (math.Random().nextInt(2) == 1) {
-      //   throw Exception('test error');
-      // }
+      var result = await NetworkHelper.getConnectivityResult();
+      if (result == ConnectivityResult.none) {
+        throw Exception('Device not connected to any network');
+      }
 
       Get.find<DioService>().onErrorMessage = (message) {
         showToast(message);
       };
-
+      await Future.delayed(const Duration(seconds: 1));
+      controller?.setText('服务初始化完成...');
       await Future.delayed(const Duration(seconds: 1));
       talker.info('服务初始化完成');
+      setStatus(false);
     } catch (e) {
-      talker.error('服务初始化出错', e);
+      talker.error(e);
+
+      Future.delayed(const Duration(seconds: 2), () async {
+        await initService(controller: controller, setStatus: setStatus);
+      });
     } finally {}
   }
 

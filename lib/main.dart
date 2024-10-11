@@ -9,8 +9,8 @@ import 'package:flutter_template/routes/app_pages.dart';
 import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:get/get.dart';
 
-import 'server/server.dart';
 import 'themes.dart';
+import 'widgets/splash_screen.dart';
 
 void main() {
   Global.initApp().then(
@@ -31,11 +31,20 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
+  late SplashScreenController _screenController;
+  final loading = true.obs;
 
   @override
   void initState() {
     super.initState();
-    Global.initService().then((_) {});
+    _screenController = SplashScreenController();
+    Global.initService(controller: _screenController, setStatus: setStatus)
+        .then((_) {});
+  }
+
+  void setStatus(bool val) {
+    loading.value = val;
+    loading.refresh();
   }
 
   Widget _builder(BuildContext context, Widget? child) {
@@ -49,14 +58,16 @@ class _MainAppState extends State<MainApp> {
     return MediaQuery(
       /// 设置文字大小不随系统设置改变
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: c,
+      child: Obx(
+        () => SplashScreen(
+            controller: _screenController, loading: loading.value, child: c),
+      ),
     );
   }
 
   @override
   void dispose() {
     super.dispose();
-    Server.stop();
   }
 
   @override

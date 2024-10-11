@@ -1,10 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
-import 'package:flutter_template/storages/user_storage.dart';
 import 'package:get/get.dart';
 
 class SettingPage extends StatefulWidget {
@@ -38,13 +36,13 @@ class _SettingPageState extends State<SettingPage> {
         //     controller.changeTheme(context);
         //   },
         // ),
-        ListTile(
-          title: const Text('语言'),
-          subtitle: Text(languageMap[controller.language.value]!),
-          onTap: () {
-            controller.changeLanguage(context);
-          },
-        ),
+        // ListTile(
+        //   title: const Text('语言'),
+        //   subtitle: Text(languageMap[controller.language.value]!),
+        //   onTap: () {
+        //     controller.changeLanguage(context);
+        //   },
+        // ),
         ListTile(
           title: const Text('日志'),
           onTap: () {
@@ -63,12 +61,12 @@ class _SettingPageState extends State<SettingPage> {
             });
           },
         ),
-        ListTile(
-          title: const Text('查看'),
-          onTap: () {
-            Get.find<UserStorage>().preview(context);
-          },
-        ),
+        // ListTile(
+        //   title: const Text('查看'),
+        //   onTap: () {
+        //     Get.find<UserStorage>().preview(context);
+        //   },
+        // ),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/utils/local_ip.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:shelf_plus/shelf_plus.dart';
@@ -13,14 +14,24 @@ class Server {
   ];
 
   static Future run() async {
-    var list = await LocalIp.getIp();
+    try {
+      var list = await LocalIp.getIp();
 
-    context = await shelfRun(_init,
-        defaultEnableHotReload: false, defaultBindAddress: list.first);
+      context = await shelfRun(_init,
+          defaultEnableHotReload: false, defaultBindAddress: list.first);
+
+      talker.info('Sever running on http://${list.first}:8080');
+    } catch (e) {
+      talker.error('Sever run error: $e');
+    }
   }
 
   static Handler _init() {
     var app = Router().plus;
+
+    app.get('/', () {
+      return 'Sever running...';
+    });
 
     for (var e in controllers) {
       e.registered(app);
