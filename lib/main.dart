@@ -31,20 +31,12 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
-  late SplashScreenController _screenController;
-  final loading = true.obs;
+  final SplashScreenController _screenController = SplashScreenController();
 
   @override
   void initState() {
     super.initState();
-    _screenController = SplashScreenController();
-    Global.initService(controller: _screenController, setStatus: setStatus)
-        .then((_) {});
-  }
-
-  void setStatus(bool val) {
-    loading.value = val;
-    loading.refresh();
+    Global.initService(_screenController).then((_) {});
   }
 
   Widget _builder(BuildContext context, Widget? child) {
@@ -58,10 +50,7 @@ class _MainAppState extends State<MainApp> {
     return MediaQuery(
       /// 设置文字大小不随系统设置改变
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: Obx(
-        () => SplashScreen(
-            controller: _screenController, loading: loading.value, child: c),
-      ),
+      child: SplashScreen(controller: _screenController, child: c),
     );
   }
 

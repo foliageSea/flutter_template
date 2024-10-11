@@ -17,6 +17,7 @@ class PreferencesStorage extends GetxService with StorageMixin {
   final version = '1.0.0'.val('version', getBox: getPrefBox);
   final themeMode = 'system'.val('themeMode', getBox: getPrefBox);
   final language = 'zh_CN'.val('language', getBox: getPrefBox);
+  final targetServer = ''.val('targetServer', getBox: getPrefBox);
 
   @override
   void clearPrefBox() {
@@ -26,8 +27,7 @@ class PreferencesStorage extends GetxService with StorageMixin {
     prefBox.remove('language');
   }
 
-  @override
-  String toString() {
-    return 'version: ${version.val}\nthemeMode: ${themeMode.val}\nlanguage: ${language.val}';
+  bool enterOutOfBoxExperiencePage() {
+    return targetServer.val.isEmpty;
   }
 }

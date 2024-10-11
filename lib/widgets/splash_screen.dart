@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashScreenController {
-  ValueNotifier<String> text = ValueNotifier<String>('加载中');
+  RxString message = "加载中...".obs;
+  RxBool loading = true.obs;
 
-  void setText(String t) {
-    text.value = t;
+  void updateMessage(String msg) {
+    message.value = msg;
+    message.refresh();
+  }
+
+  void setLoading(bool val) {
+    loading.value = val;
+    loading.refresh();
   }
 }
 
@@ -13,14 +21,13 @@ class SplashScreenController {
 /// SplashScreen 加载屏
 ///
 class SplashScreen extends StatefulWidget {
-  final SplashScreenController? controller;
-  final bool loading;
+  final SplashScreenController controller;
+
   final Widget child;
 
   const SplashScreen({
     super.key,
-    this.controller,
-    required this.loading,
+    required this.controller,
     required this.child,
   });
 
@@ -29,12 +36,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late SplashScreenController controller;
-
   @override
   void initState() {
     super.initState();
-    controller = widget.controller ?? SplashScreenController();
   }
 
   @override
@@ -43,10 +47,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget _buildSplashScreen(Widget child) {
-    return widget.loading ? _buildIndicator() : child;
+    var loading = widget.controller.loading;
+
+    return Obx(() => loading.value ? _buildIndicator() : child);
   }
 
   Scaffold _buildIndicator() {
+    var message = widget.controller.message;
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -65,12 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(
               height: 8,
             ),
-            ValueListenableBuilder(
-              valueListenable: controller.text,
-              builder: (BuildContext context, String value, Widget? child) {
-                return Text(controller.text.value);
-              },
-            )
+            Obx(() => Text(message.value))
           ],
         ),
       ),

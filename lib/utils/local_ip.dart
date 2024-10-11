@@ -25,7 +25,7 @@ class LocalIp {
             .where((ip) => ip.type == InternetAddressType.IPv4)
             .map((address) => address.address)
             .toList();
-      } catch (e, st) {
+      } catch (_) {
         // _logger.info('Failed to get IP from dart:io', e, st);
       }
     }

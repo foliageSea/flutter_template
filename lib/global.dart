@@ -53,35 +53,35 @@ class Global {
   }
 
   /// 服务初始化
-  static Future initService(
-      {SplashScreenController? controller,
-      required Function(bool) setStatus}) async {
+  static Future initService(SplashScreenController screenController) async {
     talker.info('服务初始化开始');
     try {
-      setStatus(true);
-      controller?.setText('等待联网...');
+      screenController.setLoading(true);
+      screenController.updateMessage('加载中...');
 
       /// 软件版本
       await _initSoftVersion();
+      await Future.delayed(const Duration(seconds: 1));
 
       var result = await NetworkHelper.getConnectivityResult();
       if (result == ConnectivityResult.none) {
+        screenController.updateMessage('网络异常, 5s后重试...');
         throw Exception('Device not connected to any network');
       }
+      await Future.delayed(const Duration(seconds: 1));
+      screenController.updateMessage('网络通常...');
 
       Get.find<DioService>().onErrorMessage = (message) {
         showToast(message);
       };
-      await Future.delayed(const Duration(seconds: 1));
-      controller?.setText('服务初始化完成...');
+
       await Future.delayed(const Duration(seconds: 1));
       talker.info('服务初始化完成');
-      setStatus(false);
+      screenController.setLoading(false);
     } catch (e) {
       talker.error(e);
-
-      Future.delayed(const Duration(seconds: 2), () async {
-        await initService(controller: controller, setStatus: setStatus);
+      Future.delayed(const Duration(seconds: 5), () async {
+        await initService(screenController);
       });
     } finally {}
   }
