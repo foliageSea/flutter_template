@@ -1,7 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_template/constants/common.dart';
 import 'package:flutter_template/helpers/android_helper.dart';
+import 'package:flutter_template/helpers/network_helper.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/services/db_service.dart';
 import 'package:flutter_template/services/device_info_service.dart';
@@ -9,11 +11,11 @@ import 'package:flutter_template/services/dio_service.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/utils/utils.dart';
-import 'package:get/get.dart';
 import 'package:fvp/fvp.dart' as fvp;
-// import 'dart:math' as math;
+import 'package:get/get.dart';
 
 import 'storages/preferences_storage.dart';
+import 'widgets/splash_screen.dart';
 
 typedef ChangeStatusCallBack = void Function(bool status);
 
@@ -51,28 +53,36 @@ class Global {
   }
 
   /// 服务初始化
-  static Future initService() async {
-    talker.info('服务初始化开始');
+  static Future initService(SplashScreenController screenController) async {
     try {
+      talker.info('服务初始化开始');
+      screenController.setLoading(true);
+      screenController.updateMessage('加载中...');
+
       /// 软件版本
       await _initSoftVersion();
+      await Future.delayed(const Duration(seconds: 1));
 
-      /// language
-      _initLanguage();
-
-      // TODO 测试异常情况
-      // if (math.Random().nextInt(2) == 1) {
-      //   throw Exception('test error');
-      // }
+      var result = await NetworkHelper.getConnectivityResult();
+      if (result == ConnectivityResult.none) {
+        screenController.updateMessage('网络异常, 5s后重试...');
+        throw Exception('Device not connected to any network');
+      }
+      await Future.delayed(const Duration(seconds: 1));
+      screenController.updateMessage('网络通常...');
 
       Get.find<DioService>().onErrorMessage = (message) {
         showToast(message);
       };
 
       await Future.delayed(const Duration(seconds: 1));
+      screenController.setLoading(false);
       talker.info('服务初始化完成');
     } catch (e) {
-      talker.error('服务初始化出错', e);
+      talker.error(e);
+      Future.delayed(const Duration(seconds: 5), () async {
+        await initService(screenController);
+      });
     } finally {}
   }
 

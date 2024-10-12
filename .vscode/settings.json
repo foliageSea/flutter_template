@@ -1,27 +1,28 @@
 {
-    "http.proxySupport": "off",
-    "terminal.integrated.localEchoLatencyThreshold": -1,
-    "terminal.integrated.localEchoEnabled": "off",
-    "workbench.editorAssociations": [
-        {
-            "*.md": "vscode.markdown.preview.editor"
-        }
-    ],
-    "workbench.startupEditor": "none",
-    "editor.fontFamily": "\"Intel One Mono\",\"IntelOne Mono\",\"YaHei Consolas Hybrid\",Consolas, 'Courier New', monospace",
-    "editor.fontWeight": "normal",
-    "editor.fontSize": 16,
-    "editor.lineHeight": 1.5,
-    "editor.letterSpacing": 0,
-    "debug.console.fontSize": 12,
-    "window.commandCenter": false,
-    "workbench.preferredDarkColorTheme": "Monospace Dark",
-    "workbench.preferredLightColorTheme": "Monospace Light",
-    "workbench.iconTheme": "monospace",
-    "window.autoDetectColorScheme": true,
-    "workbench.layoutControl.enabled": false,
-    "inlineChat.mode": "preview",
-    "editor.formatOnSave": true,
-    "IDX.aI.enableInlineCompletion": true,
-    "IDX.aI.enableCodebaseIndexing": true
+  "http.proxySupport": "off",
+  "terminal.integrated.localEchoLatencyThreshold": -1,
+  "terminal.integrated.localEchoEnabled": "off",
+  "workbench.editorAssociations": [
+    {
+      "*.md": "vscode.markdown.preview.editor"
+    }
+  ],
+  "workbench.startupEditor": "none",
+  "editor.fontFamily": "\"Intel One Mono\",\"IntelOne Mono\",\"YaHei Consolas Hybrid\",Consolas, 'Courier New', monospace",
+  "editor.fontWeight": "normal",
+  "editor.fontSize": 16,
+  "editor.lineHeight": 1.5,
+  "editor.letterSpacing": 0,
+  "debug.console.fontSize": 12,
+  "window.commandCenter": false,
+  "workbench.preferredDarkColorTheme": "Monospace Dark",
+  "workbench.preferredLightColorTheme": "Monospace Light",
+  "workbench.iconTheme": "monospace",
+  "window.autoDetectColorScheme": true,
+  "workbench.layoutControl.enabled": false,
+  "inlineChat.mode": "preview",
+  "editor.formatOnSave": true,
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true,
+  "dart.flutterSdkPath": ".fvm\\versions\\3.22.2"
 }

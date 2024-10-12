@@ -1,4 +1,3 @@
-import 'package:flutter_template/global.dart';
 import 'package:flutter_template/storages/storage_mixin.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';
@@ -18,17 +17,15 @@ class PreferencesStorage extends GetxService with StorageMixin {
   final version = '1.0.0'.val('version', getBox: getPrefBox);
   final themeMode = 'system'.val('themeMode', getBox: getPrefBox);
   final language = 'zh_CN'.val('language', getBox: getPrefBox);
+  final targetServer = ''.val('targetServer', getBox: getPrefBox);
 
   @override
   void clearPrefBox() {
     final prefBox = getPrefBox();
-    prefBox.remove('version');
-    prefBox.remove('themeMode');
-    prefBox.remove('language');
+    prefBox.remove('targetServer');
   }
 
-  @override
-  String toString() {
-    return 'version: ${version.val}\nthemeMode: ${themeMode.val}\nlanguage: ${language.val}';
+  bool enterOutOfBoxExperiencePage() {
+    return targetServer.val.isEmpty;
   }
 }

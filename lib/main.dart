@@ -10,6 +10,7 @@ import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:get/get.dart';
 
 import 'themes.dart';
+import 'widgets/splash_screen.dart';
 
 void main() {
   Global.initApp().then(
@@ -30,11 +31,12 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final themeMode = Get.find<PreferencesStorage>().themeMode.val.obs;
+  final SplashScreenController _screenController = SplashScreenController();
 
   @override
   void initState() {
     super.initState();
-    Global.initService().then((_) {});
+    Global.initService(_screenController).then((_) {});
   }
 
   Widget _builder(BuildContext context, Widget? child) {
@@ -48,8 +50,13 @@ class _MainAppState extends State<MainApp> {
     return MediaQuery(
       /// 设置文字大小不随系统设置改变
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: c,
+      child: SplashScreen(controller: _screenController, child: c),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

@@ -1,6 +1,7 @@
-import 'package:flutter_template/middlewares/auth_middleware.dart';
+import 'package:flutter_template/middlewares/out_of_box_experience_middleware.dart';
 import 'package:flutter_template/pages/home/home_page.dart';
 import 'package:flutter_template/pages/login/login_page.dart';
+import 'package:flutter_template/pages/out_of_box_experience/out_of_box_experience_page.dart';
 import 'package:flutter_template/pages/root/root_page.dart';
 import 'package:flutter_template/pages/setting/setting_page.dart';
 import 'package:get/get.dart';
@@ -24,24 +25,23 @@ class AppPages {
           page: () => const HomePage(),
           transition: Transition.cupertino,
           middlewares: [
-            EnsureAuthMiddleware(),
+            OutOfBoxExperienceMiddleware(),
           ],
         ),
         GetPage(
           name: Routes.setting,
           page: () => const SettingPage(),
           transition: Transition.cupertino,
-          middlewares: [
-            EnsureAuthMiddleware(),
-          ],
         ),
         GetPage(
           name: Routes.login,
           page: () => const LoginPage(),
           transition: Transition.cupertino,
-          middlewares: [
-            EnsureAutoAuthedMiddleware(),
-          ],
+        ),
+        GetPage(
+          name: Routes.outOfBoxExperience,
+          page: () => const OutOfBoxExperiencePage(),
+          transition: Transition.cupertino,
         ),
       ],
     )
