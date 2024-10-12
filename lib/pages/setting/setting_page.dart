@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/setting/setting_controller.dart';
+import 'package:flutter_template/storages/preferences_storage.dart';
 import 'package:get/get.dart';
 
 class SettingPage extends StatefulWidget {
@@ -28,21 +29,6 @@ class _SettingPageState extends State<SettingPage> {
           title: const Text('版本号'),
           subtitle: Text(controller.version.value),
         ),
-        // TODO 存在主题模式切换后字体颜色冲突的问题
-        // ListTile(
-        //   title: const Text('主题模式'),
-        //   subtitle: Text(themeModeTextMap[controller.themeMode.value]!),
-        //   onTap: () {
-        //     controller.changeTheme(context);
-        //   },
-        // ),
-        // ListTile(
-        //   title: const Text('语言'),
-        //   subtitle: Text(languageMap[controller.language.value]!),
-        //   onTap: () {
-        //     controller.changeLanguage(context);
-        //   },
-        // ),
         ListTile(
           title: const Text('日志'),
           onTap: () {
@@ -50,23 +36,18 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
         ListTile(
-          title: const Text('重启应用'),
+          title: const Text('重置应用'),
           onTap: () {
             showOkCancelAlertDialog(
-                    context: context, title: '询问', message: '是否重启应用')
+                    context: context, title: '询问', message: '是否重置应用')
                 .then((result) {
               if (result == OkCancelResult.ok) {
+                Get.find<PreferencesStorage>().clearPrefBox();
                 Global.restartApp(context);
               }
             });
           },
         ),
-        // ListTile(
-        //   title: const Text('查看'),
-        //   onTap: () {
-        //     Get.find<UserStorage>().preview(context);
-        //   },
-        // ),
       ],
     );
   }
@@ -77,9 +58,7 @@ class _SettingPageState extends State<SettingPage> {
       appBar: AppBar(
         title: const Text('设置'),
       ),
-      body: Obx(
-        () => _build(),
-      ),
+      body: _build(),
     );
   }
 }

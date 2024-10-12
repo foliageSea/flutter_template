@@ -22,9 +22,7 @@ class PreferencesStorage extends GetxService with StorageMixin {
   @override
   void clearPrefBox() {
     final prefBox = getPrefBox();
-    prefBox.remove('version');
-    prefBox.remove('themeMode');
-    prefBox.remove('language');
+    prefBox.remove('targetServer');
   }
 
   bool enterOutOfBoxExperiencePage() {

@@ -54,8 +54,8 @@ class Global {
 
   /// 服务初始化
   static Future initService(SplashScreenController screenController) async {
-    talker.info('服务初始化开始');
     try {
+      talker.info('服务初始化开始');
       screenController.setLoading(true);
       screenController.updateMessage('加载中...');
 
@@ -76,8 +76,8 @@ class Global {
       };
 
       await Future.delayed(const Duration(seconds: 1));
-      talker.info('服务初始化完成');
       screenController.setLoading(false);
+      talker.info('服务初始化完成');
     } catch (e) {
       talker.error(e);
       Future.delayed(const Duration(seconds: 5), () async {
