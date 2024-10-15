@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class UserStorage extends GetxService with StorageMixin {
-  static const container = 'UserStorage';
+  // static const container = 'UserStorage';
 
-  static GetStorage getPrefBox() =>
-      GetStorage(container, AppDirectory.getDirectory);
+  static GetStorage getPrefBox() => GetStorage();
 
   // Init
   Future<UserStorage> init() async {

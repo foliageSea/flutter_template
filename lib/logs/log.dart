@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class CustomTalkerObserver extends TalkerObserver {
@@ -27,13 +28,25 @@ class CustomTalkerObserver extends TalkerObserver {
 final observer = CustomTalkerObserver();
 final talker = Talker(observer: observer);
 
-void toTalkerScreen(BuildContext context) {
-  showCupertinoModalBottomSheet(
-    context: context,
-    builder: (context) => TalkerScreen(
-      talker: talker,
-      appBarTitle: '日志',
-      // appBarLeading: Container(),
-    ),
-  );
+class TalkerHelper {
+  static void toTalkerScreen(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => TalkerScreen(
+        talker: talker,
+        appBarTitle: '日志',
+        // appBarLeading: Container(),
+      ),
+    );
+  }
+
+  static TalkerDioLogger getTalkerDioLogger() {
+    return TalkerDioLogger(
+      settings: const TalkerDioLoggerSettings(
+        printRequestHeaders: true,
+        printResponseHeaders: true,
+        printResponseMessage: true,
+      ),
+    );
+  }
 }

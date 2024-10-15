@@ -13,6 +13,7 @@ import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/utils/utils.dart';
 import 'package:fvp/fvp.dart' as fvp;
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'storages/preferences_storage.dart';
 import 'widgets/splash_screen.dart';
@@ -29,6 +30,8 @@ class Global {
     WidgetsFlutterBinding.ensureInitialized();
 
     await AppDirectory.ensureInitialized();
+
+    await GetStorage.init();
 
     /// init service
     await Get.putAsync(() => DbService().init());
@@ -70,10 +73,6 @@ class Global {
       }
       await Future.delayed(const Duration(seconds: 1));
       screenController.updateMessage('网络通常...');
-
-      Get.find<DioService>().onErrorMessage = (message) {
-        showToast(message);
-      };
 
       await Future.delayed(const Duration(seconds: 1));
       screenController.setLoading(false);

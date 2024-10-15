@@ -353,14 +353,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.7.0"
-  elegant_notification:
+  easy_refresh:
     dependency: "direct main"
     description:
-      name: elegant_notification
-      sha256: "59ddf857bcc5f4727e47b1dee2499d6b1ea1cb7e1fab73037ba488683deabe21"
+      name: easy_refresh
+      sha256: "486e30abfcaae66c0f2c2798a10de2298eb9dc5e0bb7e1dba9328308968cae0c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.2"
+    version: "3.4.0"
   equatable:
     dependency: transitive
     description:
@@ -837,14 +837,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
-  infinite_scroll_pagination:
-    dependency: "direct main"
-    description:
-      name: infinite_scroll_pagination
-      sha256: b68bce20752fcf36c7739e60de4175494f74e99e9a69b4dd2fe3a1dd07a7f16a
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.0"
   intersperse:
     dependency: transitive
     description:
@@ -1125,6 +1117,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
@@ -1410,14 +1410,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  sliver_tools:
-    dependency: transitive
-    description:
-      name: sliver_tools
-      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.12"
   source_gen:
     dependency: transitive
     description:
