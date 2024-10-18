@@ -32,7 +32,7 @@ class _SettingPageState extends State<SettingPage> {
         ListTile(
           title: const Text('日志'),
           onTap: () {
-            TalkerHelper.toTalkerScreen(context);
+            TalkerHelper.showTalkerModalBottomSheet(context);
           },
         ),
         ListTile(

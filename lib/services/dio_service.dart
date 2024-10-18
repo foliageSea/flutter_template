@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_template/interceptors/auth_interceptor.dart';
 import 'package:flutter_template/interceptors/error_interceptor.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/storages/user_storage.dart';
 import 'package:get/get.dart';
-import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 class DioService extends GetxService {
   static DioService get to => Get.find();

@@ -29,7 +29,7 @@ final observer = CustomTalkerObserver();
 final talker = Talker(observer: observer);
 
 class TalkerHelper {
-  static void toTalkerScreen(BuildContext context) {
+  static void showTalkerModalBottomSheet(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => TalkerScreen(

@@ -31,7 +31,7 @@ class Global {
 
     await AppDirectory.ensureInitialized();
 
-    await GetStorage.init();
+    await GetStorage.init(appName);
 
     /// init service
     await Get.putAsync(() => DbService().init());

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_template/utils/common.dart';
 
 class ErrorInterceptor extends Interceptor {
   @override
@@ -26,6 +27,9 @@ class ErrorInterceptor extends Interceptor {
         message = "错误响应($statusCode)";
         break;
       default:
+    }
+    if (message.isNotEmpty) {
+      showToast(message);
     }
     handler.next(err);
   }
