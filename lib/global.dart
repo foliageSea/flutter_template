@@ -71,10 +71,6 @@ class Global {
       await Future.delayed(const Duration(seconds: 1));
       screenController.updateMessage('网络通常...');
 
-      Get.find<DioService>().onErrorMessage = (message) {
-        showToast(message);
-      };
-
       await Future.delayed(const Duration(seconds: 1));
       screenController.setLoading(false);
       talker.info('服务初始化完成');
