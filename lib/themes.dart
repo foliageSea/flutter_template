@@ -8,17 +8,17 @@ class Themes {
   static final light =
       FlexThemeData.light(scheme: FlexScheme.aquaBlue).copyWith(
     useMaterial3: true,
-    inputDecorationTheme: const InputDecorationTheme(
-      border: OutlineInputBorder(),
-    ),
+    // inputDecorationTheme: const InputDecorationTheme(
+    //   border: OutlineInputBorder(),
+    // ),
   );
 
   // Dark
   static final dark = FlexThemeData.dark(scheme: FlexScheme.aquaBlue).copyWith(
     useMaterial3: true,
-    inputDecorationTheme: const InputDecorationTheme(
-      border: OutlineInputBorder(),
-    ),
+    // inputDecorationTheme: const InputDecorationTheme(
+    //   border: OutlineInputBorder(),
+    // ),
   );
 }
 
