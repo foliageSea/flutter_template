@@ -1,4 +1,3 @@
-import 'package:flutter_template/middlewares/out_of_box_experience_middleware.dart';
 import 'package:flutter_template/pages/home/home_page.dart';
 import 'package:flutter_template/pages/login/login_page.dart';
 import 'package:flutter_template/pages/out_of_box_experience/out_of_box_experience_page.dart';
@@ -24,9 +23,9 @@ class AppPages {
           name: Routes.home,
           page: () => const HomePage(),
           transition: Transition.cupertino,
-          middlewares: [
-            OutOfBoxExperienceMiddleware(),
-          ],
+          // middlewares: [
+          //   OutOfBoxExperienceMiddleware(),
+          // ],
         ),
         GetPage(
           name: Routes.setting,

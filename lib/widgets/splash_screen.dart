@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SplashScreenController {
-  RxString message = "加载中...".obs;
-  RxBool loading = true.obs;
+  ValueNotifier<String> message = ValueNotifier("加载中...");
+  ValueNotifier<bool> loading = ValueNotifier(true);
 
-  void updateMessage(String msg) {
-    message.value = msg;
-    message.refresh();
+  void start() {
+    loading.value = true;
   }
 
-  void setLoading(bool val) {
-    loading.value = val;
-    loading.refresh();
+  void finish() {
+    loading.value = false;
+  }
+
+  void setMessage(String message) {
+    this.message.value = message;
   }
 }
 
@@ -49,10 +50,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget _buildSplashScreen(Widget child) {
     var loading = widget.controller.loading;
 
-    return Obx(() => loading.value ? _buildIndicator() : child);
+    return ValueListenableBuilder(
+      valueListenable: loading,
+      builder: (BuildContext context, value, _) {
+        return value ? _buildIndicator() : child;
+      },
+    );
   }
 
-  Scaffold _buildIndicator() {
+  Widget _buildIndicator() {
     var message = widget.controller.message;
 
     return Scaffold(
@@ -73,10 +79,19 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(
               height: 8,
             ),
-            Obx(() => Text(message.value))
+            _buildMessage(message)
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMessage(ValueNotifier<String> message) {
+    return ValueListenableBuilder(
+      valueListenable: message,
+      builder: (BuildContext context, String value, _) {
+        return Text(value);
+      },
     );
   }
 

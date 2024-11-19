@@ -14,6 +14,7 @@ import 'package:flutter_template/utils/app_directory.dart';
 import 'package:flutter_template/utils/utils.dart';
 import 'package:fvp/fvp.dart' as fvp;
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'storages/preferences_storage.dart';
 import 'widgets/splash_screen.dart';
@@ -33,6 +34,9 @@ class Global {
 
     /// init service
     await Get.putAsync(() => DbService().init());
+
+    await GetStorage.init(appName);
+
     await Get.putAsync(() => PreferencesStorage().init());
     await Get.putAsync(() => UserStorage().init());
     await Get.putAsync(() => DeviceInfoService().init());
@@ -60,8 +64,8 @@ class Global {
   static Future initService(SplashScreenController screenController) async {
     try {
       LOGGER.info('服务初始化开始');
-      screenController.setLoading(true);
-      screenController.updateMessage('加载中...');
+      screenController.start();
+      screenController.setMessage('加载中...');
 
       /// 软件版本
       await _initSoftVersion();
@@ -69,14 +73,15 @@ class Global {
 
       var result = await NetworkHelper.getConnectivityResult();
       if (result == ConnectivityResult.none) {
-        screenController.updateMessage('网络异常, 5s后重试...');
+        screenController.setMessage('网络异常, 5s后重试...');
         throw Exception('Device not connected to any network');
       }
       await Future.delayed(const Duration(seconds: 1));
-      screenController.updateMessage('网络通常...');
+      screenController.setMessage('网络通常...');
 
       await Future.delayed(const Duration(seconds: 1));
-      screenController.setLoading(false);
+      screenController.finish();
+
       LOGGER.info('服务初始化完成');
     } catch (e) {
       LOGGER.error(e);
