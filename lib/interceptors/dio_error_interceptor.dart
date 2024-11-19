@@ -11,34 +11,22 @@ class DioErrorInterceptor extends Interceptor {
     DioExceptionType.connectionError: (err, handler) {
       var message = "连接错误, 请检查网络";
       showSnackBar(message);
-      handler.next(err);
-      return;
     },
     DioExceptionType.connectionTimeout: (err, handler) {
       var message = "连接超时，请检查网络";
       showSnackBar(message);
-      handler.next(err);
-      return;
+    },
+    DioExceptionType.receiveTimeout: (err, handler) {
+      var message = "响应超时，请检查网络";
+      showSnackBar(message);
     },
     DioExceptionType.badResponse: (err, handler) {
       // final path = err.requestOptions.path;
       final statusCode = err.response?.statusCode;
       final statusMessage = err.response?.statusMessage;
       showSnackBar('服务器内部错误($statusCode)', detail: statusMessage);
-      handler.next(err);
-      return;
     },
   };
-
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    handler.next(options);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    handler.next(response);
-  }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
