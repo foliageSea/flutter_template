@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/storages/user_storage.dart';
+import 'package:flutter_template/utils/common.dart';
 import 'package:get/get.dart';
 
 class DioAuthInterceptor extends Interceptor {
@@ -36,13 +37,14 @@ class DioAuthInterceptor extends Interceptor {
     if (data['code'] == 401) {
       Get.find<UserStorage>().clearToken();
       talker.warning("登录失效，请重新登录");
-      // onErrorMessage?.call('登录失效，请重新登录');
+      showToast("登录失效，请重新登录");
       handler.next(response);
       return;
     }
 
     final accessToken = response.headers['access-token'];
     final xAccessToken = response.headers['x-access-token'];
+
     if (accessToken != null &&
         accessToken.isNotEmpty &&
         xAccessToken != null &&
@@ -52,11 +54,6 @@ class DioAuthInterceptor extends Interceptor {
     }
 
     handler.next(response);
-  }
-
-  @override
-  void onError(err, handler) {
-    handler.next(err);
   }
 
   String? _handleToken(String token) {
