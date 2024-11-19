@@ -12,7 +12,7 @@ class LogDao extends DaoInterface {
   }
 
   static Future watch() async {
-    var db = DbService.to.database;
+    var db = DbService.to.isar;
     var stream = db.logEntitys.watchLazy();
     stream.listen((_) async {
       try {

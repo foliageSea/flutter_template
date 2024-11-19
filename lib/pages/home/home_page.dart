@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                   try {
                     throw Exception('测试');
                   } catch (e, st) {
-                    talker.handle(e, st);
+                    LOGGER.handle(e, st);
                   }
                 },
                 child: const Text('测试'))

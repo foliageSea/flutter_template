@@ -10,7 +10,7 @@ class SubmitHelper {
       await cb();
       return true;
     } catch (e) {
-      talker.handle(e);
+      LOGGER.handle(e);
       return false;
     } finally {
       SmartDialog.dismiss();

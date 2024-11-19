@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class DeviceInfoService extends GetxService {
   // androidInfo
   late AndroidDeviceInfo _androidInfo;
+
   AndroidDeviceInfo get androidInfo => _androidInfo;
 
   Future<DeviceInfoService> init() async {
@@ -12,7 +13,7 @@ class DeviceInfoService extends GetxService {
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       if (GetPlatform.isAndroid) _androidInfo = await deviceInfo.androidInfo;
     } catch (e) {
-      talker.handle(e, null, '设备信息初始化失败');
+      LOGGER.handle(e, null, '设备信息初始化失败');
     }
     return this;
   }

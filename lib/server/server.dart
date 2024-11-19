@@ -21,9 +21,9 @@ class Server {
       context = await shelfRun(_init,
           defaultEnableHotReload: false, defaultBindAddress: list.first);
 
-      talker.info('Sever running on http://${list.first}:8080');
+      LOGGER.info('Sever running on http://${list.first}:8080');
     } catch (e) {
-      talker.error('Sever run error: $e');
+      LOGGER.error('Sever run error: $e');
     }
   }
 

@@ -50,15 +50,16 @@ class Global {
       AndroidHelper.initStatusBar();
     }
 
+    /// init log
     LogDao.watch();
 
-    talker.info('应用初始化完成');
+    LOGGER.info('应用初始化完成');
   }
 
   /// 服务初始化
   static Future initService(SplashScreenController screenController) async {
     try {
-      talker.info('服务初始化开始');
+      LOGGER.info('服务初始化开始');
       screenController.setLoading(true);
       screenController.updateMessage('加载中...');
 
@@ -76,9 +77,9 @@ class Global {
 
       await Future.delayed(const Duration(seconds: 1));
       screenController.setLoading(false);
-      talker.info('服务初始化完成');
+      LOGGER.info('服务初始化完成');
     } catch (e) {
-      talker.error(e);
+      LOGGER.error(e);
       Future.delayed(const Duration(seconds: 5), () async {
         await initService(screenController);
       });
@@ -88,12 +89,12 @@ class Global {
   static Future<void> _initSoftVersion() async {
     final version = await getSoftwareVersion();
     Get.find<PreferencesStorage>().version.val = version;
-    talker.info('软件版本: $version');
+    LOGGER.info('软件版本: $version');
   }
 
   static void _initLanguage() {
     final lan = Get.find<PreferencesStorage>().language.val;
-    talker.info('语言: $lan');
+    LOGGER.info('语言: $lan');
     Future.delayed(const Duration(seconds: 1), () {
       Get.updateLocale(Locale(lan));
     });

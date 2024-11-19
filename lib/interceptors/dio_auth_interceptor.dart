@@ -19,7 +19,7 @@ class DioAuthInterceptor extends Interceptor {
   static Map<int, DioResponseInterceptorFunc> handlers = {
     401: (response, handler) {
       get.find<UserStorage>().clearToken();
-      talker.warning("登录失效，请重新登录");
+      LOGGER.warning("登录失效，请重新登录");
       showToast("登录失效，请重新登录");
     }
   };
