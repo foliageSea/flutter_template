@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
-import 'en_us.dart';
-import 'zh_cn.dart';
+import 'locales/en_us.dart';
+import 'locales/zh_cn.dart';
 
 class TranslationService extends Translations {
   // static Locale? get locale => Get.deviceLocale;

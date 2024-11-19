@@ -1,13 +1,15 @@
 import 'dart:io';
 
+import 'package:flutter_template/db/entity/log_entity.dart';
 import 'package:flutter_template/logs/log.dart';
-import 'package:flutter_template/models/user.dart';
 import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 
 class DbService extends GetxService {
   late final Isar database;
+
+  static DbService get to => Get.find();
 
   Future<DbService> init() async {
     try {
@@ -20,7 +22,9 @@ class DbService extends GetxService {
       }
 
       database = await Isar.open(
-        [UserSchema],
+        [
+          LogEntitySchema,
+        ],
         directory: path,
         name: 'db',
       );

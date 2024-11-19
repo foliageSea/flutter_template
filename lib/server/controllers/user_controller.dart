@@ -1,7 +1,7 @@
-import 'package:flutter_template/server/controllers/server_controller.dart';
+import 'package:flutter_template/server/controllers/server_controller_interface.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
-class UserController implements ServerController {
+class UserController implements ServerControllerInterface {
   static const controller = '/user';
 
   @override

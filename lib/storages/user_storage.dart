@@ -1,13 +1,9 @@
 import 'package:flutter_template/storages/storage_mixin.dart';
-import 'package:flutter_template/utils/app_directory.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class UserStorage extends GetxService with StorageMixin {
-  static const container = 'UserStorage';
-
-  static GetStorage getPrefBox() =>
-      GetStorage(container, AppDirectory.getDirectory);
+  static GetStorage getPrefBox() => GetStorage();
 
   // Init
   Future<UserStorage> init() async {
@@ -34,10 +30,5 @@ class UserStorage extends GetxService with StorageMixin {
     final prefBox = getPrefBox();
     prefBox.remove('token');
     prefBox.remove('refreshToken');
-  }
-
-  @override
-  String toString() {
-    return 'token: ${token.val}\nrefreshToken: ${refreshToken.val}\naccount: ${account.val}\npassword: ${password.val}';
   }
 }

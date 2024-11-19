@@ -54,7 +54,7 @@ class _MainAppState extends State<MainApp> {
 
   Widget _buildApp() {
     return GetMaterialApp(
-      title: 'Flutter Template',
+      title: Global.appName,
       themeMode: themeModeMap[themeMode.value]!,
       theme: Themes.light,
       darkTheme: Themes.dark,

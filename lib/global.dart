@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_template/constants/common.dart';
+import 'package:flutter_template/db/dao/log_dao.dart';
 import 'package:flutter_template/helpers/android_helper.dart';
 import 'package:flutter_template/helpers/network_helper.dart';
 import 'package:flutter_template/logs/log.dart';
@@ -48,6 +49,8 @@ class Global {
     if (GetPlatform.isAndroid) {
       AndroidHelper.initStatusBar();
     }
+
+    LogDao.watch();
 
     talker.info('应用初始化完成');
   }

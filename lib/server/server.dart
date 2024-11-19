@@ -3,13 +3,14 @@ import 'package:flutter_template/utils/local_ip.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
-import 'controllers/server_controller.dart';
+import 'controllers/server_controller_interface.dart';
 import 'controllers/user_controller.dart';
 
 class Server {
   static ShelfRunContext? context;
 
-  static List<ServerController> controllers = <ServerController>[
+  static List<ServerControllerInterface> controllers =
+      <ServerControllerInterface>[
     UserController(),
   ];
 

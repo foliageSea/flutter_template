@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/pages/home/home_controller.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -33,8 +34,21 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('首页...'),
+      body: Center(
+        child: Column(
+          children: [
+            const Text('首页...'),
+            FilledButton(
+                onPressed: () {
+                  try {
+                    throw Exception('测试');
+                  } catch (e, st) {
+                    talker.handle(e, st);
+                  }
+                },
+                child: const Text('测试'))
+          ],
+        ),
       ),
     );
   }
