@@ -69,11 +69,10 @@ class DioAuthInterceptor extends Interceptor {
     final accessToken = response.headers['access-token'];
     final xAccessToken = response.headers['x-access-token'];
 
-    if (accessToken != null &&
-        accessToken.isNotEmpty &&
-        xAccessToken != null &&
-        xAccessToken.isNotEmpty) {
+    if (accessToken != null && accessToken.isNotEmpty) {
       tokenRW.val = accessToken.first;
+    }
+    if (xAccessToken != null && xAccessToken.isNotEmpty) {
       refreshTokenRW.val = xAccessToken.first;
     }
   }
