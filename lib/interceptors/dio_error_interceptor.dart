@@ -7,7 +7,7 @@ typedef DioErrorInterceptorFunc = Function(
 );
 
 class DioErrorInterceptor extends Interceptor {
-  final Map<DioExceptionType, DioErrorInterceptorFunc> errorHandlers = {
+  static final Map<DioExceptionType, DioErrorInterceptorFunc> errorHandlers = {
     DioExceptionType.connectionError: (err, handler) {
       var message = "连接错误, 请检查网络";
       showSnackBar(message);

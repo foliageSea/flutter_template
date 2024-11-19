@@ -4,15 +4,30 @@ import 'package:dio/dio.dart';
 import 'package:flutter_template/logs/log.dart';
 import 'package:flutter_template/storages/user_storage.dart';
 import 'package:flutter_template/utils/common.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as get_package;
+
+typedef DioResponseInterceptorFunc = Function(
+  Response response,
+  ResponseInterceptorHandler handler,
+);
 
 class DioAuthInterceptor extends Interceptor {
   DioAuthInterceptor();
 
+  static final get = get_package.Get;
+
+  static Map<int, DioResponseInterceptorFunc> handlers = {
+    401: (response, handler) {
+      get.find<UserStorage>().clearToken();
+      talker.warning("登录失效，请重新登录");
+      showToast("登录失效，请重新登录");
+    }
+  };
+
   @override
   void onRequest(options, handler) {
-    final token = Get.find<UserStorage>().token.val;
-    final refreshToken = Get.find<UserStorage>().refreshToken.val;
+    final token = get.find<UserStorage>().token.val;
+    final refreshToken = get.find<UserStorage>().refreshToken.val;
     options.headers.addAll(
       {
         'Authorization': _handleToken(token),
@@ -25,22 +40,31 @@ class DioAuthInterceptor extends Interceptor {
 
   @override
   void onResponse(response, handler) {
-    final tokenRW = Get.find<UserStorage>().token;
-    final refreshTokenRW = Get.find<UserStorage>().refreshToken;
     late Map<String, dynamic> data;
-    if (response.data.runtimeType == String) {
+    if (response.data is String) {
       data = jsonDecode(response.data);
     } else {
       data = response.data;
     }
 
-    if (data['code'] == 401) {
-      Get.find<UserStorage>().clearToken();
-      talker.warning("登录失效，请重新登录");
-      showToast("登录失效，请重新登录");
-      handler.next(response);
-      return;
+    var code = data['code'];
+    handlers[code]?.call(response, handler);
+
+    _handleCache(response);
+
+    handler.next(response);
+  }
+
+  String? _handleToken(String token) {
+    if (token.isEmpty) {
+      return null;
     }
+    return ['Bearer', token].join(' ');
+  }
+
+  void _handleCache(Response response) {
+    final tokenRW = get.find<UserStorage>().token;
+    final refreshTokenRW = get.find<UserStorage>().refreshToken;
 
     final accessToken = response.headers['access-token'];
     final xAccessToken = response.headers['x-access-token'];
@@ -52,14 +76,5 @@ class DioAuthInterceptor extends Interceptor {
       tokenRW.val = accessToken.first;
       refreshTokenRW.val = xAccessToken.first;
     }
-
-    handler.next(response);
-  }
-
-  String? _handleToken(String token) {
-    if (token.isEmpty) {
-      return null;
-    }
-    return ['Bearer', token].join(' ');
   }
 }
