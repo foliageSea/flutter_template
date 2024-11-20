@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/constants/common.dart';
@@ -36,10 +35,8 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Phoenix(
-      child: _buildScreenUtilInit(
-        app: _buildApp(),
-      ),
+    return _buildScreenUtilInit(
+      app: _buildApp(),
     );
   }
 
