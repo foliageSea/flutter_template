@@ -36,10 +36,8 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Phoenix(
-      child: _buildScreenUtilInit(
-        app: _buildApp(),
-      ),
+    return _buildScreenUtilInit(
+      app: _buildApp(),
     );
   }
 
