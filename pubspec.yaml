@@ -64,6 +64,7 @@ dependencies:
   shelf_cors_headers: ^0.1.2
   network_info_plus: ^6.0.0
   collection: ^1.18.0
+  toastification: ^2.3.0
 
 dev_dependencies:
   build_runner: ^2.4.11

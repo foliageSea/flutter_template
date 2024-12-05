@@ -7,25 +7,15 @@ typedef DioErrorInterceptorFunc = Function(
 );
 
 class DioErrorInterceptor extends Interceptor {
-  static final Map<DioExceptionType, DioErrorInterceptorFunc> errorHandlers = {
-    DioExceptionType.connectionError: (err, handler) {
-      var message = "连接错误, 请检查网络";
-      showSnackBar(message);
-    },
-    DioExceptionType.connectionTimeout: (err, handler) {
-      var message = "连接超时，请检查网络";
-      showSnackBar(message);
-    },
-    DioExceptionType.receiveTimeout: (err, handler) {
-      var message = "响应超时，请检查网络";
-      showSnackBar(message);
-    },
-    DioExceptionType.badResponse: (err, handler) {
-      // final path = err.requestOptions.path;
-      final statusCode = err.response?.statusCode;
-      final statusMessage = err.response?.statusMessage;
-      showSnackBar('服务器内部错误($statusCode)', detail: statusMessage);
-    },
+  final Map<DioExceptionType, Function> errorHandlers = {
+    DioExceptionType.connectionTimeout: () => showErrorToast("连接超时，请检查网络连接"),
+    DioExceptionType.sendTimeout: () => showErrorToast("发送请求超时，请稍后重试"),
+    DioExceptionType.receiveTimeout: () => showErrorToast("接收响应超时，请稍后重试"),
+    DioExceptionType.badCertificate: () => showErrorToast("证书验证失败，请检查您的网络设置"),
+    DioExceptionType.badResponse: () => showErrorToast("服务器响应错误，请稍后重试"),
+    DioExceptionType.cancel: () => showErrorToast("请求已被取消"),
+    DioExceptionType.connectionError: () => showErrorToast("连接错误，请检查网络状态"),
+    DioExceptionType.unknown: () => showErrorToast("发生未知错误，请稍后重试"),
   };
 
   @override
