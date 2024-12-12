@@ -5,6 +5,15 @@ import 'package:isar/isar.dart';
 import 'dao_interface.dart';
 
 class LogDao extends DaoInterface {
+  static LogDao? _instance;
+
+  LogDao._internal();
+
+  factory LogDao() {
+    _instance ??= LogDao._internal();
+    return _instance!;
+  }
+
   Future<int> add(LogEntity log) async {
     return db.writeTxn<int>(() {
       return db.logEntitys.put(log);
