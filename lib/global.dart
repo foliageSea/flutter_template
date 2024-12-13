@@ -85,9 +85,9 @@ class Global {
       LOGGER.info('服务初始化完成');
     } catch (e) {
       LOGGER.error(e);
-      Future.delayed(const Duration(seconds: 5), () async {
-        await initService(screenController);
-      });
+      await Future.delayed(const Duration(seconds: 5));
+      await initService(screenController);
+      return;
     } finally {}
   }
 
