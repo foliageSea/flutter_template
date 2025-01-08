@@ -19,8 +19,6 @@ import 'package:get_storage/get_storage.dart';
 import 'storages/preferences_storage.dart';
 import 'widgets/splash_screen.dart';
 
-typedef ChangeStatusCallBack = void Function(bool status);
-
 class Global {
   Global._();
 

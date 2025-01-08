@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/interceptors/dio_auth_interceptor.dart';
 import 'package:flutter_template/interceptors/dio_error_interceptor.dart';
+import 'package:flutter_template/interceptors/logger_interceptor.dart';
 import 'package:get/get.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
@@ -24,6 +25,7 @@ class DioService extends GetxService {
 
     _dio.interceptors.add(DioErrorInterceptor());
     _dio.interceptors.add(DioAuthInterceptor());
+    _dio.interceptors.add(LoggerInterceptor());
 
     _dio.interceptors.add(
       TalkerDioLogger(
