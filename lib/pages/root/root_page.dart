@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/global.dart';
 import 'package:flutter_template/routes/app_pages.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
@@ -20,17 +19,9 @@ class _RootPageState extends State<RootPage> {
     );
 
     return Scaffold(
-      body: FScaffold(
-        header: FHeader(
-          title: const Text(Global.appName),
-          actions: [
-            FHeaderAction(
-              icon: FAssets.icons.bird(),
-              onPress: () {},
-            ),
-          ],
-        ),
-        content: getRouterOutlet,
+      body: FTheme(
+        data: FThemes.blue.light,
+        child: getRouterOutlet,
       ),
     );
   }

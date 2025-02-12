@@ -39,6 +39,8 @@ dependencies:
   get: ^4.6.5
   forui: ^0.7.0
   forui_assets: ^0.7.0
+  flutter_hooks: ^0.20.5
+  forui_hooks: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:
