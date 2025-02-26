@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'global.dart';
+part of 'theme.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$globalHash() => r'413ebe611b1bb1a64ba69e8250de25eab909d174';
+String _$themeHash() => r'7befe94d3a01cc7437c683965d79a2e137bdcb94';
 
-/// See also [Global].
-@ProviderFor(Global)
-final globalProvider = AutoDisposeAsyncNotifierProvider<Global, void>.internal(
-  Global.new,
-  name: r'globalProvider',
+/// See also [Theme].
+@ProviderFor(Theme)
+final themeProvider = AutoDisposeNotifierProvider<Theme, ThemeMode>.internal(
+  Theme.new,
+  name: r'themeProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$globalHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$themeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Global = AutoDisposeAsyncNotifier<void>;
+typedef _$Theme = AutoDisposeNotifier<ThemeMode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

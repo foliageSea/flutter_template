@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/utils/request.dart';
 import 'package:flutter_template/widgets/global_error.dart';
 import 'package:flutter_template/widgets/global_loading.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +15,7 @@ class Global extends _$Global {
   @override
   FutureOr<void> build() async {
     await Future.delayed(const Duration(seconds: 1));
+    Request();
   }
 }
 

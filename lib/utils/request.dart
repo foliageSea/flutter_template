@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_template/interceptors/dio_error_interceptor.dart';
 import 'package:flutter_template/interceptors/logger_interceptor.dart';
@@ -31,6 +33,7 @@ class Request extends IRequest {
       LoggerInterceptor(),
       DioErrorInterceptor(),
     ]);
+    log('Request Client Inited');
   }
 
   factory Request() {
