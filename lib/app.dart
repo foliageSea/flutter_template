@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_template/global.dart';
-import 'package:flutter_template/routes/app_pages.dart';
-import 'package:forui/forui.dart';
+import 'package:flutter_template/router/routesr.dart';
 import 'package:get/get.dart';
 
 class MainApp extends StatelessWidget {
@@ -11,7 +10,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: Global.appName,
-      getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
+      home: FluentApp.router(
+        debugShowCheckedModeBanner: false,
+        builder: (context, c) => NavigationPaneTheme(
+          data: const NavigationPaneThemeData(),
+          child: c!,
+        ),
+        routerConfig: router,
+      ),
     );
   }
 }
