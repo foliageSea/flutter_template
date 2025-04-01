@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_template/global.dart';
-import 'package:flutter_template/router/routesr.dart';
+import 'package:flutter_template/router/router.dart';
 import 'package:get/get.dart';
 
 class MainApp extends StatelessWidget {
@@ -12,12 +12,12 @@ class MainApp extends StatelessWidget {
       title: Global.appName,
       debugShowCheckedModeBanner: false,
       home: FluentApp.router(
+        routerConfig: router,
         debugShowCheckedModeBanner: false,
         builder: (context, c) => NavigationPaneTheme(
           data: const NavigationPaneThemeData(),
           child: c!,
         ),
-        routerConfig: router,
       ),
     );
   }

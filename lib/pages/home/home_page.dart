@@ -16,10 +16,11 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text('Home Page'),
           Button(
-              onPressed: () {
-                context.push('/about');
-              },
-              child: const Text('关于'))
+            onPressed: () {
+              context.push('/about');
+            },
+            child: const Text('关于'),
+          )
         ],
       ),
     );

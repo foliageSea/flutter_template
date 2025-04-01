@@ -18,7 +18,6 @@ class Global {
       await windowManager.setMinimumSize(const Size(500, 600));
       await windowManager.setAlignment(Alignment.center);
       await windowManager.show();
-      await windowManager.setPreventClose(true);
       await windowManager.setSkipTaskbar(false);
     });
   }

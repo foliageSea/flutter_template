@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_template/global.dart';
-import 'package:flutter_template/router/routesr.dart';
+import 'package:flutter_template/router/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -20,16 +18,14 @@ class RootPage extends StatefulWidget {
   State<RootPage> createState() => _RootPageState();
 }
 
-class _RootPageState extends State<RootPage> with WindowListener {
+class _RootPageState extends State<RootPage> {
   @override
   void initState() {
-    windowManager.addListener(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    windowManager.removeListener(this);
     super.dispose();
   }
 
@@ -54,18 +50,17 @@ class _RootPageState extends State<RootPage> with WindowListener {
           child: Text(Global.appName),
         ),
       ),
-      leading: () {
-        // final enabled = widget.shellContext != null && router.canPop();
-
-        onPressed() {
-          if (router.canPop()) {
-            context.pop();
-            setState(() {});
+      leading: Builder(
+        builder: (BuildContext context) {
+          onPressed() {
+            if (router.canPop()) {
+              context.pop();
+              setState(() {});
+            }
           }
-        }
 
-        return NavigationPaneTheme(
-          data: NavigationPaneTheme.of(context).merge(NavigationPaneThemeData(
+          var themeData =
+              NavigationPaneTheme.of(context).merge(NavigationPaneThemeData(
             unselectedIconColor: WidgetStateProperty.resolveWith((states) {
               if (states.isDisabled) {
                 return ButtonThemeData.buttonColor(context, states);
@@ -75,21 +70,25 @@ class _RootPageState extends State<RootPage> with WindowListener {
                 states,
               ).basedOnLuminance();
             }),
-          )),
-          child: Builder(
-            builder: (context) => PaneItem(
-              icon: const Center(child: Icon(FluentIcons.back, size: 12.0)),
-              body: const SizedBox.shrink(),
-              enabled: true,
-            ).build(
-              context,
-              false,
-              onPressed,
-              displayMode: PaneDisplayMode.compact,
+          ));
+
+          return NavigationPaneTheme(
+            data: themeData,
+            child: Builder(
+              builder: (context) => PaneItem(
+                icon: const Center(child: Icon(FluentIcons.back, size: 12.0)),
+                body: const SizedBox.shrink(),
+                enabled: true,
+              ).build(
+                context,
+                false,
+                onPressed,
+                displayMode: PaneDisplayMode.compact,
+              ),
             ),
-          ),
-        );
-      }(),
+          );
+        },
+      ),
       actions: const Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -97,11 +96,6 @@ class _RootPageState extends State<RootPage> with WindowListener {
         ],
       ),
     );
-  }
-
-  @override
-  void onWindowClose() async {
-    exit(0);
   }
 }
 
