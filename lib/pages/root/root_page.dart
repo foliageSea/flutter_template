@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_template/global.dart';
 import 'package:flutter_template/router/router.dart';
@@ -89,10 +91,10 @@ class _RootPageState extends State<RootPage> {
           );
         },
       ),
-      actions: const Row(
+      actions: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          WindowButtons(),
+          if (Platform.isWindows) const WindowButtons(),
         ],
       ),
     );
