@@ -1,0 +1,32 @@
+import 'package:flutter_template/pages/home/home_page.dart';
+import 'package:flutter_template/pages/login/login_page.dart';
+import 'package:flutter_template/pages/root/root_page.dart';
+import 'package:flutter_template/router/router.dart';
+import 'package:get/get.dart';
+
+class AppPages {
+  static var install = Routes.home;
+
+  static final routes = [
+    GetPage(
+      name: '/',
+      page: () => const RootPage(),
+      // 参与根导航
+      participatesInRootNavigator: true,
+      // 防止重复
+      preventDuplicates: true,
+      children: [
+        GetPage(
+          name: Routes.home,
+          page: () => const HomePage(),
+          transition: Transition.cupertino,
+        ),
+        GetPage(
+          name: Routes.login,
+          page: () => const LoginPage(),
+          transition: Transition.cupertino,
+        ),
+      ],
+    )
+  ];
+}

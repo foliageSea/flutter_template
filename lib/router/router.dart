@@ -26,8 +26,6 @@ final router = GoRouter(
   redirect: redirect,
 );
 
-Duration transitionDuration = const Duration(milliseconds: 300);
-
 /// 生成路由
 List<RouteBase> generateRoutes() {
   return [
@@ -61,6 +59,10 @@ List<RouteBase> generateRoutes() {
   ];
 }
 
+/// 动画时长
+Duration transitionDuration = const Duration(milliseconds: 300);
+
+/// 过渡动画
 Widget transitionsBuilder(context, animation, secondaryAnimation, child) {
   return Stack(
     children: [

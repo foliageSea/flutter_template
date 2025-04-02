@@ -2,18 +2,20 @@ import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_template/global.dart';
+import 'package:flutter_template/router/get_router.dart';
 import 'package:flutter_template/router/router.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:window_manager/window_manager.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({
     super.key,
-    required this.child,
-    required this.shellContext,
+    this.child,
+    this.shellContext,
   });
 
-  final Widget child;
+  final Widget? child;
   final BuildContext? shellContext;
 
   @override
@@ -39,7 +41,9 @@ class _RootPageState extends State<RootPage> {
   Widget _buildNavigationView() {
     return NavigationView(
       appBar: _buildNavigationAppBar(),
-      content: widget.child,
+      content: GetRouterOutlet(
+        initialRoute: AppPages.install,
+      ),
     );
   }
 

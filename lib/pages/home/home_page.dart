@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
               if (context.mounted) {
                 Global.removeToken();
-                context.go(Routes.login);
+                context.replace(Routes.login);
               }
             }),
       ),
