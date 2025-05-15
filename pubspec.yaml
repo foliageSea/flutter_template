@@ -3,12 +3,17 @@ description: "flutter_template"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.6.2
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  get: ^4.7.2
+  dio: ^5.8.0+1
+  talker_flutter: ^4.7.6
+  shared_preferences: ^2.5.3
+  talker_dio_logger: ^4.7.6
 
 dev_dependencies:
   flutter_test:
