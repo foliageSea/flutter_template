@@ -20,6 +20,8 @@ dependencies:
   async: ^2.11.0
   open_filex: ^4.7.0
   signalr_netcore: ^1.4.3
+  mqtt5_client: ^4.11.0
+  typed_data: ^1.4.0
 
 dev_dependencies:
   flutter_test:
