@@ -19,6 +19,7 @@ dependencies:
   path: ^1.9.0
   async: ^2.11.0
   open_filex: ^4.7.0
+  signalr_netcore: ^1.4.3
 
 dev_dependencies:
   flutter_test:
