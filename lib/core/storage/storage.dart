@@ -1,4 +1,4 @@
-import 'package:flutter_template/core/logger/logger.dart';
+import 'package:flutter_template/core/mixins/app_log_mixin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'storage_keys.dart';
@@ -15,7 +15,7 @@ abstract class StorageAble {
   Future<void> remove(StorageKeys key);
 }
 
-class Storage implements StorageAble {
+class Storage with AppLogMixin implements StorageAble {
   static Storage? _storage;
 
   Storage._();
@@ -40,7 +40,7 @@ class Storage implements StorageAble {
     for (var key in StorageKeys.values) {
       _cache[key] = await _prefs.getString(key.name);
     }
-    AppLogger().log('缓存加载完成');
+    log('缓存加载完成');
   }
 
   @override

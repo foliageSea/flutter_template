@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
+import 'package:flutter_template/core/mixins/app_log_mixin.dart';
 
-class DioErrorInterceptor extends Interceptor {
+class DioErrorInterceptor extends Interceptor with AppLogMixin {
   static const Map<DioExceptionType, String> errorMessages = {
     DioExceptionType.connectionTimeout: '连接服务器超时',
     DioExceptionType.sendTimeout: '发送请求超时',

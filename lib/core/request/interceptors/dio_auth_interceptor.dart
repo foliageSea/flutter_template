@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
+import 'package:flutter_template/core/mixins/app_log_mixin.dart';
 import 'package:flutter_template/core/storage/storage.dart';
 import 'package:flutter_template/core/storage/storage_keys.dart';
 
-class DioAuthInterceptor extends Interceptor {
+class DioAuthInterceptor extends Interceptor with AppLogMixin {
   StorageAble? storage;
 
   DioAuthInterceptor({this.storage});
@@ -62,7 +61,7 @@ class DioAuthInterceptor extends Interceptor {
       return;
     }
     if (code == 500) {
-      log(data['message'], name: '服务器内部发生错误');
+      log(data['message']);
       throw DioException(
         requestOptions: response.requestOptions,
         type: DioExceptionType.badResponse,

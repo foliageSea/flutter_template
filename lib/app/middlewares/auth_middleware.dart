@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/routes/app_pages.dart';
-import 'package:flutter_template/core/logger/logger.dart';
+import 'package:flutter_template/core/mixins/app_log_mixin.dart';
 import 'package:flutter_template/core/storage/storage.dart';
 import 'package:flutter_template/core/storage/storage_keys.dart';
 import 'package:get/get.dart';
 
-class AuthMiddleware extends GetMiddleware {
+class AuthMiddleware extends GetMiddleware with AppLogMixin {
   StorageAble? storage;
 
   AuthMiddleware({this.storage});
@@ -23,7 +23,7 @@ class AuthMiddleware extends GetMiddleware {
     if (token != null && token.isNotEmpty) {
       return null;
     }
-    AppLogger().warning('AuthMiddleware: 跳转到登录页面');
+    warning('AuthMiddleware: 跳转到登录页面');
     return const RouteSettings(name: AppRoutes.login);
   }
 }

@@ -18,7 +18,7 @@ class Global {
     AppLogger().info('应用初始化完成');
   }
 
-  static void loadBaseUrl() async {
+  static void loadBaseUrl() {
     var baseUrl = Storage().get(StorageKeys.url) ?? '';
     if (baseUrl.isEmpty) {
       AppLogger().warning('baseUrl 为空');
