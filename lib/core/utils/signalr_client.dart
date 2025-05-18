@@ -39,9 +39,9 @@ class SignalrClient with AppLogMixin implements SignalrClientAble {
       accessTokenFactory: () async {
         return option.token;
       },
-      skipNegotiation: true,
+      skipNegotiation: option.skipNegotiation,
       transport: HttpTransportType.WebSockets,
-      requestTimeout: 2000,
+      requestTimeout: option.requestTimeout,
     );
     _url = "${option.url}?${option.key}=${jsonEncode(option.data)}";
     _hubConnection = HubConnectionBuilder()
@@ -89,12 +89,16 @@ class SignalrClientOption {
   String key;
   String token;
   Map<String, dynamic> data = {};
+  int requestTimeout;
+  bool skipNegotiation;
 
   SignalrClientOption({
     required this.url,
     required this.key,
     required this.token,
     required this.data,
+    this.requestTimeout = 2000,
+    this.skipNegotiation = true,
   });
 }
 
