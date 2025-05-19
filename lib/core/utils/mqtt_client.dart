@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:mqtt5_client/mqtt5_client.dart';
 import 'package:mqtt5_client/mqtt5_server_client.dart';
 import 'package:typed_data/typed_data.dart' as typed;
@@ -12,6 +14,15 @@ abstract class MqttClientAble {
   Future<MqttConnectionStatus?> connect();
 
   void disconnect();
+
+  MqttSubscription? subscribe(String topic, MqttQos qosLevel);
+}
+
+class TopicMatchHandler {
+  String? topic;
+  Function(String? topoc, String? pt)? handler;
+
+  TopicMatchHandler(this.topic, this.handler);
 }
 
 class MqttClient implements MqttClientAble {
@@ -34,6 +45,7 @@ class MqttClient implements MqttClientAble {
     _client = _createClient(option);
     _connectMessage = _createConnectMessage(option);
     _client.connectionMessage = _connectMessage;
+    _listen();
   }
 
   MqttServerClient _createClient(MqttClientOption option) {
@@ -79,6 +91,43 @@ class MqttClient implements MqttClientAble {
   void disconnect() {
     _client.disconnect();
   }
+
+  @override
+  MqttSubscription? subscribe(String topic, MqttQos qosLevel) {
+    return _client.subscribe(topic, qosLevel);
+  }
+
+  void _listen() {
+    _client.updates.listen(
+      (List<MqttReceivedMessage<MqttMessage>> list) {
+        if (list.isEmpty) {
+          return;
+        }
+        String? topic = list.first.topic;
+        MqttPublishMessage item = list.first.payload as MqttPublishMessage;
+        typed.Uint8Buffer? message = item.payload.message;
+        String? pt;
+        if (message != null) {
+          pt = MqttUtilities.bytesToStringAsString(message);
+        }
+        _option.onMessage?.call(topic, pt);
+        _callHandlers(topic, pt);
+      },
+    );
+  }
+
+  void _callHandlers(String? topic, String? pt) {
+    var handlers = _option.topicMatchHandlers;
+    if (handlers == null || handlers.isEmpty) {
+      return;
+    }
+    for (var e in handlers) {
+      if (e.topic != topic) {
+        continue;
+      }
+      e.handler?.call(topic, pt);
+    }
+  }
 }
 
 class MqttClientOption {
@@ -93,6 +142,8 @@ class MqttClientOption {
   String? password;
   void Function()? onConnected;
   void Function()? onDisconnected;
+  void Function(String? topic, String? pt)? onMessage;
+  List<TopicMatchHandler>? topicMatchHandlers;
 
   MqttClientOption({
     required this.server,
@@ -106,5 +157,7 @@ class MqttClientOption {
     this.password,
     this.onConnected,
     this.onDisconnected,
+    this.onMessage,
+    this.topicMatchHandlers,
   });
 }
