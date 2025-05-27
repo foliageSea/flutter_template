@@ -1,0 +1,33 @@
+name: flutter_template
+description: "flutter_template"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  core: any
+  updater: any
+  get: ^4.7.2
+
+
+dependency_overrides:
+  core:
+    path: ./packages/core
+  updater:
+    path: ./packages/updater
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+

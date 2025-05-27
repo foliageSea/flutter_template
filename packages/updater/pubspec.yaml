@@ -1,0 +1,25 @@
+name: updater
+version: 0.0.1
+
+environment:
+  sdk: ^3.6.2
+  flutter: ">=3.27.4"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.8.0+1
+  path_provider: ^2.1.5
+  pub_semver: ^2.2.0
+  open_file: ^3.5.10
+  path: ^1.9.0
+  core: any
+
+dependency_overrides:
+  core:
+    path: ../core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
