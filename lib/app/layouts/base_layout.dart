@@ -25,19 +25,21 @@ class BaseLayout extends StatefulWidget {
 class _BaseLayoutState extends State<BaseLayout> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: AppBar(
-            title: _buildTitle(context),
-            actions: widget.actions,
+    return Scaffold(
+      body: Stack(
+        children: [
+          Scaffold(
+            appBar: AppBar(
+              title: _buildTitle(context),
+              actions: widget.actions,
+            ),
+            body: SafeArea(
+              child: _buildUseSingleChildScrollView(),
+            ),
           ),
-          body: SafeArea(
-            child: _buildUseSingleChildScrollView(),
-          ),
-        ),
-        _buildTag(context)
-      ],
+          _buildTag(context)
+        ],
+      ),
     );
   }
 

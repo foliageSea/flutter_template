@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_template/app/controllers/controllers.dart';
+import 'package:get/get.dart';
 
 class Global {
   static const String appName = "flutter_template";
@@ -14,11 +16,15 @@ class Global {
     await Storage().init();
     Request().init();
 
-    NotificationsUtil().init();
+    await NotificationsUtil().init();
     await PackageInfoUtil().init();
     await DeviceInfoUtil().init();
     appVersion = PackageInfoUtil().getVersion();
-
+    registerServices();
     AppLogger().info('应用初始化完成');
+  }
+
+  static void registerServices() {
+    Get.put(UserController());
   }
 }

@@ -12,10 +12,10 @@ class AppPages {
       name: AppRoutes.home,
       page: () => const HomePage(),
     ),
-    // GetPage(
-    //   name: AppRoutes.oobe,
-    //   page: () => const OobePage(),
-    // ),
+    GetPage(
+      name: AppRoutes.oobe,
+      page: () => const OobePage(),
+    ),
     GetPage(
       name: AppRoutes.login,
       page: () => const LoginPage(),

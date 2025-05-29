@@ -1,9 +1,15 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class ErrorApp extends StatelessWidget {
   final dynamic error;
+  final StackTrace? stackTrace;
 
-  const ErrorApp({super.key, required this.error});
+  const ErrorApp({
+    super.key,
+    required this.error,
+    this.stackTrace,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +27,34 @@ class ErrorApp extends StatelessWidget {
                 Icons.error_outline,
                 size: 120,
               ),
-              Text("$error"),
-            ],
+              Text(
+                "$error",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "${_handleStackTrace(stackTrace)}",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+            ].insertSizedBoxBetween(height: 8),
           ),
         ),
       ),
     );
+  }
+
+  // 处理堆栈跟踪
+  StackTrace? _handleStackTrace(StackTrace? stackTrace) {
+    if (stackTrace != null) {
+      final stackLines = stackTrace.toString().split('\n');
+      if (stackLines.length > 8) {
+        stackTrace = StackTrace.fromString(
+            '${stackLines.take(8).join('\n')}\n... (${stackLines.length - 8} more)');
+      }
+    }
+    return stackTrace;
   }
 }

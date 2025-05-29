@@ -6,7 +6,7 @@ enum CustomNotificationChannel {
 }
 
 abstract class NotificationsUtilAble {
-  void init();
+  Future init();
 
   void setListeners();
 
@@ -46,10 +46,10 @@ class NotificationsUtil implements NotificationsUtilAble {
   }
 
   @override
-  void init() {
+  Future init() async {
     List<NotificationChannel> channels = _notificationChannels.values.toList();
 
-    AwesomeNotifications().initialize(
+    await AwesomeNotifications().initialize(
       null,
       channels,
       debug: false,

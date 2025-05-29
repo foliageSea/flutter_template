@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -11,8 +12,13 @@ void main() async {
   try {
     await Global.init();
     runApp(const MainApp());
-  } catch (e) {
-    runApp(ErrorApp(error: e));
+  } catch (e, st) {
+    runApp(
+      ErrorApp(
+        error: e,
+        stackTrace: st,
+      ),
+    );
   }
 }
 
@@ -23,7 +29,16 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with AppLogMixin {
+  @override
+  void initState() {
+    super.initState();
+
+    PermissionUtil().requestPermissions().catchError((e, st) {
+      handle(e, st);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

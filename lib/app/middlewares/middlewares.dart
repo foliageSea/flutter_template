@@ -1,2 +1,2 @@
-export './auth_middleware.dart';
-export './oobe_middleware.dart';
+export 'src/auth_middleware.dart';
+export 'src/oobe_middleware.dart';
