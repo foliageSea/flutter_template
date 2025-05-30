@@ -17,6 +17,7 @@ extension AppLoggerExtension on AppLogger {
 
   Interceptor getDioInterceptor() {
     return TalkerDioLogger(
+      talker: talker,
       settings: const TalkerDioLoggerSettings(
         printRequestHeaders: true,
         printResponseHeaders: true,
