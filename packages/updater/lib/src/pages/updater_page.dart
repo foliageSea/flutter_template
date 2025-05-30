@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../updater.dart';
@@ -13,14 +14,14 @@ class UpdaterPage extends StatefulWidget {
   State<UpdaterPage> createState() => _UpdaterPageState();
 }
 
-class _UpdaterPageState extends State<UpdaterPage> {
+class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
   UpdaterAble updater = UpdaterAble.getInstance();
 
   @override
   void initState() {
     super.initState();
     updater.updateStatus = true;
-    updater.provider.updateMessage('');
+    updater.provider.reset();
     _startUpdate();
   }
 
@@ -44,6 +45,7 @@ class _UpdaterPageState extends State<UpdaterPage> {
   }
 
   Future _delayedClose() async {
+    warning('更新失败, 5秒后关闭该页面');
     updater.provider.updateMessage('更新失败, 5秒后关闭该页面');
     await Future.delayed(const Duration(seconds: 5));
     if (mounted) {
@@ -80,8 +82,8 @@ class _UpdaterPageState extends State<UpdaterPage> {
               TextButton(
                 onPressed: () {
                   updater.cancelToken?.cancel();
-
                   Navigator.of(context).pop(true);
+                  warning('用户取消更新');
                 },
                 child: const Text('确定'),
               ),
@@ -104,6 +106,8 @@ class _UpdaterPageState extends State<UpdaterPage> {
           _buildProgressNumber(),
           const SizedBox(height: 16),
           _buildMessage(),
+          const SizedBox(height: 16),
+          _buildButton(),
         ],
       ),
     );
@@ -159,6 +163,24 @@ class _UpdaterPageState extends State<UpdaterPage> {
         return Text(
           '${(value * 100).toStringAsFixed(0)}%',
           style: const TextStyle(fontSize: 16),
+        );
+      },
+    );
+  }
+
+  Widget _buildButton() {
+    return ValueListenableBuilder<bool>(
+      valueListenable: updater.provider.finish,
+      builder: (BuildContext context, bool value, Widget? child) {
+        if (!value) {
+          return Container();
+        }
+
+        return FilledButton(
+          onPressed: () async {
+            await updater.installUpdate();
+          },
+          child: Text('开始安装'),
         );
       },
     );

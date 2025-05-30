@@ -72,6 +72,8 @@ class UpdaterAndroid extends UpdaterAble with AppLogMixin {
     log("下载完成");
     provider.updateMessage("下载完成");
 
+    provider.updateFinish(true);
+
     return true;
   }
 
