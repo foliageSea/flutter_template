@@ -17,11 +17,14 @@ class UpdaterPage extends StatefulWidget {
 class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
   UpdaterAble updater = UpdaterAble.getInstance();
 
+  late UpdaterPageController controller;
+
   @override
   void initState() {
     super.initState();
+    controller = updater.controller;
     updater.updateStatus = true;
-    updater.provider.reset();
+    controller.reset();
     _startUpdate();
   }
 
@@ -46,7 +49,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
 
   Future _delayedClose() async {
     warning('更新失败, 5秒后关闭该页面');
-    updater.provider.updateMessage('更新失败, 5秒后关闭该页面');
+    controller.updateMessage('更新失败, 5秒后关闭该页面');
     await Future.delayed(const Duration(seconds: 5));
     if (mounted) {
       Navigator.of(context).pop();
@@ -115,7 +118,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
 
   Widget _buildMessage() {
     return ValueListenableBuilder<String>(
-      valueListenable: updater.provider.message,
+      valueListenable: controller.message,
       builder: (context, value, _) {
         return Text(
           value,
@@ -140,7 +143,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
 
   Widget _buildProgress() {
     return ValueListenableBuilder<double>(
-      valueListenable: updater.provider.progress,
+      valueListenable: controller.progress,
       builder: (context, value, _) {
         return SizedBox(
           height: 1,
@@ -158,7 +161,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
 
   Widget _buildProgressNumber() {
     return ValueListenableBuilder<double>(
-      valueListenable: updater.provider.progress,
+      valueListenable: controller.progress,
       builder: (context, value, _) {
         return Text(
           '${(value * 100).toStringAsFixed(0)}%',
@@ -170,7 +173,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
 
   Widget _buildButton() {
     return ValueListenableBuilder<bool>(
-      valueListenable: updater.provider.finish,
+      valueListenable: controller.finish,
       builder: (BuildContext context, bool value, Widget? child) {
         if (!value) {
           return Container();

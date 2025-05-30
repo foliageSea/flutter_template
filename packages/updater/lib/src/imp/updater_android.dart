@@ -47,7 +47,7 @@ class UpdaterAndroid extends UpdaterAble with AppLogMixin {
       throw Exception("获取下载路径失败");
     }
 
-    provider.updateMessage("开始下载更新包");
+    controller.updateMessage("开始下载更新包");
     savePath = p.join(downPath, 'update.apk');
 
     var tempFile = File(savePath!);
@@ -70,16 +70,16 @@ class UpdaterAndroid extends UpdaterAble with AppLogMixin {
       cancelToken: cancelToken,
     );
     log("下载完成");
-    provider.updateMessage("下载完成");
+    controller.updateMessage("下载完成");
 
-    provider.updateFinish(true);
+    controller.updateFinish(true);
 
     return true;
   }
 
   void _onReceiveProgress(int rec, int total) {
     var progress = rec / total;
-    provider.updateProgress(progress);
+    controller.updateProgress(progress);
   }
 
   @override

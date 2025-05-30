@@ -17,7 +17,7 @@ class UpdaterData {
 }
 
 abstract class UpdaterAble {
-  UpdaterPageProvider provider = UpdaterPageProvider();
+  UpdaterPageController controller = UpdaterPageController();
   bool updateStatus = false;
 
   CancelToken? cancelToken;
@@ -61,7 +61,7 @@ extension UpdaterExtension on UpdaterAble {
   }
 }
 
-class UpdaterPageProvider {
+class UpdaterPageController {
   final ValueNotifier<double> progress = ValueNotifier(0);
   final ValueNotifier<String> message = ValueNotifier("");
   final ValueNotifier<bool> finish = ValueNotifier(false);
