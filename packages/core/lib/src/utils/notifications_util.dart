@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +7,7 @@ enum CustomNotificationChannel {
   andon,
 }
 
-abstract class NotificationsUtilAble {
+abstract class NotificationsUtil {
   Future init();
 
   void setListeners();
@@ -17,16 +19,23 @@ abstract class NotificationsUtilAble {
     String? title,
     String? body,
   });
+
+  static NotificationsUtil getInstance() {
+    if (Platform.isAndroid) {
+      return NotificationsUtilAndroid();
+    }
+    return NotificationsUtilOthers();
+  }
 }
 
-class NotificationsUtil implements NotificationsUtilAble {
-  static NotificationsUtil? _notificationsUtil;
+class NotificationsUtilAndroid implements NotificationsUtil {
+  static NotificationsUtilAndroid? _notificationsUtilAndroid;
 
-  NotificationsUtil._();
+  NotificationsUtilAndroid._();
 
-  factory NotificationsUtil() {
-    _notificationsUtil ??= NotificationsUtil._();
-    return _notificationsUtil!;
+  factory NotificationsUtilAndroid() {
+    _notificationsUtilAndroid ??= NotificationsUtilAndroid._();
+    return _notificationsUtilAndroid!;
   }
 
   final Map<CustomNotificationChannel, NotificationChannel>
@@ -132,4 +141,29 @@ class NotificationController {
     //         (route.settings.name != '/notification-page') || route.isFirst,
     //     arguments: receivedAction);
   }
+}
+
+class NotificationsUtilOthers implements NotificationsUtil {
+  static NotificationsUtilOthers? _notificationsUtilOthers;
+  NotificationsUtilOthers._();
+
+  factory NotificationsUtilOthers() {
+    _notificationsUtilOthers ??= NotificationsUtilOthers._();
+    return _notificationsUtilOthers!;
+  }
+
+  @override
+  Future createNotification(
+      {required CustomNotificationChannel channelKey,
+      String? title,
+      String? body}) async {}
+
+  @override
+  Future init() async {}
+
+  @override
+  Future requestPermission() async {}
+
+  @override
+  void setListeners() {}
 }

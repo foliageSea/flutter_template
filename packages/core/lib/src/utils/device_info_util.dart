@@ -1,21 +1,30 @@
+import 'dart:io';
+
 import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:snowflake_dart/snowflake_dart.dart';
 
-abstract class DeviceInfoUtilAble {
+abstract class DeviceInfoUtil {
   Future init();
   String getSystemVersion();
   Future<int> getDeviceId(StorageAble storage);
+
+  static DeviceInfoUtil getInstance() {
+    if (Platform.isAndroid) {
+      return DeviceInfoUtilAndroid();
+    }
+    return DeviceInfoUtilOthers();
+  }
 }
 
-class DeviceInfoUtil with AppLogMixin implements DeviceInfoUtilAble {
-  static DeviceInfoUtil? _deviceInfoUtil;
+class DeviceInfoUtilAndroid with AppLogMixin implements DeviceInfoUtil {
+  static DeviceInfoUtilAndroid? _deviceInfoUtilAndroid;
 
-  DeviceInfoUtil._();
+  DeviceInfoUtilAndroid._();
 
-  factory DeviceInfoUtil() {
-    _deviceInfoUtil ??= DeviceInfoUtil._();
-    return _deviceInfoUtil!;
+  factory DeviceInfoUtilAndroid() {
+    _deviceInfoUtilAndroid ??= DeviceInfoUtilAndroid._();
+    return _deviceInfoUtilAndroid!;
   }
 
   late DeviceInfoPlugin deviceInfo;
@@ -47,4 +56,26 @@ class DeviceInfoUtil with AppLogMixin implements DeviceInfoUtilAble {
     await storage.set(StorageKeys.deviceId, id.toString());
     return id;
   }
+}
+
+class DeviceInfoUtilOthers implements DeviceInfoUtil {
+  static DeviceInfoUtilOthers? _deviceInfoUtilOthers;
+  DeviceInfoUtilOthers._();
+  factory DeviceInfoUtilOthers() {
+    _deviceInfoUtilOthers ??= DeviceInfoUtilOthers._();
+    return _deviceInfoUtilOthers!;
+  }
+
+  @override
+  Future<int> getDeviceId(StorageAble storage) async {
+    return 0;
+  }
+
+  @override
+  String getSystemVersion() {
+    return '';
+  }
+
+  @override
+  Future init() async {}
 }
