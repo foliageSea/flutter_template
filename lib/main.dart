@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'app/common/global.dart';
 import 'app/common/theme.dart';
 import 'app/routes/app_pages.dart';
-import 'app/widgets/error_app.dart';
 
 void main() async {
   try {
@@ -55,6 +54,7 @@ class _MainAppState extends State<MainApp> with AppLogMixin {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      builder: AppMessage().init(),
     );
   }
 }

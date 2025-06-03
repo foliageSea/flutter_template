@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 abstract class AppMessageAble {
@@ -5,6 +6,9 @@ abstract class AppMessageAble {
   Future<void> show({String? message});
   Future<void> dismiss();
   Future<void> showError(String message);
+  TransitionBuilder init({
+    TransitionBuilder? builder,
+  });
 }
 
 class AppMessage implements AppMessageAble {
@@ -35,5 +39,12 @@ class AppMessage implements AppMessageAble {
   @override
   Future<void> showError(String message) {
     return EasyLoading.showError(message);
+  }
+
+  @override
+  TransitionBuilder init({
+    TransitionBuilder? builder,
+  }) {
+    return EasyLoading.init(builder: builder);
   }
 }

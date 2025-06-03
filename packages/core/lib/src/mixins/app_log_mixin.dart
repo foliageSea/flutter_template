@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
 
 mixin AppLogMixin {
-  void Function(dynamic message) log = AppLogger().log;
-  void Function(dynamic message) info = AppLogger().info;
-  void Function(dynamic message) warning = AppLogger().warning;
-  void Function(Object exception, [StackTrace? stackTrace, dynamic msg])
-      handle = AppLogger().handle;
+  void log(dynamic message) => AppLogger().log(message);
+  void info(dynamic message) => AppLogger().info(message);
+  void warning(dynamic message) => AppLogger().warning(message);
+  void handle(Object exception, [StackTrace? stackTrace, dynamic msg]) =>
+      AppLogger().handle(exception, stackTrace, msg);
 }
