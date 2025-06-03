@@ -17,3 +17,4 @@ export './src/utils/package_info_util.dart';
 export './src/utils/permission_util.dart';
 export './src/services/signalr_client.dart';
 export './src/extensions/list_widget_extension.dart';
+export './src/utils/common_util.dart';

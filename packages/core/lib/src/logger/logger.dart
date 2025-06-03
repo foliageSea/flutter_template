@@ -1,4 +1,5 @@
 import 'package:core/src/logger/formatters/custom_logger_formatter.dart';
+import 'package:core/src/utils/common_util.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'dart:developer' as d;
 
@@ -58,7 +59,7 @@ class AppLogger implements AppLoggAble {
   @override
   void handle(Object exception, [StackTrace? stackTrace, msg]) {
     msg = msg ?? exception.toString();
-    stackTrace = _handleStackTrace(stackTrace);
+    stackTrace = handleStackTrace(stackTrace);
     _talker.handle(exception, stackTrace, msg);
   }
 
@@ -70,18 +71,6 @@ class AppLogger implements AppLoggAble {
   @override
   void info(msg, [Object? exception, StackTrace? stackTrace]) {
     _talker.info(msg, exception, stackTrace);
-  }
-
-  // 处理堆栈跟踪
-  StackTrace? _handleStackTrace(StackTrace? stackTrace) {
-    if (stackTrace != null) {
-      final stackLines = stackTrace.toString().split('\n');
-      if (stackLines.length > 8) {
-        stackTrace = StackTrace.fromString(
-            '${stackLines.take(8).join('\n')}\n... (${stackLines.length - 8} more)');
-      }
-    }
-    return stackTrace;
   }
 
   @override

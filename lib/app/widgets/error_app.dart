@@ -34,7 +34,7 @@ class ErrorApp extends StatelessWidget {
                 ),
               ),
               Text(
-                "${_handleStackTrace(stackTrace)}",
+                "${handleStackTrace(stackTrace)}",
                 style: TextStyle(
                   color: Colors.grey[600],
                 ),
@@ -44,17 +44,5 @@ class ErrorApp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  // 处理堆栈跟踪
-  StackTrace? _handleStackTrace(StackTrace? stackTrace) {
-    if (stackTrace != null) {
-      final stackLines = stackTrace.toString().split('\n');
-      if (stackLines.length > 8) {
-        stackTrace = StackTrace.fromString(
-            '${stackLines.take(8).join('\n')}\n... (${stackLines.length - 8} more)');
-      }
-    }
-    return stackTrace;
   }
 }
