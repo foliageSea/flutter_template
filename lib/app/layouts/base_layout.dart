@@ -15,7 +15,7 @@ class BaseLayout extends StatefulWidget {
     this.title,
     this.actions,
     this.showBackButton = true,
-    this.useSingleChildScrollView = true,
+    this.useSingleChildScrollView = false,
   });
 
   @override

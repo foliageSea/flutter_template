@@ -39,3 +39,48 @@ class CustomFutureBuilder<T> extends FutureBuilder<T> {
     );
   }
 }
+
+class _DemoPage extends StatefulWidget {
+  const _DemoPage();
+
+  @override
+  State<_DemoPage> createState() => _DemoPageState();
+}
+
+class _DemoPageState extends State<_DemoPage> {
+  late Future<String?> future;
+
+  @override
+  void initState() {
+    super.initState();
+    future = _getData();
+  }
+
+  Future<String?> _getData() async {
+    await Future.delayed(const Duration(seconds: 3));
+    return 'Hello World';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var errorWidget = CustomFutureBuilder.buildRefreshButton(
+      label: '重新加载',
+      onPressed: () {
+        setState(() {
+          future = _getData();
+        });
+      },
+    );
+
+    return Scaffold(
+      body: CustomFutureBuilder<String?>(
+        future: future,
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+          String data = snapshot.data!;
+          return Text(data);
+        },
+        errorWidget: errorWidget,
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/src/config/config.dart';
 import 'package:dio/dio.dart';
 
 import 'interceptors/dio_auth_interceptor.dart';
@@ -29,8 +30,8 @@ class Request implements Requestable {
     return _instance ??= Request._();
   }
 
-  static Duration connectTimeout = const Duration(seconds: 10);
-  static Duration receiveTimeout = const Duration(seconds: 30);
+  static Duration connectTimeout = CoreConfig.requestClientConnectTimeout;
+  static Duration receiveTimeout = CoreConfig.requestClientReceiveTimeout;
 
   late Dio _dio;
   String baseUrl = '';

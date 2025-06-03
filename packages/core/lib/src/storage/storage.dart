@@ -60,3 +60,26 @@ class Storage with AppLogMixin implements StorageAble {
     _cache.remove(key);
   }
 }
+
+extension StringOrNullParse on String? {
+  int parseInt({int defaultValue = 0}) {
+    if (this == null) {
+      return defaultValue;
+    }
+    return int.tryParse(this!) ?? defaultValue;
+  }
+
+  bool parseBool({bool defaultValue = false}) {
+    if (this == null) {
+      return defaultValue;
+    }
+    return bool.tryParse(this!) ?? defaultValue;
+  }
+
+  String parseString({String defaultValue = ''}) {
+    if (this == null) {
+      return defaultValue;
+    }
+    return this!;
+  }
+}
