@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 class Global {
   static const String appName = "flutter_template";
   static String appVersion = "1.0.0";
-  static late AppDatabase db;
 
   Global._();
 
@@ -34,8 +33,6 @@ class Global {
   }
 
   static Future initDatabase() async {
-    db = AppDatabase();
-    var directory = await AppDatabase.getDatabaseDirectory();
-    AppLogger().info('数据库目录: $directory');
+    await AppDatabase().init();
   }
 }

@@ -1,29 +1,47 @@
-import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:core/core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_template/db/entity/server_entity.dart';
+import 'package:realm/realm.dart';
 
-import 'entity/server_entity.dart';
+/// 文档地址
+/// https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/flutter/
+class AppDatabase with AppLogMixin {
+  static AppDatabase? _appDatabase;
 
-part 'db.g.dart';
+  AppDatabase._();
 
-@DriftDatabase(tables: [ServerEntity])
-class AppDatabase extends _$AppDatabase {
-  AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
-
-  @override
-  int get schemaVersion => 1;
-
-  static QueryExecutor _openConnection() {
-    return driftDatabase(
-      name: 'db',
-      native: const DriftNativeOptions(
-        databaseDirectory: getApplicationSupportDirectory,
-      ),
-    );
+  factory AppDatabase() {
+    _appDatabase ??= AppDatabase._();
+    return _appDatabase!;
   }
 
-  static Future<String> getDatabaseDirectory() async {
-    final directory = await getApplicationSupportDirectory();
-    return directory.path;
+  late Realm _db;
+
+  Realm get db => _db;
+
+  static int schemaVersion = 1;
+
+  final List<SchemaObject> schemaObjects = [
+    ServerEntity.schema,
+  ];
+
+  Future init() async {
+    try {
+      var shouldDeleteIfMigrationNeeded = kReleaseMode ? false : true;
+      var config = Configuration.local(
+        schemaObjects,
+        schemaVersion: schemaVersion,
+        migrationCallback: migrationCallback,
+        shouldDeleteIfMigrationNeeded: shouldDeleteIfMigrationNeeded,
+      );
+      _db = Realm(config);
+      var path = _db.config.path;
+      log('数据库初始化完成 path: $path');
+    } on RealmException catch (e, st) {
+      handle(e, st);
+      rethrow;
+    }
   }
+
+  void migrationCallback(Migration migration, int oldSchemaVersion) {}
 }

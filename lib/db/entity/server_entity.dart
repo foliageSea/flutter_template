@@ -1,12 +1,12 @@
-import 'package:drift/drift.dart';
+import 'package:realm/realm.dart';
 
-class ServerEntity extends Table {
-  @override
-  String get tableName => 'server';
+part 'server_entity.realm.dart';
 
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get url => text()();
-  IntColumn get type => integer()();
-  TextColumn get username => text()();
-  TextColumn get password => text()();
+@RealmModel()
+class _ServerEntity {
+  @Indexed()
+  late ObjectId id;
+  late String name;
+  late String url;
+  late String description;
 }

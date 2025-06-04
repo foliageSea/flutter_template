@@ -1,11 +1,25 @@
-import '../db.dart';
+import 'package:realm/realm.dart';
+
+import '../entity/server_entity.dart';
 
 class ServerMapper {
-  late AppDatabase db;
+  late Realm db;
 
   ServerMapper(this.db);
 
-  Future add(ServerEntityCompanion data) async {
-    await db.into(db.serverEntity).insert(data);
+  Future add(ServerEntity server) {
+    return db.writeAsync(() {
+      db.add(server);
+    });
+  }
+
+  List<ServerEntity> list() {
+    return db.all<ServerEntity>().toList();
+  }
+
+  Future deleteAll() {
+    return db.writeAsync(() {
+      db.deleteMany(list());
+    });
   }
 }
