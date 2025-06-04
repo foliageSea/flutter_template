@@ -10,20 +10,24 @@ class Global {
 
   Global._();
 
+  static void info(dynamic msg, [Object? exception, StackTrace? stackTrace]) {
+    AppLogger().info(msg, exception, stackTrace);
+  }
+
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();
     AppLogger().init();
-    AppLogger().info('应用初始化开始');
+    info('应用初始化开始');
     await Storage().init();
     Request().init();
     await initDatabase();
 
     await NotificationsUtil.getInstance().init();
     await PackageInfoUtil().init();
+    initAppVersion();
     await DeviceInfoUtil.getInstance().init();
-    appVersion = PackageInfoUtil().getVersion();
     registerServices();
-    AppLogger().info('应用初始化完成');
+    info('应用初始化完成');
   }
 
   static void registerServices() {
@@ -34,5 +38,9 @@ class Global {
 
   static Future initDatabase() async {
     await AppDatabase().init();
+  }
+
+  static initAppVersion() {
+    appVersion = PackageInfoUtil().getVersion();
   }
 }

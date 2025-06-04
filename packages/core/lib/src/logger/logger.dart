@@ -1,5 +1,6 @@
 import 'package:core/src/logger/formatters/custom_logger_formatter.dart';
 import 'package:core/src/utils/common_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'dart:developer' as d;
 
@@ -44,7 +45,10 @@ class AppLogger implements AppLoggAble {
   @override
   void init() {
     var talkerLogger = TalkerLogger(
-      output: (String message) => d.log(message, name: 'AppLogger'),
+      output: (String message) {
+        // ignore: avoid_print
+        kReleaseMode ? print(message) : d.log(message, name: 'AppLogger');
+      },
       formatter: const CustomLoggerFormatter(),
     );
 

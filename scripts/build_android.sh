@@ -1,6 +1,6 @@
 # 编译Flutter项目
 echo "正在编译Flutter项目..."
-/c/tools/fvm/fvm.bat flutter build apk --release
+/c/tools/fvm/fvm.bat flutter build apk --release -v
 
 # 检查编译是否成功
 if [ $? -eq 0 ]; then
