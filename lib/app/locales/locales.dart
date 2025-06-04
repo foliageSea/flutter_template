@@ -5,7 +5,6 @@ import 'package:core/core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 
 class Locales extends Translations with AppLogMixin {
   static Locales? _locales;
@@ -39,12 +38,14 @@ class Locales extends Translations with AppLogMixin {
   Future loadLocale() async {
     for (var locale in SupportedLocales.values) {
       try {
-        final String jsonString =
-            await rootBundle.loadString(join(assetsPath, locale.fileName));
+        // var path = join(assetsPath, locale.fileName);
+        var path = '$assetsPath/${locale.fileName}';
+        final String jsonString = await rootBundle.loadString(path);
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         locales[locale] = jsonMap.cast<String, String>();
-      } catch (_) {
-        warning('加载语言包失败: ${locale.fileName}');
+        log('加载语言包成功: ${locale.fileName}');
+      } catch (e) {
+        warning('加载语言包失败: ${locale.fileName} $e');
       }
     }
     var locale = Storage()
@@ -55,7 +56,7 @@ class Locales extends Translations with AppLogMixin {
   }
 
   List<Locale> getSupportedLocales() {
-    return locales.keys.map((e) => e.localeObj).toList();
+    return SupportedLocales.values.map((e) => e.localeObj).toList();
   }
 
   Future updateLocale(SupportedLocales locale) async {
@@ -68,7 +69,7 @@ class Locales extends Translations with AppLogMixin {
       key.localeObj,
     );
     await Storage().set(StorageKeys.locale, key.locale);
-    log('切换语言包: $locale');
+    log('切换语言包: ${key.locale}');
   }
 
   Future updateLocaleByLocale(String locale) async {
@@ -80,7 +81,7 @@ class Locales extends Translations with AppLogMixin {
       key.localeObj,
     );
     await Storage().set(StorageKeys.locale, key.locale);
-    log('切换语言包: $locale');
+    log('切换语言包: ${key.locale}');
   }
 
   SupportedLocales getCurrentLocale() {
