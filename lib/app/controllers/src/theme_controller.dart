@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ThemeController extends GetxService with AppLogMixin {
-  Rx<String> flexScheme = '深蓝石'.obs;
-  Rx<String> themeMode = '浅色'.obs;
+  Rx<String> flexScheme = ''.obs;
+  Rx<String> themeMode = ''.obs;
 
   Map<String, FlexScheme> flexSchemeMap = {
+    '绿色M3': FlexScheme.greenM3,
     '深蓝石': FlexScheme.bigStone,
     '蓝色M3': FlexScheme.blueM3,
     '青色M3': FlexScheme.cyanM3,
     '水鸭M3': FlexScheme.tealM3,
-    '绿色M3': FlexScheme.greenM3,
   };
 
   Map<String, ThemeMode> themeModeMap = {
+    '系统': ThemeMode.system,
     '深色': ThemeMode.dark,
     '浅色': ThemeMode.light,
-    '系统': ThemeMode.system,
   };
 
   ThemeData getThemeData() {
@@ -30,7 +30,11 @@ class ThemeController extends GetxService with AppLogMixin {
   }
 
   ThemeMode getThemeMode() {
-    return themeModeMap[themeMode.value]!;
+    final key = themeModeMap.keys.firstWhere(
+      (key) => key == themeMode.value,
+      orElse: () => themeModeMap.keys.first.toString(),
+    );
+    return themeModeMap[key]!;
   }
 
   Future changeTheme(FlexScheme scheme) async {
@@ -54,10 +58,12 @@ class ThemeController extends GetxService with AppLogMixin {
   }
 
   void initTheme() {
-    flexScheme.value =
-        Storage().get(StorageKeys.flexScheme).parseString(defaultValue: '深蓝石');
-    themeMode.value =
-        Storage().get(StorageKeys.themeMode).parseString(defaultValue: '浅色');
+    flexScheme.value = Storage()
+        .get(StorageKeys.flexScheme)
+        .parseString(defaultValue: flexSchemeMap.keys.first.toString());
+    themeMode.value = Storage()
+        .get(StorageKeys.themeMode)
+        .parseString(defaultValue: themeModeMap.keys.first.toString());
     log('加载主题: ${flexScheme.value}, 模式 ${themeMode.value}');
   }
 }
