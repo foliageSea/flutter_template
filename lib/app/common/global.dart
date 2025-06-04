@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/controllers/controllers.dart';
+import 'package:flutter_template/app/locales/locales.dart';
 import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,8 @@ class Global {
     initAppVersion();
     await DeviceInfoUtil.getInstance().init();
     registerServices();
+
+    await Locales().loadLocale();
     info('应用初始化完成');
   }
 

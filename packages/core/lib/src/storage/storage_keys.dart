@@ -5,4 +5,5 @@ enum StorageKeys {
   deviceId,
   flexScheme,
   themeMode,
+  locale,
 }
