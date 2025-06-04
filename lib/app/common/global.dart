@@ -28,6 +28,8 @@ class Global {
   }
 
   static void registerServices() {
+    var themeController = Get.put(ThemeController());
+    themeController.initTheme();
     Get.put(UserController());
   }
 

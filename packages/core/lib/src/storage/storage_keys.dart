@@ -3,4 +3,6 @@ enum StorageKeys {
   token,
   refreshToken,
   deviceId,
+  flexScheme,
+  themeMode,
 }

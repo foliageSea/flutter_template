@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_template/app/controllers/controllers.dart';
 
 import 'package:get/get.dart';
 import 'app/common/global.dart';
-import 'app/common/theme.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
@@ -40,12 +40,16 @@ class _MainAppState extends State<MainApp> with AppLogMixin {
 
   @override
   Widget build(BuildContext context) {
+    var themeController = Get.find<ThemeController>();
+
     return GetMaterialApp(
       title: '${Global.appName} ${Global.appVersion}',
       initialRoute: AppPages.initial,
       getPages: AppPages.getRoutes(),
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.getThemeData(),
+      themeMode: themeController.getThemeMode(),
+      theme: themeController.getThemeData(),
+      darkTheme: themeController.getDarkThemeData(),
       supportedLocales: const [
         Locale('zh', 'CN'),
       ],
