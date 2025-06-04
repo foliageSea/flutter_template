@@ -1,12 +1,12 @@
 import 'package:realm/realm.dart';
 
-part 'server_entity.realm.dart';
+part 'server_model.realm.dart';
 
 @RealmModel()
-class _ServerEntity {
+class _ServerModel {
   @Indexed()
   late ObjectId id;
-  late String name;
   late String url;
-  late String description;
+  late String username;
+  late String password;
 }
