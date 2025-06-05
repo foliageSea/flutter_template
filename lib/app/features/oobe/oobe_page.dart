@@ -24,13 +24,20 @@ class _OobePageState extends State<OobePage> with AppLogMixin {
       child: Column(
         children: [
           Text('你好'.tr),
+          Text('%s秒'.trArgs(['5'])),
           FilledButton(
             onPressed: () {
               Locales().updateLocale(SupportedLocales.zh);
             },
-            child: const Text('测试'),
+            child: const Text('中文'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Locales().updateLocale(SupportedLocales.en);
+            },
+            child: const Text('英文'),
           )
-        ],
+        ].insertSizedBoxBetween(height: 8),
       ),
     );
   }

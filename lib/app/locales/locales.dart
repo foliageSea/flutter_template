@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
+import '../utils/csv_localization_loader.dart';
+
 class Locales extends Translations with AppLogMixin {
   static Locales? _locales;
 
@@ -43,16 +45,29 @@ class Locales extends Translations with AppLogMixin {
         final String jsonString = await rootBundle.loadString(path);
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         locales[locale] = jsonMap.cast<String, String>();
-        log('加载语言包成功: ${locale.fileName}');
+        log('加载JSON语言包成功: ${locale.fileName}');
       } catch (e) {
-        warning('加载语言包失败: ${locale.fileName} $e');
+        warning('加载JSON语言包失败: ${locale.fileName} $e');
       }
     }
     var locale = Storage()
         .get(StorageKeys.locale)
         .parseString(defaultValue: SupportedLocales.zh.locale);
     await updateLocaleByLocale(locale);
-    log('加载语言成功');
+    log('加载JSON语言成功');
+  }
+
+  Future loadLocaleByCSV() async {
+    try {
+      Map<String, Map<String, String>> map =
+          await CSVLocalizationLoader.loadTranslations();
+      for (var locale in SupportedLocales.values) {
+        locales[locale] = map[locale.locale]!;
+      }
+      log('加载CSV语言成功');
+    } catch (_) {
+      warning('加载CSV语言包失败');
+    }
   }
 
   List<Locale> getSupportedLocales() {
