@@ -29,7 +29,7 @@ class Global {
     await DeviceInfoUtil.getInstance().init();
     registerServices();
 
-    await Locales().loadLocaleByCSV();
+    await Locales().init();
     info('应用初始化完成');
   }
 

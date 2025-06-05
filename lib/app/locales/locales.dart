@@ -37,6 +37,14 @@ class Locales extends Translations with AppLogMixin {
     return locales.map((key, value) => MapEntry(key.locale, value));
   }
 
+  Future init() async {
+    await loadLocaleByCSV();
+    var locale = Storage()
+        .get(StorageKeys.locale)
+        .parseString(defaultValue: SupportedLocales.zh.locale);
+    await updateLocaleByLocale(locale);
+  }
+
   Future loadLocale() async {
     for (var locale in SupportedLocales.values) {
       try {
@@ -46,15 +54,10 @@ class Locales extends Translations with AppLogMixin {
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         locales[locale] = jsonMap.cast<String, String>();
         log('加载JSON语言包成功: ${locale.fileName}');
-      } catch (e) {
-        warning('加载JSON语言包失败: ${locale.fileName} $e');
+      } catch (e, st) {
+        handle(e, st, '加载JSON语言包失败: ${locale.fileName}');
       }
     }
-    var locale = Storage()
-        .get(StorageKeys.locale)
-        .parseString(defaultValue: SupportedLocales.zh.locale);
-    await updateLocaleByLocale(locale);
-    log('加载JSON语言成功');
   }
 
   Future loadLocaleByCSV() async {
@@ -65,8 +68,8 @@ class Locales extends Translations with AppLogMixin {
         locales[locale] = map[locale.locale]!;
       }
       log('加载CSV语言成功');
-    } catch (_) {
-      warning('加载CSV语言包失败');
+    } catch (e, st) {
+      handle(e, st, '加载CSV语言包失败');
     }
   }
 
