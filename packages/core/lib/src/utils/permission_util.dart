@@ -1,16 +1,25 @@
+import 'dart:io';
+
 import 'package:permission_handler/permission_handler.dart';
 
-abstract class PermissionUtilAble {
+abstract class PermissionUtil {
   Future requestPermissions();
+
+  static PermissionUtil getInstance() {
+    if (Platform.isAndroid) {
+      return PermissionUtilAndroid();
+    }
+    return PermissionUtilOther();
+  }
 }
 
-class PermissionUtil implements PermissionUtilAble {
-  static PermissionUtil? _permissionUtil;
+class PermissionUtilAndroid implements PermissionUtil {
+  static PermissionUtilAndroid? _permissionUtil;
 
-  PermissionUtil._();
+  PermissionUtilAndroid._();
 
-  factory PermissionUtil() {
-    _permissionUtil ??= PermissionUtil._();
+  factory PermissionUtilAndroid() {
+    _permissionUtil ??= PermissionUtilAndroid._();
     return _permissionUtil!;
   }
 
@@ -37,4 +46,9 @@ class PermissionUtil implements PermissionUtilAble {
       }
     }
   }
+}
+
+class PermissionUtilOther implements PermissionUtil {
+  @override
+  Future requestPermissions() async {}
 }

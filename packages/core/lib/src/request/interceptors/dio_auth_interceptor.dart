@@ -35,20 +35,15 @@ class DioAuthInterceptor extends Interceptor with AppLogMixin {
     }
 
     var accessToken = response.headers['access-token'];
-    if (_validateHeader(accessToken)) {
+    if (_validateToken(accessToken)) {
       storage!.set(StorageKeys.token, accessToken!.first);
     }
     var xAccessToken = response.headers['x-access-token'];
-    if (_validateHeader(xAccessToken)) {
+    if (_validateToken(xAccessToken)) {
       storage!.set(StorageKeys.refreshToken, xAccessToken!.first);
     }
 
-    var data = response.data as Map<String, dynamic>;
-    var code = data['code'] as int;
-    if (code == 401) {
-      storage!.remove(StorageKeys.token);
-      storage!.remove(StorageKeys.refreshToken);
-    }
+    handle401(response);
   }
 
   void handleServiceError(Response response) {
@@ -74,9 +69,18 @@ class DioAuthInterceptor extends Interceptor with AppLogMixin {
     return ['Bearer', token].join(' ');
   }
 
-  bool _validateHeader(List<String>? header) {
-    return header != null &&
-        header.isNotEmpty &&
-        header.first != 'invalid_token';
+  bool _validateToken(List<String>? tokens) {
+    return tokens != null &&
+        tokens.isNotEmpty &&
+        tokens.first != 'invalid_token';
+  }
+
+  void handle401(Response response) {
+    var data = response.data as Map<String, dynamic>;
+    var code = data['code'] as int;
+    if (code == 401) {
+      storage!.remove(StorageKeys.token);
+      storage!.remove(StorageKeys.refreshToken);
+    }
   }
 }
