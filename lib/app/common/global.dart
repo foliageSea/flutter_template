@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
-import 'package:db_realm/db_realm.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/controllers/controllers.dart';
 import 'package:flutter_template/app/locales/locales.dart';
+import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
 
 class Global {

@@ -14,7 +14,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   core: any
   updater: any
-  db_realm: any
   get: ^4.7.2
   path_provider: ^2.1.5
   flex_color_scheme: ^8.1.1
@@ -27,8 +26,6 @@ dependency_overrides:
     path: ./packages/core
   updater:
     path: ./packages/updater
-  db_realm:
-    path: ./packages/db_realm
 
 
 dev_dependencies:
