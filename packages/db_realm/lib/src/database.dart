@@ -22,11 +22,9 @@ class AppDatabase with AppLogMixin {
   Future init() async {
     try {
       _db = Realm(DatabaseConfig.config);
-
-      log('数据库初始化完成: ${getPath()}');
+      log('Realm数据库路径: ${getPath()}');
     } on RealmException catch (e, st) {
       handle(e, st);
-      rethrow;
     }
   }
 
