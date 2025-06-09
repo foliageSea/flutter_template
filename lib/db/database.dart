@@ -1,4 +1,7 @@
 import 'package:core/core.dart';
+import 'package:flutter_template/app/common/global.dart';
+import 'package:flutter_template/db/services/impl/server_service_impl.dart';
+import 'package:flutter_template/db/services/server_service.dart';
 import 'package:realm/realm.dart';
 
 import 'database_config.dart';
@@ -13,8 +16,8 @@ class AppDatabase with AppLogMixin {
   Future init() async {
     try {
       _db = Realm(DatabaseConfig.config);
-
       log('数据库初始化完成: ${getPath()}');
+      register();
     } on RealmException catch (e, st) {
       handle(e, st);
       rethrow;
@@ -23,5 +26,9 @@ class AppDatabase with AppLogMixin {
 
   String getPath() {
     return _db.config.path;
+  }
+
+  void register() {
+    Global.getIt.registerSingleton<ServerService>(ServerServiceImpl());
   }
 }

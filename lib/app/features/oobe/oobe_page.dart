@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/app/common/global.dart';
 import 'package:flutter_template/app/layouts/base_layout.dart';
 import 'package:flutter_template/app/locales/locales.dart';
-import 'package:flutter_template/db/database.dart';
+import 'package:flutter_template/db/services/server_service.dart';
 import 'package:get/get.dart';
 
 class OobePage extends StatefulWidget {
@@ -38,6 +38,14 @@ class _OobePageState extends State<OobePage> with AppLogMixin {
               Locales().updateLocale(SupportedLocales.en);
             },
             child: const Text('英文'),
+          ),
+          FilledButton(
+            onPressed: () async {
+              var servers =
+                  await Global.getIt.get<ServerService>().getServers();
+              log('$servers');
+            },
+            child: const Text('测试'),
           ),
         ].insertSizedBoxBetween(height: 8),
       ),
