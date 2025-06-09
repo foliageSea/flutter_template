@@ -1,7 +1,9 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/app/common/global.dart';
 import 'package:flutter_template/app/layouts/base_layout.dart';
 import 'package:flutter_template/app/locales/locales.dart';
+import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
 
 class OobePage extends StatefulWidget {
@@ -36,7 +38,7 @@ class _OobePageState extends State<OobePage> with AppLogMixin {
               Locales().updateLocale(SupportedLocales.en);
             },
             child: const Text('英文'),
-          )
+          ),
         ].insertSizedBoxBetween(height: 8),
       ),
     );

@@ -4,10 +4,12 @@ import 'package:flutter_template/app/controllers/controllers.dart';
 import 'package:flutter_template/app/locales/locales.dart';
 import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
 class Global {
   static const String appName = "flutter_template";
   static String appVersion = "1.0.0";
+  static final getIt = GetIt.instance;
 
   Global._();
 
@@ -40,7 +42,8 @@ class Global {
   }
 
   static Future initDatabase() async {
-    await AppDatabase().init();
+    getIt.registerSingleton(AppDatabase());
+    await getIt<AppDatabase>().init();
   }
 
   static initAppVersion() {
