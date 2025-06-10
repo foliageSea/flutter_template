@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
-import 'package:flutter_template/app/common/global.dart';
-import 'package:flutter_template/db/services/impl/server_service_impl.dart';
-import 'package:flutter_template/db/services/server_service.dart';
 import 'package:realm/realm.dart';
 
+import '../app/common/global.dart';
 import 'database_config.dart';
+import 'services/impl/server_service_impl.dart';
+import 'services/server_service.dart';
 
 /// 文档地址
 /// https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/flutter/
@@ -31,4 +31,8 @@ class AppDatabase with AppLogMixin {
   void register() {
     Global.getIt.registerSingleton<ServerService>(ServerServiceImpl());
   }
+}
+
+mixin AppDatabaseMixin {
+  Realm db = Global.getIt<AppDatabase>().db;
 }

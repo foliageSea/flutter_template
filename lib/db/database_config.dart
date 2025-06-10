@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_template/db/models/server_model.dart';
 import 'package:realm/realm.dart';
+import 'models/server_model.dart';
 
 class DatabaseConfig {
   static const schemaVersion = 3;
