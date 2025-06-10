@@ -5,7 +5,9 @@ import '../middlewares/middlewares.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = AppRoutes.home;
+  static const initial = AppRoutes.oobe;
+
+  static Transition transition = Transition.cupertino;
 
   static final _routes = [
     GetPage(
@@ -30,9 +32,9 @@ class AppPages {
   static List<GetPage<dynamic>> getRoutes() {
     var storage = Storage();
 
-    final middlewares = [
-      OobeMiddleware(storage: storage),
-      AuthMiddleware(storage: storage),
+    final List<GetMiddleware> middlewares = [
+      // OobeMiddleware(storage: storage),
+      // AuthMiddleware(storage: storage),
     ];
 
     List<GetPage<dynamic>> result = [];
@@ -42,10 +44,16 @@ class AppPages {
           name: r.name,
           page: r.page,
           middlewares: middlewares,
+          transition: transition,
         );
         result.add(route);
       } else {
-        result.add(r);
+        final route = GetPage(
+          name: r.name,
+          page: r.page,
+          transition: transition,
+        );
+        result.add(route);
       }
     }
     return result;

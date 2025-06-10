@@ -1,10 +1,6 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_template/app/common/global.dart';
 import 'package:flutter_template/app/layouts/base_layout.dart';
-import 'package:flutter_template/app/locales/locales.dart';
-import 'package:flutter_template/db/services/server_service.dart';
-import 'package:get/get.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class OobePage extends StatefulWidget {
   const OobePage({super.key});
@@ -13,41 +9,21 @@ class OobePage extends StatefulWidget {
   State<OobePage> createState() => _OobePageState();
 }
 
-class _OobePageState extends State<OobePage> with AppLogMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _OobePageState extends State<OobePage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
       title: 'Oobe',
-      child: Column(
-        children: [
-          Text('你好'.tr),
-          Text('%s秒'.trArgs(['5'])),
-          FilledButton(
-            onPressed: () {
-              Locales().updateLocale(SupportedLocales.zh);
-            },
-            child: const Text('中文'),
-          ),
-          FilledButton(
-            onPressed: () {
-              Locales().updateLocale(SupportedLocales.en);
-            },
-            child: const Text('英文'),
-          ),
-          FilledButton(
-            onPressed: () async {
-              var servers =
-                  await Global.getIt.get<ServerService>().getServers();
-              log('$servers');
-            },
-            child: const Text('测试'),
-          ),
-        ].insertSizedBoxBetween(height: 8),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PrimaryButton(
+              child: const Text('登录'),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
