@@ -1,6 +1,5 @@
-import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_template/app/layouts/base_layout.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class OobePage extends StatefulWidget {
   const OobePage({super.key});
@@ -17,12 +16,7 @@ class _OobePageState extends State<OobePage> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryButton(
-              child: const Text('登录'),
-              onPressed: () {},
-            ),
-          ],
+          children: [],
         ),
       ),
     );

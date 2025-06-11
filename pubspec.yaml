@@ -21,8 +21,6 @@ dependencies:
   path: ^1.9.0
   csv: ^6.0.0
   get_it: ^8.0.3
-  # UI库文档: https://sunarya-thito.github.io/shadcn_flutter/
-  shadcn_flutter: ^0.0.24
 
 dependency_overrides:
   core:

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/app/controllers/src/theme_controller.dart';
 import 'package:flutter_template/app/locales/locales.dart';
 import 'package:get/get.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 
 import '../routes/app_pages.dart';
 import 'global.dart';
@@ -106,51 +105,10 @@ class CustomGetApp extends GetMaterialApp {
       },
       builder: (_) => routerDelegate != null
           ? _buildRouterMaterialApp(_)
-          : _buildShadcnApp(_),
+          : _buildMaterialApp(_),
     );
   }
 
-  Widget _buildShadcnApp(GetMaterialController _) {
-    var shadcnApp = shadcn.ShadcnApp(
-      key: _.unikey,
-      theme: shadcn.ThemeData(
-        colorScheme: shadcn.ColorSchemes.lightBlue(),
-        radius: 0.5,
-      ),
-      navigatorKey:
-          (navigatorKey == null ? Get.key : Get.addKey(navigatorKey!)),
-      home: home,
-      routes: routes ?? const <String, WidgetBuilder>{},
-      initialRoute: initialRoute,
-      onGenerateRoute: (getPages != null ? generator : onGenerateRoute),
-      onGenerateInitialRoutes: (getPages == null || home != null)
-          ? onGenerateInitialRoutes
-          : initialRoutesGenerate,
-      onUnknownRoute: onUnknownRoute,
-      navigatorObservers: (navigatorObservers == null
-          ? <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
-          : <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
-        ..addAll(navigatorObservers!)),
-      builder: defaultBuilder,
-      title: title,
-      onGenerateTitle: onGenerateTitle,
-      color: color,
-      locale: Get.locale ?? locale,
-      localizationsDelegates: localizationsDelegates,
-      localeListResolutionCallback: localeListResolutionCallback,
-      localeResolutionCallback: localeResolutionCallback,
-      supportedLocales: supportedLocales,
-      debugShowMaterialGrid: debugShowMaterialGrid,
-      showPerformanceOverlay: showPerformanceOverlay,
-      showSemanticsDebugger: showSemanticsDebugger,
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      scrollBehavior: scrollBehavior,
-    );
-    return shadcnApp;
-  }
-
-  // ignore: unused_element
   Widget _buildMaterialApp(GetMaterialController _) {
     var materialApp = MaterialApp(
       key: _.unikey,

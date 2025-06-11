@@ -33,8 +33,8 @@ class AppPages {
     var storage = Storage();
 
     final List<GetMiddleware> middlewares = [
-      // OobeMiddleware(storage: storage),
-      // AuthMiddleware(storage: storage),
+      OobeMiddleware(storage: storage),
+      AuthMiddleware(storage: storage),
     ];
 
     List<GetPage<dynamic>> result = [];
