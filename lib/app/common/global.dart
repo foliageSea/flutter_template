@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 class Global {
   static const String appName = "flutter_template";
   static String appVersion = "1.0.0";
-  static final getIt = GetIt.instance;
+  static final GetIt getIt = GetIt.instance;
 
   Global._();
 
@@ -17,33 +17,43 @@ class Global {
     AppLogger().info(msg, exception, stackTrace);
   }
 
+  static List<CommonInitialize> getInitializes() {
+    return [
+      Storage(),
+      Request(),
+      PackageInfoUtil(),
+      // NotificationsUtil.getInstance(),
+      // DeviceInfoUtil.getInstance(),
+      Locales(),
+    ];
+  }
+
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    AppLogger().init();
-    info('应用初始化开始');
-    await Storage().init();
-    Request().init();
-    await initDatabase();
 
-    await NotificationsUtil.getInstance().init();
-    await PackageInfoUtil().init();
+    List<CommonInitialize> initializes = getInitializes();
+
+    info('应用开始初始化');
+    for (var initialize in initializes) {
+      await initialize.init();
+      info(initialize.getOutput());
+    }
     initAppVersion();
-    await DeviceInfoUtil.getInstance().init();
+    await initDatabase();
     registerServices();
 
-    await Locales().init();
     info('应用初始化完成');
   }
 
   static void registerServices() {
     var themeController = Get.put(ThemeController());
-    themeController.initTheme();
+    themeController.init();
     Get.put(UserController());
   }
 
   static Future initDatabase() async {
     getIt.registerSingleton(AppDatabase());
-    await getIt<AppDatabase>().init();
+    await getIt<AppDatabase>().init(getIt);
   }
 
   static initAppVersion() {

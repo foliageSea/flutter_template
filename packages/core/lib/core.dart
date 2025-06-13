@@ -21,3 +21,4 @@ export './src/utils/common_util.dart';
 export './src/widgets/widgets.dart';
 export './src/helpers/helpers.dart';
 export './src/mixins/app_message_mixin.dart';
+export './src/interfaces/common_initialize.dart';

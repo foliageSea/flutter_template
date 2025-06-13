@@ -57,7 +57,7 @@ class ThemeController extends GetxService with AppLogMixin {
     Get.changeThemeMode(mode);
   }
 
-  void initTheme() {
+  void init() {
     flexScheme.value = Storage()
         .get(StorageKeys.flexScheme)
         .parseString(defaultValue: flexSchemeMap.keys.first.toString());

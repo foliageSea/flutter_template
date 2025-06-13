@@ -1,16 +1,14 @@
 import 'package:core/core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-abstract class PackageInfoUtilAble {
-  Future<void> init();
-
+abstract class PackageInfoUtilAble extends CommonInitialize {
   String getAppName();
   String getPackageName();
   String getVersion();
   int getVersionCode();
 }
 
-class PackageInfoUtil with AppLogMixin implements PackageInfoUtilAble {
+class PackageInfoUtil implements PackageInfoUtilAble {
   static PackageInfoUtil? _packageInfoUtil;
 
   PackageInfoUtil._();
@@ -25,8 +23,6 @@ class PackageInfoUtil with AppLogMixin implements PackageInfoUtilAble {
   @override
   Future<void> init() async {
     packageInfo = await PackageInfo.fromPlatform();
-    var version = getVersion();
-    log('应用版本: $version');
   }
 
   @override
@@ -47,5 +43,10 @@ class PackageInfoUtil with AppLogMixin implements PackageInfoUtilAble {
   @override
   int getVersionCode() {
     return int.tryParse(packageInfo.version.replaceAll('.', '')) ?? 100;
+  }
+
+  @override
+  String getOutput() {
+    return '【PackageInfoUtil】初始化完成';
   }
 }

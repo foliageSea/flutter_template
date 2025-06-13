@@ -1,11 +1,7 @@
 import 'package:core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'storage_keys.dart';
-
-abstract class StorageAble {
-  Future<void> init();
-
+abstract class StorageAble extends CommonInitialize {
   Future<void> loadCache();
 
   String? get(StorageKeys key);
@@ -15,7 +11,7 @@ abstract class StorageAble {
   Future<void> remove(StorageKeys key);
 }
 
-class Storage with AppLogMixin implements StorageAble {
+class Storage implements StorageAble {
   static Storage? _storage;
 
   Storage._();
@@ -30,7 +26,7 @@ class Storage with AppLogMixin implements StorageAble {
   final Map<StorageKeys, String?> _cache = {};
 
   @override
-  Future<void> init() async {
+  Future init() async {
     _prefs = SharedPreferencesAsync();
     await loadCache();
   }
@@ -40,7 +36,6 @@ class Storage with AppLogMixin implements StorageAble {
     for (var key in StorageKeys.values) {
       _cache[key] = await _prefs.getString(key.name);
     }
-    log('加载缓存完成');
   }
 
   @override
@@ -58,6 +53,11 @@ class Storage with AppLogMixin implements StorageAble {
   Future<void> remove(StorageKeys key) async {
     await _prefs.remove(key.name);
     _cache.remove(key);
+  }
+
+  @override
+  String getOutput() {
+    return '【Storage】 初始化完成';
   }
 }
 

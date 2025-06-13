@@ -5,8 +5,6 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'dart:developer' as d;
 
 abstract class AppLoggAble {
-  void init();
-
   void log(dynamic message);
 
   void info(
@@ -31,7 +29,9 @@ abstract class AppLoggAble {
 class AppLogger implements AppLoggAble {
   static AppLogger? _logger;
 
-  AppLogger._();
+  AppLogger._() {
+    _init();
+  }
 
   factory AppLogger() {
     _logger ??= AppLogger._();
@@ -42,8 +42,7 @@ class AppLogger implements AppLoggAble {
 
   Talker get talker => _talker;
 
-  @override
-  void init() {
+  void _init() {
     var talkerLogger = TalkerLogger(
       output: (String message) {
         // ignore: avoid_print

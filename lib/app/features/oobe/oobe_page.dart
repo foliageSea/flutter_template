@@ -16,7 +16,9 @@ class _OobePageState extends State<OobePage> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: [
+            FilledButton(onPressed: () async {}, child: const Text('测试')),
+          ],
         ),
       ),
     );

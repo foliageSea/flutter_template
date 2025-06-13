@@ -1,15 +1,14 @@
 import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 enum CustomNotificationChannel {
   andon,
 }
 
-abstract class NotificationsUtil {
-  Future init();
-
+abstract class NotificationsUtil extends CommonInitialize {
   void setListeners();
 
   Future requestPermission();
@@ -104,6 +103,11 @@ class NotificationsUtilAndroid implements NotificationsUtil {
       ),
     );
   }
+
+  @override
+  String getOutput() {
+    return '【NotificationsUtilAndroid】初始化完成';
+  }
 }
 
 class NotificationController {
@@ -166,4 +170,9 @@ class NotificationsUtilOthers implements NotificationsUtil {
 
   @override
   void setListeners() {}
+
+  @override
+  String getOutput() {
+    return '【NotificationsUtilOthers】初始化完成';
+  }
 }

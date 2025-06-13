@@ -4,8 +4,7 @@ import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:snowflake_dart/snowflake_dart.dart';
 
-abstract class DeviceInfoUtil {
-  Future init();
+abstract class DeviceInfoUtil extends CommonInitialize {
   String getSystemVersion();
   Future<int> getDeviceId(StorageAble storage);
 
@@ -56,6 +55,11 @@ class DeviceInfoUtilAndroid with AppLogMixin implements DeviceInfoUtil {
     await storage.set(StorageKeys.deviceId, id.toString());
     return id;
   }
+
+  @override
+  String getOutput() {
+    return '【DeviceInfoUtilAndroid】初始化完成';
+  }
 }
 
 class DeviceInfoUtilOthers implements DeviceInfoUtil {
@@ -78,4 +82,9 @@ class DeviceInfoUtilOthers implements DeviceInfoUtil {
 
   @override
   Future init() async {}
+
+  @override
+  String getOutput() {
+    return '【DeviceInfoUtilOthers】初始化完成';
+  }
 }

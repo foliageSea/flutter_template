@@ -1,10 +1,11 @@
 import 'package:core/core.dart';
+import 'package:flutter_template/db/services/impl/user_service_impl.dart';
+import 'package:flutter_template/db/services/server_service.dart';
+import 'package:get_it/get_it.dart';
 import 'package:realm/realm.dart';
 
 import '../app/common/global.dart';
 import 'database_config.dart';
-import 'services/impl/server_service_impl.dart';
-import 'services/server_service.dart';
 
 /// 文档地址
 /// https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/flutter/
@@ -13,7 +14,10 @@ class AppDatabase with AppLogMixin {
 
   Realm get db => _db;
 
-  Future init() async {
+  late GetIt getIt;
+
+  Future init(GetIt getIt) async {
+    this.getIt = getIt;
     try {
       _db = Realm(DatabaseConfig.config);
       log('数据库初始化完成: ${getPath()}');
@@ -29,7 +33,8 @@ class AppDatabase with AppLogMixin {
   }
 
   void register() {
-    Global.getIt.registerSingleton<ServerService>(ServerServiceImpl());
+    getIt.registerSingleton<ServerService>(ServerServiceImpl());
+    getIt.registerSingleton<UserService>(UserServiceImpl());
   }
 }
 

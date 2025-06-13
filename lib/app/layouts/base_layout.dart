@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class BaseLayout extends StatefulWidget {
@@ -21,9 +22,18 @@ class _BaseLayoutState extends State<BaseLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.title}'),
+        title: _buildTitle(),
       ),
       body: widget.child,
+    );
+  }
+
+  Widget _buildTitle() {
+    return GestureDetector(
+      onTap: () {
+        AppLogger().toTalkerScreen(context);
+      },
+      child: Text('${widget.title}'),
     );
   }
 }
