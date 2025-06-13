@@ -5,9 +5,7 @@ import 'package:dio/dio.dart';
 import 'interceptors/dio_auth_interceptor.dart';
 import 'interceptors/dio_error_interceptor.dart';
 
-abstract class Requestable {
-  void init();
-
+abstract class Requestable extends CommonInitialize {
   void setBaseUrl(String baseUrl);
 
   Future<Response<T>> get<T>(
@@ -37,7 +35,7 @@ class Request implements Requestable {
   String baseUrl = '';
 
   @override
-  void init() {
+  Future init() async {
     BaseOptions options = BaseOptions(
       connectTimeout: connectTimeout,
       receiveTimeout: receiveTimeout,
@@ -74,5 +72,10 @@ class Request implements Requestable {
   void setBaseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
     _dio.options.baseUrl = baseUrl;
+  }
+
+  @override
+  String getOutput() {
+    return '【Request】初始化完成';
   }
 }

@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 
 import '../utils/csv_localization_loader.dart';
 
-class Locales extends Translations with AppLogMixin {
+class Locales extends Translations
+    with AppLogMixin
+    implements CommonInitialize {
   static Locales? _locales;
 
   Locales._();
@@ -37,6 +39,7 @@ class Locales extends Translations with AppLogMixin {
     return locales.map((key, value) => MapEntry(key.locale, value));
   }
 
+  @override
   Future init() async {
     await loadLocaleByCSV();
     var locale = Storage()
@@ -108,6 +111,11 @@ class Locales extends Translations with AppLogMixin {
       (element) => element.localeObj == locale,
       orElse: () => SupportedLocales.zh,
     );
+  }
+
+  @override
+  String getOutput() {
+    return '【Locales】初始化完成';
   }
 }
 

@@ -7,7 +7,6 @@ void main() {
 
   setUp(() {
     logger = AppLogger();
-    logger.init();
   });
 
   group('AppLogger', () {
