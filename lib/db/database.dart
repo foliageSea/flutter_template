@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:flutter_template/db/services/impl/user_service_impl.dart';
 import 'package:flutter_template/db/services/server_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:realm/realm.dart';
@@ -34,7 +33,6 @@ class AppDatabase with AppLogMixin {
 
   void register() {
     getIt.registerSingleton<ServerService>(ServerServiceImpl());
-    getIt.registerSingleton<UserService>(UserServiceImpl());
   }
 }
 
