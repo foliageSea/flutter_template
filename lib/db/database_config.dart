@@ -19,4 +19,14 @@ class DatabaseConfig {
   static void _migrate(Migration migration, int oldSchemaVersion) {
     // 迁移逻辑
   }
+
+  static Configuration getConfigWithPath(String path) {
+    return Configuration.local(
+      schemaObjects,
+      schemaVersion: schemaVersion,
+      migrationCallback: _migrate,
+      shouldDeleteIfMigrationNeeded: kReleaseMode ? false : true,
+      path: path,
+    );
+  }
 }
