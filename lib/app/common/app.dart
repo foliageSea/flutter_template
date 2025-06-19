@@ -103,18 +103,19 @@ class CustomGetApp extends GetMaterialApp {
               transitionDuration ?? Get.defaultTransitionDuration,
         );
       },
-      builder: (_) => routerDelegate != null
-          ? _buildRouterMaterialApp(_)
-          : _buildMaterialApp(_),
+      builder: (c) => routerDelegate != null
+          ? _buildRouterMaterialApp(c)
+          : _buildMaterialApp(c),
     );
   }
 
-  Widget _buildMaterialApp(GetMaterialController _) {
+  Widget _buildMaterialApp(GetMaterialController c) {
     var materialApp = MaterialApp(
-      key: _.unikey,
-      navigatorKey:
-          (navigatorKey == null ? Get.key : Get.addKey(navigatorKey!)),
-      scaffoldMessengerKey: scaffoldMessengerKey ?? _.scaffoldMessengerKey,
+      key: c.unikey,
+      navigatorKey: (navigatorKey == null
+          ? Get.key
+          : Get.addKey(navigatorKey!)),
+      scaffoldMessengerKey: scaffoldMessengerKey ?? c.scaffoldMessengerKey,
       home: home,
       routes: routes ?? const <String, WidgetBuilder>{},
       initialRoute: initialRoute,
@@ -123,17 +124,18 @@ class CustomGetApp extends GetMaterialApp {
           ? onGenerateInitialRoutes
           : initialRoutesGenerate,
       onUnknownRoute: onUnknownRoute,
-      navigatorObservers: (navigatorObservers == null
-          ? <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
-          : <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
-        ..addAll(navigatorObservers!)),
+      navigatorObservers:
+          (navigatorObservers == null
+                ? <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
+                : <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
+            ..addAll(navigatorObservers!)),
       builder: defaultBuilder,
       title: title,
       onGenerateTitle: onGenerateTitle,
       color: color,
-      theme: _.theme ?? theme ?? ThemeData.fallback(),
-      darkTheme: _.darkTheme ?? darkTheme ?? theme ?? ThemeData.fallback(),
-      themeMode: _.themeMode ?? themeMode,
+      theme: c.theme ?? theme ?? ThemeData.fallback(),
+      darkTheme: c.darkTheme ?? darkTheme ?? theme ?? ThemeData.fallback(),
+      themeMode: c.themeMode ?? themeMode,
       locale: Get.locale ?? locale,
       localizationsDelegates: localizationsDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
@@ -153,22 +155,22 @@ class CustomGetApp extends GetMaterialApp {
     return materialApp;
   }
 
-  Widget _buildRouterMaterialApp(GetMaterialController _) {
+  Widget _buildRouterMaterialApp(GetMaterialController c) {
     return MaterialApp.router(
       routerDelegate: routerDelegate!,
       routeInformationParser: routeInformationParser!,
       backButtonDispatcher: backButtonDispatcher,
       routeInformationProvider: routeInformationProvider,
-      key: _.unikey,
+      key: c.unikey,
       builder: defaultBuilder,
       title: title,
       onGenerateTitle: onGenerateTitle,
       color: color,
-      theme: _.theme ?? theme ?? ThemeData.fallback(),
-      darkTheme: _.darkTheme ?? darkTheme ?? theme ?? ThemeData.fallback(),
-      themeMode: _.themeMode ?? themeMode,
+      theme: c.theme ?? theme ?? ThemeData.fallback(),
+      darkTheme: c.darkTheme ?? darkTheme ?? theme ?? ThemeData.fallback(),
+      themeMode: c.themeMode ?? themeMode,
       locale: Get.locale ?? locale,
-      scaffoldMessengerKey: scaffoldMessengerKey ?? _.scaffoldMessengerKey,
+      scaffoldMessengerKey: scaffoldMessengerKey ?? c.scaffoldMessengerKey,
       localizationsDelegates: localizationsDelegates,
       localeListResolutionCallback: localeListResolutionCallback,
       localeResolutionCallback: localeResolutionCallback,

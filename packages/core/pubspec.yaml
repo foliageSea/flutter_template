@@ -2,8 +2,8 @@ name: core
 version: 0.0.1
 
 environment:
-  sdk: ^3.6.2
-  flutter: ">=3.27.4"
+  sdk: ^3.8.1
+  flutter: ">=3.23.3"
 
 dependencies:
   awesome_notifications_core: ^0.10.1
