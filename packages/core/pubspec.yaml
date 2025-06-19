@@ -1,0 +1,31 @@
+name: core
+version: 0.0.1
+
+environment:
+  sdk: ^3.6.2
+  flutter: ">=3.27.4"
+
+dependencies:
+  awesome_notifications_core: ^0.10.1
+  awesome_notifications: ^0.10.0
+  connectivity_plus: ^6.1.4
+  crypto: ^3.0.6
+  device_info_plus: ^11.3.0
+  dio: ^5.8.0+1
+  flutter:
+    sdk: flutter
+  flutter_easyloading: ^3.0.5
+  mqtt5_client: ^4.11.0
+  package_info_plus: ^8.3.0
+  permission_handler: ^12.0.0+1
+  shared_preferences: ^2.5.3
+  signalr_netcore: ^1.4.3
+  snowflake_dart: ^2.0.0
+  talker_dio_logger: ^4.8.0
+  talker_flutter: ^4.7.6
+  typed_data: ^1.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
