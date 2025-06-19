@@ -47,6 +47,6 @@ class PackageInfoUtil implements PackageInfoUtilAble {
 
   @override
   String getOutput() {
-    return '【PackageInfoUtil】初始化完成';
+    return 'PackageInfoUtil 初始化完成';
   }
 }

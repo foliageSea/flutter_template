@@ -115,7 +115,7 @@ class Locales extends Translations
 
   @override
   String getOutput() {
-    return '【Locales】初始化完成';
+    return 'Locales 初始化完成';
   }
 }
 

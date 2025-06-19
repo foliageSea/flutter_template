@@ -76,6 +76,6 @@ class Request implements Requestable {
 
   @override
   String getOutput() {
-    return '【Request】初始化完成';
+    return 'Request 初始化完成';
   }
 }

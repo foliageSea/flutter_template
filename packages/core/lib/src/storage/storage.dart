@@ -57,7 +57,7 @@ class Storage implements StorageAble {
 
   @override
   String getOutput() {
-    return '【Storage】 初始化完成';
+    return 'Storage 初始化完成';
   }
 }
 
