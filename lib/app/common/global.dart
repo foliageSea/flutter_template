@@ -17,30 +17,41 @@ class Global {
     AppLogger().info(msg, exception, stackTrace);
   }
 
-  static List<CommonInitialize> getInitializes() {
+  static List<CommonInitialize Function()> getInitializes() {
     return [
-      Storage(),
-      Request(),
-      PackageInfoUtil(),
-      Locales(),
+      () => Storage(),
+      () => Request(),
+      () => PackageInfoUtil(),
+      () => Locales(),
     ];
   }
 
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    List<CommonInitialize> initializes = getInitializes();
+    FlutterError.onError = (details) {
+      FlutterError.presentError(details);
+      var e = details.exception;
+      var st = details.stack;
+      AppLogger().handle(e, st);
+    };
 
     info('应用开始初始化');
-    for (var initialize in initializes) {
-      await initialize.init();
-      info(initialize.getOutput());
-    }
+    await initCommon();
     initAppVersion();
     await initDatabase();
     registerServices();
 
     info('应用初始化完成');
+  }
+
+  static Future initCommon() async {
+    List<CommonInitialize Function()> initializes = getInitializes();
+    for (var initialize in initializes) {
+      var instance = initialize();
+      await instance.init();
+      info(instance.getOutput());
+    }
   }
 
   static void registerServices() {
