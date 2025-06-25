@@ -57,7 +57,6 @@ class Global {
   static void registerServices() {
     var themeController = Get.put(ThemeController());
     themeController.init();
-    Get.put(UserController());
   }
 
   static Future initDatabase() async {
