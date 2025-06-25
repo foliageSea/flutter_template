@@ -11,12 +11,7 @@ part of 'server_model.dart';
 // ignore_for_file: type=lint
 class ServerModel extends _ServerModel
     with RealmEntity, RealmObjectBase, RealmObject {
-  ServerModel(
-    ObjectId id,
-    String url,
-    String username,
-    String password,
-  ) {
+  ServerModel(ObjectId id, String url, String username, String password) {
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'url', url);
     RealmObjectBase.set(this, 'username', username);
@@ -52,9 +47,9 @@ class ServerModel extends _ServerModel
       RealmObjectBase.getChanges<ServerModel>(this);
 
   @override
-  Stream<RealmObjectChanges<ServerModel>> changesFor(
-          [List<String>? keyPaths]) =>
-      RealmObjectBase.getChangesFor<ServerModel>(this, keyPaths);
+  Stream<RealmObjectChanges<ServerModel>> changesFor([
+    List<String>? keyPaths,
+  ]) => RealmObjectBase.getChangesFor<ServerModel>(this, keyPaths);
 
   @override
   ServerModel freeze() => RealmObjectBase.freezeObject<ServerModel>(this);
@@ -92,13 +87,16 @@ class ServerModel extends _ServerModel
     RealmObjectBase.registerFactory(ServerModel._);
     register(_toEJson, _fromEJson);
     return const SchemaObject(
-        ObjectType.realmObject, ServerModel, 'ServerModel', [
-      SchemaProperty('id', RealmPropertyType.objectid,
-          indexType: RealmIndexType.regular),
-      SchemaProperty('url', RealmPropertyType.string),
-      SchemaProperty('username', RealmPropertyType.string),
-      SchemaProperty('password', RealmPropertyType.string),
-    ]);
+      ObjectType.realmObject,
+      ServerModel,
+      'ServerModel',
+      [
+        SchemaProperty('id', RealmPropertyType.objectid, primaryKey: true),
+        SchemaProperty('url', RealmPropertyType.string),
+        SchemaProperty('username', RealmPropertyType.string),
+        SchemaProperty('password', RealmPropertyType.string),
+      ],
+    );
   }();
 
   @override

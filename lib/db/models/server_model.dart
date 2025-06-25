@@ -4,7 +4,7 @@ part 'server_model.realm.dart';
 
 @RealmModel()
 class _ServerModel {
-  @Indexed()
+  @PrimaryKey()
   late ObjectId id;
   late String url;
   late String username;
