@@ -23,16 +23,15 @@ class ThemeController extends GetxService with AppLogMixin {
   };
 
   ThemeData getThemeData() {
-    return FlexThemeData.light(scheme: flexSchemeMap[flexScheme.value])
-        .copyWith(
-      textTheme: GoogleFonts.notoSansScTextTheme(),
-    );
+    return FlexThemeData.light(
+      scheme: flexSchemeMap[flexScheme.value],
+    ).copyWith(textTheme: GoogleFonts.notoSansScTextTheme());
   }
 
   ThemeData getDarkThemeData() {
-    return FlexThemeData.dark(scheme: flexSchemeMap[flexScheme.value]).copyWith(
-      textTheme: GoogleFonts.notoSansScTextTheme(),
-    );
+    return FlexThemeData.dark(
+      scheme: flexSchemeMap[flexScheme.value],
+    ).copyWith(textTheme: GoogleFonts.notoSansScTextTheme());
   }
 
   ThemeMode getThemeMode() {
@@ -64,12 +63,23 @@ class ThemeController extends GetxService with AppLogMixin {
   }
 
   void init() {
+    var defaultScheme = findKeyByValue(flexSchemeMap, FlexScheme.cyanM3)!;
+    var defaultThemeMode = findKeyByValue(themeModeMap, ThemeMode.dark)!;
+
     flexScheme.value = Storage()
         .get(StorageKeys.flexScheme)
-        .parseString(defaultValue: flexSchemeMap.keys.first.toString());
+        .parseString(defaultValue: defaultScheme);
     themeMode.value = Storage()
         .get(StorageKeys.themeMode)
-        .parseString(defaultValue: themeModeMap.keys.first.toString());
-    log('加载主题: ${flexScheme.value}, 模式 ${themeMode.value}');
+        .parseString(defaultValue: defaultThemeMode);
+    log('加载主题: ${flexScheme.value}, 主题模式 ${themeMode.value}');
+  }
+
+  String? findKeyByValue(Map<String, dynamic> map, dynamic value) {
+    try {
+      return map.keys.firstWhere((key) => map[key] == value);
+    } catch (e) {
+      return null; // 未找到返回 null
+    }
   }
 }
