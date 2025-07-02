@@ -81,8 +81,8 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
               ),
               TextButton(
                 onPressed: () {
+                  Navigator.of(context).pop(false);
                   updater.cancelToken?.cancel();
-                  Navigator.of(context).pop(true);
                   warning('用户取消更新');
                 },
                 child: const Text('确定'),
