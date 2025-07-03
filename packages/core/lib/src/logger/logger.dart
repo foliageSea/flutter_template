@@ -6,6 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'dart:developer' as d;
 
+typedef LogData = TalkerData;
+typedef LogError = TalkerError;
+typedef LogException = TalkerException;
+
 abstract class Logger {
   void log(dynamic message);
 
@@ -50,7 +54,7 @@ class AppLogger implements Logger {
 
   Talker get talker => _talker;
 
-  late CustomObserver _customObserver;
+  late _AppLoggerObserver _observer;
 
   void _init() {
     var talkerLogger = TalkerLogger(
@@ -61,13 +65,13 @@ class AppLogger implements Logger {
       formatter: const CustomLoggerFormatter(),
     );
 
-    _customObserver = CustomObserver();
+    _observer = _AppLoggerObserver();
     _talker = Talker(
       logger: talkerLogger,
       settings: TalkerSettings(
         timeFormat: TimeFormat.yearMonthDayAndTime,
       ),
-      observer: _customObserver,
+      observer: _observer,
     );
   }
 
@@ -98,30 +102,43 @@ class AppLogger implements Logger {
     _talker.error(msg, exception, stackTrace);
   }
 
-  Stream<TalkerException> get exceptionStream =>
-      _customObserver.onExceptionStream;
-  Stream<TalkerData> get logStream => _customObserver.onLogStream;
+  Stream<LoggerObserverData> get stream => _observer.controller.stream;
 }
 
-class CustomObserver implements TalkerObserver {
-  final _exceptionController = StreamController<TalkerException>.broadcast();
-  final _logController = StreamController<TalkerData>.broadcast();
+class _AppLoggerObserver implements TalkerObserver {
+  final _controller = StreamController<LoggerObserverData>.broadcast();
 
-  Stream<TalkerException> get onExceptionStream => _exceptionController.stream;
-  Stream<TalkerData> get onLogStream => _logController.stream;
+  StreamController<LoggerObserverData> get controller => _controller;
 
-  @override
-  void onError(TalkerError err) {
-    // TODO: implement onError
+  void _add(LoggerObserverDataType type, dynamic data) {
+    _controller.add(LoggerObserverData(type, data));
   }
 
   @override
-  void onException(TalkerException err) {
-    _exceptionController.add(err);
+  void onError(LogError err) {
+    _add(LoggerObserverDataType.error, err);
   }
 
   @override
-  void onLog(TalkerData log) {
-    _logController.add(log);
+  void onException(LogException err) {
+    _add(LoggerObserverDataType.exception, err);
   }
+
+  @override
+  void onLog(LogData log) {
+    _add(LoggerObserverDataType.log, log);
+  }
+}
+
+class LoggerObserverData {
+  late LoggerObserverDataType type;
+  dynamic data;
+
+  LoggerObserverData(this.type, this.data);
+}
+
+enum LoggerObserverDataType {
+  error,
+  exception,
+  log,
 }
