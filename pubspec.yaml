@@ -16,12 +16,13 @@ dependencies:
   updater: any
   get: ^4.7.2
   path_provider: ^2.1.5
-  realm: ^20.1.1
   path: ^1.9.0
   csv: ^6.0.0
   get_it: ^8.0.3
   google_fonts: ^6.2.1
   flex_color_scheme: ^8.2.0
+  objectbox: ^4.3.0
+  objectbox_flutter_libs: any
 
 dependency_overrides:
   core:
@@ -34,6 +35,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  build_runner: ^2.5.4
+  objectbox_generator: any
 
 flutter:
   uses-material-design: true

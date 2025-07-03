@@ -1,48 +1,35 @@
 import 'package:core/core.dart';
-import 'package:flutter_template/db/services/server_service.dart';
+import 'package:flutter_template/db/services/user_service.dart';
+import 'package:flutter_template/objectbox.g.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:realm/realm.dart';
-
-import '../app/common/global.dart';
-import 'database_config.dart';
+import 'package:path/path.dart' as p;
 
 /// 文档地址
-/// https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/flutter/
+/// https://docs.objectbox.io/
 class AppDatabase with AppLogMixin {
-  late Realm _db;
+  late final Store store;
 
-  Realm get db => _db;
-
+  late String path;
   late GetIt getIt;
 
   Future init(GetIt getIt) async {
     this.getIt = getIt;
-    try {
-      var directory = await getApplicationSupportDirectory();
-      var path = join(directory.path, 'db.realm');
-      var config = DatabaseConfig.getConfigWithPath(path);
-      _db = Realm(config);
-      log('数据库初始化完成: ${getPath()}');
-      register();
-    } on RealmException catch (e, st) {
-      handle(e, st);
-      rethrow;
-    }
+    final docsDir = await getApplicationDocumentsDirectory();
+    path = p.join(docsDir.path, "db");
+    store = await openStore(directory: path);
+    register();
   }
 
   String getPath() {
-    return _db.config.path;
+    return path;
   }
 
   void register() {
-    getIt.registerSingleton<ServerService>(ServerServiceImpl());
+    getIt.registerSingleton<UserService>(UserServiceImpl());
   }
 }
 
-typedef Db = Realm;
-
 mixin AppDatabaseMixin {
-  Db db = Global.getIt<AppDatabase>().db;
+  Store get db => GetIt.I<AppDatabase>().store;
 }
