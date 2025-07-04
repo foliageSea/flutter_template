@@ -9,11 +9,11 @@ class ThemeController extends GetxService with AppLogMixin {
   Rx<String> themeMode = ''.obs;
 
   Map<String, FlexScheme> flexSchemeMap = {
-    '绿色M3': FlexScheme.greenM3,
-    '深蓝石': FlexScheme.bigStone,
-    '蓝色M3': FlexScheme.blueM3,
-    '青色M3': FlexScheme.cyanM3,
-    '水鸭M3': FlexScheme.tealM3,
+    // '绿色M3': FlexScheme.greenM3,
+    // '深蓝石': FlexScheme.bigStone,
+    // '蓝色M3': FlexScheme.blueM3,
+    // '青色M3': FlexScheme.cyanM3,
+    // '水鸭M3': FlexScheme.tealM3,
   };
 
   Map<String, ThemeMode> themeModeMap = {
@@ -22,16 +22,30 @@ class ThemeController extends GetxService with AppLogMixin {
     '浅色': ThemeMode.light,
   };
 
+  InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
+    border: OutlineInputBorder(),
+  );
+
   ThemeData getThemeData() {
     return FlexThemeData.light(
       scheme: flexSchemeMap[flexScheme.value],
-    ).copyWith(textTheme: GoogleFonts.notoSansScTextTheme());
+    ).copyWith(
+      textTheme: GoogleFonts.notoSansScTextTheme(),
+      inputDecorationTheme: inputDecorationTheme,
+    );
   }
 
   ThemeData getDarkThemeData() {
-    return FlexThemeData.dark(
-      scheme: flexSchemeMap[flexScheme.value],
-    ).copyWith(textTheme: GoogleFonts.notoSansScTextTheme());
+    var themeData = FlexThemeData.dark(scheme: flexSchemeMap[flexScheme.value]);
+    var colorScheme = themeData.colorScheme;
+    return themeData.copyWith(
+      inputDecorationTheme: inputDecorationTheme,
+      textTheme: GoogleFonts.notoSansScTextTheme(
+        ThemeData.dark(
+          useMaterial3: true,
+        ).copyWith(colorScheme: colorScheme).textTheme,
+      ),
+    );
   }
 
   ThemeMode getThemeMode() {
@@ -63,7 +77,12 @@ class ThemeController extends GetxService with AppLogMixin {
   }
 
   void init() {
-    var defaultScheme = findKeyByValue(flexSchemeMap, FlexScheme.cyanM3)!;
+    //注册主题
+    for (var e in FlexScheme.values) {
+      flexSchemeMap[e.name] = e;
+    }
+
+    var defaultScheme = findKeyByValue(flexSchemeMap, FlexScheme.blueM3)!;
     var defaultThemeMode = findKeyByValue(themeModeMap, ThemeMode.dark)!;
 
     flexScheme.value = Storage()
