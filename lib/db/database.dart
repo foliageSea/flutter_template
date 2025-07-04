@@ -15,8 +15,8 @@ class AppDatabase with AppLogMixin {
 
   Future init(GetIt getIt) async {
     this.getIt = getIt;
-    final docsDir = await getApplicationSupportDirectory();
-    path = p.join(docsDir.path, "db");
+    final dir = await getApplicationSupportDirectory();
+    path = p.join(dir.path, "db");
     logger.log("数据库 $path");
     store = await openStore(directory: path);
     register();
