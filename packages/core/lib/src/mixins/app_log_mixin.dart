@@ -12,4 +12,5 @@ mixin AppLogMixin {
     StackTrace? stackTrace,
   ]) =>
       AppLogger().error(msg, exception, stackTrace);
+  final logger = AppLogger();
 }
