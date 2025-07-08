@@ -26,7 +26,7 @@ class _MainAppState extends State<MainApp> with AppLogMixin {
     var locales = Locales();
     return CustomGetApp(
       title: '${Global.appName} ${Global.appVersion}',
-      initialRoute: AppPages.initial,
+      // initialRoute: AppPages.initial,
       getPages: AppPages.getRoutes(),
       debugShowCheckedModeBanner: false,
       themeMode: themeController.getThemeMode(),

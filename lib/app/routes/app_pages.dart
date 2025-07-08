@@ -10,26 +10,20 @@ class AppPages {
   static Transition transition = Transition.cupertino;
 
   static final _routes = [
-    GetPage(
-      name: AppRoutes.home,
-      page: () => const HomePage(),
-    ),
-    GetPage(
-      name: AppRoutes.oobe,
-      page: () => const OobePage(),
-    ),
-    GetPage(
-      name: AppRoutes.login,
-      page: () => const LoginPage(),
-    ),
+    GetPage(name: AppRoutes.home, page: () => const HomePage()),
+    GetPage(name: AppRoutes.oobe, page: () => const OobePage()),
+    GetPage(name: AppRoutes.login, page: () => const LoginPage()),
   ];
 
-  static List<String> whiteList = [
-    AppRoutes.oobe,
-    AppRoutes.login,
-  ];
+  static List<String> whiteList = [AppRoutes.oobe, AppRoutes.login];
+
+  static final List<GetPage<dynamic>> _routesCache = [];
 
   static List<GetPage<dynamic>> getRoutes() {
+    if (_routesCache.isNotEmpty) {
+      return _routesCache;
+    }
+
     var storage = Storage();
 
     final List<GetMiddleware> middlewares = [
@@ -56,6 +50,17 @@ class AppPages {
         result.add(route);
       }
     }
-    return result;
+    _routesCache.add(
+      GetPage(
+        name: "/",
+        page: () => const RootPage(),
+        transition: transition,
+        participatesInRootNavigator: true,
+        preventDuplicates: true,
+        children: result,
+      ),
+    );
+
+    return _routesCache;
   }
 }
