@@ -2,9 +2,20 @@ import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/controllers/controllers.dart';
 import 'package:flutter_template/app/locales/locales.dart';
-import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'global.config.dart';
+
+// 文档: https://pub.dev/packages/injectable
+@InjectableInit(
+  initializerName: 'init', // default
+  preferRelativeImports: true, // default
+  asExtension: true, // default
+)
+void configureDependencies() {
+  Global.getIt.init();
+}
 
 class Global {
   static const String appName = "flutter_template";
@@ -39,9 +50,8 @@ class Global {
     info('应用开始初始化');
     await initCommon();
     initAppVersion();
-    await initDatabase();
     registerServices();
-
+    configureDependencies();
     info('应用初始化完成');
   }
 
@@ -57,11 +67,6 @@ class Global {
   static void registerServices() {
     var themeController = Get.put(ThemeController());
     themeController.init();
-  }
-
-  static Future initDatabase() async {
-    getIt.registerSingleton(AppDatabase());
-    await getIt<AppDatabase>().init(getIt);
   }
 
   static initAppVersion() {
