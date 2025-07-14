@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/controllers/controllers.dart';
 import 'package:flutter_template/app/locales/locales.dart';
+import 'package:flutter_template/db/database.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -13,8 +14,9 @@ import 'global.config.dart';
   preferRelativeImports: true, // default
   asExtension: true, // default
 )
-void configureDependencies() {
+Future configureDependencies() async {
   Global.getIt.init();
+  await Global.getIt<AppDatabase>().init();
 }
 
 class Global {
@@ -51,7 +53,7 @@ class Global {
     await initCommon();
     initAppVersion();
     registerServices();
-    configureDependencies();
+    await configureDependencies();
     info('应用初始化完成');
   }
 

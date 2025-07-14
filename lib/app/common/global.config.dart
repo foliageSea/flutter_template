@@ -23,7 +23,9 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.singleton<_i173.AppDatabase>(() => _i173.AppDatabase());
-    gh.lazySingleton<_i627.UserService>(() => _i627.UserServiceImpl());
+    gh.lazySingleton<_i627.UserService>(
+      () => _i627.UserServiceImpl(gh<_i173.AppDatabase>()),
+    );
     return this;
   }
 }

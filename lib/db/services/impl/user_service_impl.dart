@@ -1,11 +1,11 @@
 part of '../user_service.dart';
 
 @LazySingleton(as: UserService)
-class UserServiceImpl extends UserService with AppDatabaseMixin {
+class UserServiceImpl implements UserService {
   late UserMapper userMapper;
 
-  UserServiceImpl() {
-    userMapper = UserMapper(db);
+  UserServiceImpl(AppDatabase db) {
+    userMapper = UserMapper(db.store);
   }
 
   @override

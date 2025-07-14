@@ -14,8 +14,7 @@ class AppDatabase with AppLogMixin {
   late String path;
   late GetIt getIt;
 
-  Future init(GetIt getIt) async {
-    this.getIt = getIt;
+  Future init() async {
     final dir = await getApplicationSupportDirectory();
     path = p.join(dir.path, "db");
     logger.log("数据库 $path");
@@ -25,8 +24,4 @@ class AppDatabase with AppLogMixin {
   String getPath() {
     return path;
   }
-}
-
-mixin AppDatabaseMixin {
-  Store get db => GetIt.I<AppDatabase>().store;
 }
