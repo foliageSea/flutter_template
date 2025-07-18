@@ -15,7 +15,7 @@ class DioErrorInterceptor extends Interceptor with AppLogMixin {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    error(errorMessages[err.type] ?? '未知错误类型');
+    logger.error(errorMessages[err.type] ?? '未知错误类型');
     return handler.next(err);
   }
 }

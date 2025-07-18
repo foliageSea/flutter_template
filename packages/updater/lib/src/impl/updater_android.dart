@@ -21,13 +21,13 @@ class UpdaterAndroid extends Updater with AppLogMixin {
   @override
   Future<dynamic> startUpdate(BuildContext context, UpdaterData data) async {
     if (updateStatus) {
-      log("更新中, 跳过重复执行");
+      logger.log("更新中, 跳过重复执行");
       return;
     }
 
     var currentVersion = data.currentVersion;
     var latestVersion = data.latestVersion;
-    log("当前版本: $currentVersion 最新版本: $latestVersion");
+    logger.log("当前版本: $currentVersion 最新版本: $latestVersion");
     if (!compareVersion(currentVersion, latestVersion)) {
       return;
     }
@@ -41,7 +41,7 @@ class UpdaterAndroid extends Updater with AppLogMixin {
   @override
   Future<dynamic> downloadUpdate(UpdaterData data) async {
     var downloadUrl = data.downloadUrl;
-    log("下载地址: $downloadUrl");
+    logger.log("下载地址: $downloadUrl");
     var downloadPath = await getDownloadPath();
     if (downloadPath == null) {
       throw Exception("获取下载路径失败");
@@ -52,16 +52,16 @@ class UpdaterAndroid extends Updater with AppLogMixin {
 
     var tempFile = File(savePath!);
     if (await tempFile.exists()) {
-      log("清理临时文件: $savePath");
+      logger.log("清理临时文件: $savePath");
       await tempFile.delete();
     }
 
-    log("保存路径: $savePath");
+    logger.log("保存路径: $savePath");
 
     Dio dio = Dio();
     cancelToken = CancelToken();
 
-    log("开始下载");
+    logger.log("开始下载");
     await dio.download(
       downloadUrl,
       savePath,
@@ -69,7 +69,7 @@ class UpdaterAndroid extends Updater with AppLogMixin {
       deleteOnError: true,
       cancelToken: cancelToken,
     );
-    log("下载完成");
+    logger.log("下载完成");
     controller.updateMessage("下载完成");
 
     controller.updateFinish(true);
@@ -90,7 +90,7 @@ class UpdaterAndroid extends Updater with AppLogMixin {
   }
 
   Future<OpenResult> _installApk() async {
-    log("打开安装程序: $savePath");
+    logger.log("打开安装程序: $savePath");
     return OpenFile.open(savePath!);
   }
 }

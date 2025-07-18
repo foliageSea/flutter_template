@@ -56,9 +56,9 @@ class Locales extends Translations
         final String jsonString = await rootBundle.loadString(path);
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         locales[locale] = jsonMap.cast<String, String>();
-        log('加载JSON语言包成功: ${locale.fileName}');
+        logger.log('加载JSON语言包成功: ${locale.fileName}');
       } catch (e, st) {
-        handle(e, st, '加载JSON语言包失败: ${locale.fileName}');
+        logger.handle(e, st, '加载JSON语言包失败: ${locale.fileName}');
       }
     }
   }
@@ -70,9 +70,9 @@ class Locales extends Translations
       for (var locale in SupportedLocales.values) {
         locales[locale] = map[locale.locale]!;
       }
-      log('加载CSV语言成功');
+      logger.log('加载CSV语言成功');
     } catch (e, st) {
-      handle(e, st, '加载CSV语言包失败');
+      logger.handle(e, st, '加载CSV语言包失败');
     }
   }
 
@@ -86,11 +86,9 @@ class Locales extends Translations
       orElse: () => SupportedLocales.zh,
     );
 
-    await Get.updateLocale(
-      key.localeObj,
-    );
+    await Get.updateLocale(key.localeObj);
     await Storage().set(StorageKeys.locale, key.locale);
-    log('切换语言包: ${key.locale}');
+    logger.log('切换语言包: ${key.locale}');
   }
 
   Future updateLocaleByLocale(String locale) async {
@@ -98,11 +96,9 @@ class Locales extends Translations
       (element) => element.locale == locale,
       orElse: () => SupportedLocales.zh,
     );
-    await Get.updateLocale(
-      key.localeObj,
-    );
+    await Get.updateLocale(key.localeObj);
     await Storage().set(StorageKeys.locale, key.locale);
-    log('切换语言包: ${key.locale}');
+    logger.log('切换语言包: ${key.locale}');
   }
 
   SupportedLocales getCurrentLocale() {

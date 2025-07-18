@@ -54,11 +54,11 @@ class DioAuthInterceptor extends Interceptor with AppLogMixin {
       return;
     }
     if (code == 500) {
-      log(data['message']);
+      logger.log(data['message']);
     } else if (code == 400 || code == 1001) {
-      log(data['message']);
+      logger.log(data['message']);
     } else {
-      log(data['message']);
+      logger.log(data['message']);
     }
   }
 

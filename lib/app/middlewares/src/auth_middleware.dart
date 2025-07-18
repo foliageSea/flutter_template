@@ -21,7 +21,7 @@ class AuthMiddleware extends GetMiddleware with AppLogMixin {
     if (token != null && token.isNotEmpty) {
       return null;
     }
-    warning('AuthMiddleware: 跳转到登录页面');
+    logger.warning('AuthMiddleware: 跳转到登录页面');
     return const RouteSettings(name: AppRoutes.login);
   }
 }

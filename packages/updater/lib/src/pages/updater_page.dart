@@ -45,7 +45,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
   }
 
   Future _delayedClose() async {
-    warning('更新失败, 5秒后关闭该页面');
+    logger.warning('更新失败, 5秒后关闭该页面');
     controller.updateMessage('更新失败, 5秒后关闭该页面');
     await Future.delayed(const Duration(seconds: 5));
     if (mounted) {
@@ -83,7 +83,7 @@ class _UpdaterPageState extends State<UpdaterPage> with AppLogMixin {
                 onPressed: () {
                   Navigator.of(context).pop(false);
                   updater.cancelToken?.cancel();
-                  warning('用户取消更新');
+                  logger.warning('用户取消更新');
                 },
                 child: const Text('确定'),
               ),

@@ -34,7 +34,7 @@ class DeviceInfoUtilAndroid with AppLogMixin implements DeviceInfoUtil {
     deviceInfo = DeviceInfoPlugin();
     androidInfo = await deviceInfo.androidInfo;
     var systemVersion = getSystemVersion();
-    log('系统版本: $systemVersion');
+    logger.log('系统版本: $systemVersion');
   }
 
   @override

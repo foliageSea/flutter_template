@@ -31,7 +31,7 @@ class OobeMiddleware extends GetMiddleware with AppLogMixin {
       return null;
     }
 
-    warning('OobeMiddleware: 跳转到Oobe页面');
+    logger.warning('OobeMiddleware: 跳转到Oobe页面');
     return const RouteSettings(name: AppRoutes.oobe);
   }
 }

@@ -91,7 +91,7 @@ class ThemeController extends GetxService with AppLogMixin {
     themeMode.value = Storage()
         .get(StorageKeys.themeMode)
         .parseString(defaultValue: defaultThemeMode);
-    log('加载主题: ${flexScheme.value}, 主题模式 ${themeMode.value}');
+    logger.log('加载主题: ${flexScheme.value}, 主题模式 ${themeMode.value}');
   }
 
   String? findKeyByValue(Map<String, dynamic> map, dynamic value) {
