@@ -1,0 +1,11 @@
+output: dist/
+variables:
+# FLUTTER_ROOT: ~/fvm/versions/3.16.5
+# PGYER_API_KEY: your api key
+releases:
+  - name: dev
+    jobs:
+      - name: windows-zip
+        package:
+          platform: windows
+          target: zip

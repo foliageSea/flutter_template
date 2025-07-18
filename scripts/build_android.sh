@@ -6,7 +6,7 @@ echo "正在编译Flutter项目..."
 if [ $? -eq 0 ]; then
     echo "编译成功"
     # 打开包含APK文件的目录
-    start '..\\build\\app\\outputs\\apk\\release'
+    start 'build\\app\\outputs\\apk\\release'
 else
     echo "编译失败"
     exit 1
