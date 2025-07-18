@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// ListView滚动到指定项的辅助类
-class ListViewScrollControllerHelper {
+class ListViewScrollControllerUtil {
   ScrollController scrollController;
   double selectedItemHeight;
   double selectedItemInterval;
@@ -13,7 +13,7 @@ class ListViewScrollControllerHelper {
   /// [selectedItemHeight] 选中项的高度
   /// [selectedItemInterval] 选中项与相邻项之间的间隔
   /// [itemCount] 列表项的总数
-  ListViewScrollControllerHelper({
+  ListViewScrollControllerUtil({
     required this.scrollController,
     required this.selectedItemHeight,
     required this.selectedItemInterval,
