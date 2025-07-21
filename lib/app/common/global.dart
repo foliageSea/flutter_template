@@ -23,12 +23,9 @@ class Global {
   static const String appName = "flutter_template";
   static String appVersion = "1.0.0";
   static final GetIt getIt = GetIt.instance;
+  static final AppLogger logger = AppLogger();
 
   Global._();
-
-  static void info(dynamic msg, [Object? exception, StackTrace? stackTrace]) {
-    AppLogger().info(msg, exception, stackTrace);
-  }
 
   static List<CommonInitialize Function()> getInitializes() {
     return [
@@ -49,12 +46,12 @@ class Global {
       AppLogger().handle(e, st);
     };
 
-    info('应用开始初始化');
+    logger.info('应用开始初始化');
     await initCommon();
     initAppVersion();
     registerServices();
     await configureDependencies();
-    info('应用初始化完成');
+    logger.info('应用初始化完成');
   }
 
   static Future initCommon() async {
@@ -62,7 +59,7 @@ class Global {
     for (var initialize in initializes) {
       var instance = initialize();
       await instance.init();
-      info(instance.getOutput());
+      logger.info(instance.getOutput());
     }
   }
 
