@@ -1,6 +1,6 @@
 output: dist/
 variables:
-# FLUTTER_ROOT: ~/fvm/versions/3.16.5
+  FLUTTER_ROOT: ~/fvm/versions/3.32.3
 # PGYER_API_KEY: your api key
 releases:
   - name: dev
@@ -9,3 +9,8 @@ releases:
         package:
           platform: windows
           target: zip
+      - name: windows-exe
+        package:
+          platform: windows
+          target: exe
+

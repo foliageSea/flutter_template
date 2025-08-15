@@ -24,12 +24,17 @@ dependencies:
   objectbox: ^4.3.0
   objectbox_flutter_libs: any
   injectable: ^2.5.0
+  url_launcher: ^6.3.2
 
 dependency_overrides:
   core:
     path: ./packages/core
   updater:
     path: ./packages/updater
+  http_server:
+    path: ./packages/http_server
+  flutter_web:
+    path: ./packages/flutter_web
 
 
 dev_dependencies:

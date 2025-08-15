@@ -1,11 +1,12 @@
 import 'package:core/core.dart';
+import 'package:flutter_template/app/features/admin/admin_page.dart';
 import 'package:get/get.dart';
 import '../features/features.dart';
 import '../middlewares/middlewares.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = AppRoutes.oobe;
+  static const initial = AppRoutes.admin;
 
   static Transition transition = Transition.cupertino;
 
@@ -13,6 +14,7 @@ class AppPages {
     GetPage(name: AppRoutes.home, page: () => const HomePage()),
     GetPage(name: AppRoutes.oobe, page: () => const OobePage()),
     GetPage(name: AppRoutes.login, page: () => const LoginPage()),
+    GetPage(name: AppRoutes.admin, page: () => const AdminPage()),
   ];
 
   static List<String> whiteList = [AppRoutes.oobe, AppRoutes.login];

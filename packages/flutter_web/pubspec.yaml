@@ -1,0 +1,29 @@
+name: flutter_web
+description: 内嵌Web前端，基于Flutter Web开发
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=3.23.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  http: ^1.2.2
+  provider: ^6.1.2
+  go_router: ^14.2.7
+  flutter_lints: ^4.0.0
+
+dependency_overrides:
+  core:
+    path: ../core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
