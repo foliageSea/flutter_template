@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:shelf/shelf.dart';
+
+import 'package:http_server/src/controllers/user_controller.dart';
 import 'package:shelf/shelf_io.dart' as io;
-import 'package:shelf_router/shelf_router.dart';
+import 'package:shelf_plus/shelf_plus.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-import 'routes/api_routes.dart';
-import 'services/static_file_service.dart';
+
+import 'middlewares/auth_middleware.dart';
+import 'middlewares/errors_handler.dart';
 
 class Server {
   static const _defaultPort = 8080;
@@ -27,25 +29,17 @@ class Server {
       return;
     }
 
-    final router = Router();
+    final app = Router().plus;
 
-    // 注册API路由
-    final apiRoutes = ApiRoutes();
-    router.mount('/api', apiRoutes.router.call);
+    var apiHandler = _createApiHandler();
+    var staticHandler = _createStaticHandler(webPath);
 
-    // 静态文件服务
-    if (webPath != null) {
-      final staticService = StaticFileService(webPath);
-      router.get('/<path|.*>', staticService.handler);
+    app.mount('/api', apiHandler);
+    if (staticHandler != null) {
+      app.mount('/', staticHandler);
     }
 
-    // 配置中间件
-    final handler = const Pipeline()
-        .addMiddleware(corsHeaders())
-        .addMiddleware(logRequests())
-        .addHandler(router.call);
-
-    server = await io.serve(handler, host, port);
+    server = await io.serve(app.call, host, port);
     // ignore: avoid_print
     print('HTTP服务器启动在 http://${server!.address.host}:${server!.port}');
   }
@@ -60,6 +54,34 @@ class Server {
   }
 
   static String? get serverUrl {
-    return 'http://localhost:8080';
+    return 'http://$_defaultHost:$_defaultPort';
+  }
+
+  static Handler _createApiHandler() {
+    final router = Router().plus;
+    // 注册API路由
+    router.mount(UserController.controller, UserController().router.call);
+    // 配置中间件
+    Handler handler = const Pipeline()
+        .addMiddleware(corsHeaders())
+        .addMiddleware(logRequests())
+        .addMiddleware(errorsHandler())
+        .addMiddleware(AuthMiddleware.create())
+        .addHandler(router.call);
+
+    return handler;
+  }
+
+  static Handler? _createStaticHandler(String? webPath) {
+    Handler? handler;
+    // 静态文件服务
+    if (webPath != null) {
+      var staticHandler = createStaticHandler(
+        webPath,
+        defaultDocument: 'index.html',
+      );
+      handler = const Pipeline().addHandler(staticHandler);
+    }
+    return handler;
   }
 }
