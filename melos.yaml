@@ -1,0 +1,35 @@
+name: flutter_template_melos
+
+sdkPath: .fvm/flutter_sdk
+
+packages:
+  - apps/**
+  - packages/**
+
+command:
+  clean:
+    hooks:
+      post: melos exec --flutter --concurrency=3 -- "flutter clean"
+
+scripts:
+  generate:
+    run: melos exec -c 1 --depends-on build_runner -- dart run build_runner build --delete-conflicting-outputs
+
+  build:android:
+    run: |
+      melos exec -c 6 --fail-fast -- \
+        "fastforge release --name android"
+    description: 构建 android apk
+    packageFilters:
+      dirExists:
+        - android
+
+  build:windows:
+    run: |
+      melos exec -c 6 --fail-fast -- \
+        "fastforge release --name windows"
+    description: 构建 windows exe
+    packageFilters:
+      dirExists:
+        - windows
+

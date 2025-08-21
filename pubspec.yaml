@@ -1,0 +1,14 @@
+name: flutter_template_melos
+version: 1.0.0
+
+environment:
+  sdk: ^3.8.1
+
+dev_dependencies:
+  melos: ^6.3.3
+
+workspace:
+  - apps/flutter_template
+  - packages/core
+  - packages/http_server
+  - packages/updater
