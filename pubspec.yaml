@@ -2,10 +2,10 @@ name: flutter_template_melos
 version: 1.0.0
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.0
 
 dev_dependencies:
-  melos: ^6.3.3
+  melos: ^7.1.0
 
 workspace:
   - apps/flutter_template

@@ -3,7 +3,7 @@ resolution: workspace
 version: 0.0.1
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.0
 
 dependencies:
   awesome_notifications_core: ^0.10.1
@@ -29,4 +29,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
 

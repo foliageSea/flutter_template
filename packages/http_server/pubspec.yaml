@@ -5,7 +5,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.0
 
 dependencies:
   shelf_router: ^1.1.4
@@ -20,6 +20,8 @@ dependencies:
   dart_jsonwebtoken: ^3.2.0
   shelf_proxy: ^1.0.4
   collection: ^1.19.1
+  core: 0.0.1
+  flutter_template: 1.0.0
 
 
 
